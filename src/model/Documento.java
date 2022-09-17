@@ -2,10 +2,10 @@ package model;
 
 public class Documento {
 	//Atributos
-	private int id;
-	private String descricao;
-	private String filePath;
-	private String tipo;
+	protected int id;
+	protected String descricao;
+	protected String filePath;
+	protected String tipo;
 	//Metodo Construtor
 	public Documento(int id, String descricao, String filePath, String tipo) {
 		super();
