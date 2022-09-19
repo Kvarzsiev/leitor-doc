@@ -1,4 +1,4 @@
-package gui;
+package com.leitordoc.views;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -15,7 +15,10 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-public class telaInicial extends JFrame implements ActionListener{
+public class Login extends JFrame implements ActionListener{
+	
+	//Auto-Generated serialVersionUID
+	private static final long serialVersionUID = 7100093916797224393L;
 	
 	public JPanel bordas, campos, botoes;
 	public JButton cadastrar, entrar;
@@ -23,7 +26,7 @@ public class telaInicial extends JFrame implements ActionListener{
 	public JTextField campoNome;
 	public JPasswordField campoSenha;
 	
-	public telaInicial() {
+	public Login() {
 		super("Leitor Doc - Tela Incial");
 		this.setSize(900, 450);
 		

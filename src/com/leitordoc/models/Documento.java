@@ -1,4 +1,4 @@
-package model;
+package com.leitordoc.models;
 
 public class Documento {
 	//Atributos

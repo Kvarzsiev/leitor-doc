@@ -1,4 +1,4 @@
-package model;
+package com.leitordoc.models;
 
 import java.util.Calendar;
 
