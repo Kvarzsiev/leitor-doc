@@ -1,5 +1,6 @@
 package com.leitordoc.views;
 
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -21,17 +22,17 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 
-public class Login extends JFrame implements ActionListener{
+public class Cadastro extends JFrame implements ActionListener{
 	
 	public JPanel contentPane, PainelSuperior, PainelCentral, PainelInferior, PainelEsquerdo, PainelDireito;
-	public JLabel user, nome, senha;
+	public JLabel user, nome, email, senha;
 	public JTextField campoNome, campoEmail;
-	public JButton cadastrar, entrar;
 	public JPasswordField campoSenha;
+	public JButton cancelar, salvar;
 	
-	public Login() {
-		super("Leitor Doc - Login");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/com/leitordoc/views/icons/leitor_doc.png")));
+	public Cadastro() {
+		super("Leitor Doc - Cadastro");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Cadastro.class.getResource("/com/leitordoc/views/icons/leitor_doc.png")));
 		this.setSize(1280, 960);
 		
 		PainelSuperior = new JPanel();
@@ -42,16 +43,15 @@ public class Login extends JFrame implements ActionListener{
 		getContentPane().add(PainelSuperior, BorderLayout.NORTH);
 		
 		user = new JLabel("");
-		user.setIcon(new ImageIcon(Login.class.getResource("/com/leitordoc/views/icons/user.png")));
+		user.setIcon(new ImageIcon(Cadastro.class.getResource("/com/leitordoc/views/icons/user.png")));
 		PainelSuperior.add(user);
 		
-		GridLayout gl_PainelCentral = new GridLayout(4, 1);
-		PainelCentral = new JPanel(gl_PainelCentral);
+		PainelCentral = new JPanel(new GridLayout(6, 1));
 		PainelCentral.setBackground(new Color(192, 192, 192));
 		PainelCentral.setBorder(null);
 		getContentPane().add(PainelCentral, BorderLayout.CENTER);
 		
-		nome = new JLabel("Nome / Email");
+		nome = new JLabel("Nome");
 		nome.setBackground(new Color(192, 192, 192));
 		nome.setHorizontalAlignment(SwingConstants.CENTER);
 		PainelCentral.add(nome);
@@ -60,6 +60,16 @@ public class Login extends JFrame implements ActionListener{
 		campoNome.setHorizontalAlignment(SwingConstants.CENTER);
 		campoNome.setColumns(15);
 		PainelCentral.add(campoNome);
+		
+		email = new JLabel("Email");
+		email.setBackground(new Color(192, 192, 192));
+		email.setHorizontalAlignment(SwingConstants.CENTER);
+		PainelCentral.add(email);
+		
+		campoEmail = new JTextField();
+		campoEmail.setHorizontalAlignment(SwingConstants.CENTER);
+		campoEmail.setColumns(15);
+		PainelCentral.add(campoEmail);
 		
 		senha = new JLabel("Senha");
 		senha.setBackground(new Color(192, 192, 192));
@@ -74,24 +84,24 @@ public class Login extends JFrame implements ActionListener{
 		PainelInferior = new JPanel();
 		PainelInferior.setBackground(new Color(192, 192, 192));
 		FlowLayout flowLayout = (FlowLayout) PainelInferior.getLayout();
-		flowLayout.setVgap(200);
+		flowLayout.setVgap(150);
 		getContentPane().add(PainelInferior, BorderLayout.SOUTH);
 		
-		cadastrar = new JButton("cadastrar");
-		cadastrar.setBackground(new Color(192, 192, 192));
-		cadastrar.addActionListener(this);
-		cadastrar.setVerticalAlignment(SwingConstants.BOTTOM);
-		cadastrar.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		cadastrar.setHorizontalAlignment(SwingConstants.RIGHT);
-		PainelInferior.add(cadastrar);
+		cancelar = new JButton("Cancelar");
+		cancelar.setBackground(new Color(192, 192, 192));
+		cancelar.addActionListener(this);
+		cancelar.setVerticalAlignment(SwingConstants.BOTTOM);
+		cancelar.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		cancelar.setHorizontalAlignment(SwingConstants.RIGHT);
+		PainelInferior.add(cancelar);
 		
-		entrar = new JButton("entrar");
-		entrar.setBackground(new Color(192, 192, 192));
-		entrar.addActionListener(this);
-		entrar.setVerticalAlignment(SwingConstants.BOTTOM);
-		entrar.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		entrar.setHorizontalAlignment(SwingConstants.RIGHT);
-		PainelInferior.add(entrar);
+		salvar = new JButton("Salvar");
+		salvar.setBackground(new Color(192, 192, 192));
+		salvar.addActionListener(this);
+		salvar.setVerticalAlignment(SwingConstants.BOTTOM);
+		salvar.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		salvar.setHorizontalAlignment(SwingConstants.RIGHT);
+		PainelInferior.add(salvar);
 		
 		// Painel inseridos apenas para estética do programa
 		PainelEsquerdo = new JPanel();
@@ -120,20 +130,20 @@ public class Login extends JFrame implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == cadastrar) {
-			this.acaoCadastrar();
+		if (e.getSource() == cancelar) {
+			this.acaoCancelar();
 		} else {
-			if (e.getSource() == entrar) {
-				this.acaoEntrar();
+			if (e.getSource() == salvar) {
+				this.acaoSalvar();
 			}
 		}
 	}
 
-	public void acaoCadastrar() {
-		System.out.println("cadastrar");
+	public void acaoCancelar() {
+		System.out.println("cancelar");
 	}
-	public void acaoEntrar() {
-		System.out.println("entrar");
+	public void acaoSalvar() {
+		System.out.println("salvar");
 	}
 
 	public JTextField getCampoNome() {
@@ -142,6 +152,14 @@ public class Login extends JFrame implements ActionListener{
 
 	public void setCampoNome(JTextField campoNome) {
 		this.campoNome = campoNome;
+	}
+
+	public JTextField getCampoEmail() {
+		return campoEmail;
+	}
+
+	public void setCampoEmail(JTextField campoEmail) {
+		this.campoEmail = campoEmail;
 	}
 
 	public JPasswordField getCampoSenha() {
