@@ -14,21 +14,26 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.layout.FormSpecs;
 import javax.swing.SwingConstants;
 
-public class Home extends JFrame implements ActionListener{
-	
-	public JPanel painel_esquerdo, painel_central;
-	public JLabel icone, nome_usuario, txt1, txt2, txt3;
-	public JButton bt_documento, bt_contato, bt_consulta, bt_configuracao, bt_start;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.FormSpecs;
+import com.jgoodies.forms.layout.RowSpec;
+import java.awt.FlowLayout;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
-	public Home() {
-		super("Leitor Doc - Home");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Home.class.getResource("/com/leitordoc/views/icons/leitor_doc.png")));
+public class EnvioContato extends JFrame implements ActionListener{
+
+	public JPanel painel_esquerdo, painel_direito, painel_central;
+	public JLabel icone, nome_usuario, titulo, descricao_contato;
+	public JButton bt_documento, bt_contato, bt_consulta, bt_configuracao, bt_editar, bt_excluir;
+	public JScrollPane scrollPane;
+	
+	public EnvioContato() {
+		super("Leitor Doc - Envio Contato");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(EnvioContato.class.getResource("/com/leitordoc/views/icons/leitor_doc.png")));
 		getContentPane().setBackground(new Color(192, 192, 192));
 		this.setSize(1280, 960);
 		
@@ -56,7 +61,7 @@ public class Home extends JFrame implements ActionListener{
 		
 		icone = new JLabel("");
 		icone.setHorizontalAlignment(SwingConstants.CENTER);
-		icone.setIcon(new ImageIcon(Home.class.getResource("/com/leitordoc/views/icons/user.png")));
+		icone.setIcon(new ImageIcon(EnvioContato.class.getResource("/com/leitordoc/views/icons/user.png")));
 		painel_esquerdo.add(icone, "3, 2");
 		
 		nome_usuario = new JLabel("Nome");
@@ -86,52 +91,66 @@ public class Home extends JFrame implements ActionListener{
 		painel_esquerdo.add(bt_consulta, "3, 10");
 		
 		bt_configuracao = new JButton("Configuração");
-		bt_configuracao.setIcon(new ImageIcon(Home.class.getResource("/com/leitordoc/views/icons/configuracoes.png")));
+		bt_configuracao.setIcon(new ImageIcon(EnvioContato.class.getResource("/com/leitordoc/views/icons/configuracoes.png")));
 		bt_configuracao.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		bt_configuracao.setBackground(new Color(128, 128, 128));
 		bt_configuracao.addActionListener(this);
 		
 		painel_esquerdo.add(bt_configuracao, "3, 12");
 		
+		painel_direito = new JPanel();
+		FlowLayout fl_painel_direito = (FlowLayout) painel_direito.getLayout();
+		fl_painel_direito.setHgap(20);
+		painel_direito.setBackground(new Color(192, 192, 192));
+		getContentPane().add(painel_direito, BorderLayout.EAST);
+		
 		painel_central = new JPanel();
 		painel_central.setBackground(new Color(192, 192, 192));
 		getContentPane().add(painel_central, BorderLayout.CENTER);
 		painel_central.setLayout(new FormLayout(new ColumnSpec[] {
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(146dlu;default)"),
-				ColumnSpec.decode("max(147dlu;default)"),
-				ColumnSpec.decode("max(58dlu;default)"),
-				ColumnSpec.decode("max(189dlu;default)"),},
+				ColumnSpec.decode("max(50dlu;default)"),
+				ColumnSpec.decode("max(60dlu;pref)"),
+				ColumnSpec.decode("max(140dlu;default)"),
+				ColumnSpec.decode("max(80dlu;default)"),
+				ColumnSpec.decode("max(140dlu;pref)"),
+				ColumnSpec.decode("max(60dlu;pref)"),},
 			new RowSpec[] {
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("max(136dlu;default)"),
+				RowSpec.decode("max(44dlu;default)"),
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				RowSpec.decode("max(127dlu;default)"),
-				FormSpecs.DEFAULT_ROWSPEC,}));
+				RowSpec.decode("max(417dlu;default)"),
+				RowSpec.decode("max(56dlu;default)"),
+				RowSpec.decode("max(28dlu;default)"),}));
 		
-		txt1 = new JLabel("Processe seus boletos.");
-		txt1.setFont(new Font("Segoe Print", Font.BOLD, 30));
-		painel_central.add(txt1, "3, 3, 3, 1");
+		titulo = new JLabel("Fulano");
+		titulo.setHorizontalAlignment(SwingConstants.LEFT);
+		titulo.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		painel_central.add(titulo, "2, 2");
 		
-		txt2 = new JLabel("Categorize e organize seus documentos.");
-		txt2.setFont(new Font("Segoe Print", Font.BOLD, 30));
-		painel_central.add(txt2, "3, 5, 3, 1");
+		descricao_contato = new JLabel("\"Advogado\"");
+		painel_central.add(descricao_contato, "2, 4");
 		
-		txt3 = new JLabel("Envie os dados por email.");
-		txt3.setFont(new Font("Segoe Print", Font.BOLD, 30));
-		painel_central.add(txt3, "3, 7, 3, 1");
+		scrollPane = new JScrollPane();
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		painel_central.add(scrollPane, "2, 6, 5, 1, fill, fill");
 		
-		bt_start = new JButton("Comece aqui!");
-		bt_start.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		bt_start.setBackground(new Color(192, 192, 192));
-		bt_start.addActionListener(this);
+		bt_editar = new JButton("Editar contato");
+		bt_editar.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		bt_editar.setIcon(new ImageIcon(EnvioContato.class.getResource("/com/leitordoc/views/icons/editar.png")));
+		bt_editar.setBackground(new Color(192, 192, 192));
+		bt_editar.addActionListener(this);
 		
-		painel_central.add(bt_start, "4, 9");
+		painel_central.add(bt_editar, "2, 8");
 		
+		bt_excluir = new JButton("Excluir Contato");
+		bt_excluir.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		bt_excluir.setIcon(new ImageIcon(EnvioContato.class.getResource("/com/leitordoc/views/icons/excluir.png")));
+		bt_excluir.setBackground(new Color(192, 192, 192));
+		bt_excluir.addActionListener(this);
+		
+		painel_central.add(bt_excluir, "6, 8");
 		
 		this.addWindowListener(new WindowAdapter() {
 			@Override
@@ -145,7 +164,24 @@ public class Home extends JFrame implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
 		
+	}
+
+	public JLabel getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(JLabel titulo) {
+		this.titulo = titulo;
+	}
+
+	public JLabel getDescricao_contato() {
+		return descricao_contato;
+	}
+
+	public void setDescricao_contato(JLabel descricao_contato) {
+		this.descricao_contato = descricao_contato;
 	}
 
 	public JButton getBt_documento() {
@@ -180,13 +216,21 @@ public class Home extends JFrame implements ActionListener{
 		this.bt_configuracao = bt_configuracao;
 	}
 
-	public JButton getBt_start() {
-		return bt_start;
+	public JButton getBt_editar() {
+		return bt_editar;
 	}
 
-	public void setBt_start(JButton bt_start) {
-		this.bt_start = bt_start;
+	public void setBt_editar(JButton bt_editar) {
+		this.bt_editar = bt_editar;
 	}
-	
+
+	public JButton getBt_excluir() {
+		return bt_excluir;
+	}
+
+	public void setBt_excluir(JButton bt_excluir) {
+		this.bt_excluir = bt_excluir;
+	}
+
 	
 }
