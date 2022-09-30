@@ -38,7 +38,7 @@ public class ListarArquivos extends JFrame implements ActionListener{
 		super("Leitor Doc - Listar Arquivos");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListarArquivos.class.getResource("/com/leitordoc/views/icons/leitor_doc.png")));
 		getContentPane().setBackground(new Color(192, 192, 192));
-		this.setSize(1280, 960);
+		this.setSize(1024, 768);
 		
 		painel_esquerdo = new JPanel();
 		painel_esquerdo.setBackground(new Color(128, 128, 128));
@@ -175,14 +175,6 @@ public class ListarArquivos extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
-	}
-
-	public JLabel getArquivo() {
-		return arquivo;
-	}
-
-	public void setArquivo(JLabel arquivo) {
-		this.arquivo = arquivo;
 	}
 
 	public JButton getBt_documento() {
