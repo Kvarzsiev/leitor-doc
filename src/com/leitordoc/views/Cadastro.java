@@ -35,7 +35,7 @@ public class Cadastro extends JFrame implements ActionListener{
 		super("Leitor Doc - Cadastro");
 		getContentPane().setBackground(new Color(128, 128, 128));
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Cadastro.class.getResource("/com/leitordoc/views/icons/leitor_doc.png")));
-		this.setSize(1280, 960);
+		this.setSize(1024, 768);
 		
 		painel_superior = new JPanel();
 		FlowLayout flowLayout = (FlowLayout) painel_superior.getLayout();

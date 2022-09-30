@@ -40,7 +40,7 @@ public class EnviarPDF extends JFrame implements ActionListener{
 		super("Leitor Doc - Enviar Arquivo");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(EnviarPDF.class.getResource("/com/leitordoc/views/icons/leitor_doc.png")));
 		getContentPane().setBackground(new Color(192, 192, 192));
-		this.setSize(1280, 960);
+		this.setSize(1024, 768);
 		
 		painel_esquerdo = new JPanel();
 		painel_esquerdo.setBackground(new Color(128, 128, 128));
