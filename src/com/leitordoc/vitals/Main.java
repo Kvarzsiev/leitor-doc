@@ -1,14 +1,18 @@
 package com.leitordoc.vitals;
 
 
-import com.leitordoc.views.Login;
+import java.text.ParseException;
+import com.leitordoc.database.EnderecoMigration;
+//import com.leitordoc.views.*;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ParseException {
 		
-		new Login();
-
+		
+		EnderecoMigration em = new EnderecoMigration();
+		em.DownQuery();
+		
 	}
 
 }

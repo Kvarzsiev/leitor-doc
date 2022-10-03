@@ -23,18 +23,18 @@ import java.awt.Font;
 import javax.swing.JPasswordField;
 import com.jgoodies.forms.layout.Sizes;
 
-public class Login extends JFrame implements ActionListener{
+public class Cadastro extends JFrame implements ActionListener{
 	
 	public JPanel contentPane, painel_superior, painel_esquerdo, painel_inferior, painel_direito, painel_central;
-	public JTextField campo_nome;
-	public JLabel icone, nome, senha;
+	public JTextField campo_nome, campo_email;
+	public JLabel icone, nome, senha, email;
 	public JPasswordField campo_senha;
-	public JButton bt_cadastro, bt_entrar;
+	public JButton bt_cancelar, bt_salvar;
 	
-	public Login() {
-		super("Leitor Doc - Login");
+	public Cadastro() {
+		super("Leitor Doc - Cadastro");
 		getContentPane().setBackground(new Color(128, 128, 128));
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/com/leitordoc/views/icons/leitor_doc.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Cadastro.class.getResource("/com/leitordoc/views/icons/leitor_doc.png")));
 		this.setSize(1024, 768);
 		
 		painel_superior = new JPanel();
@@ -67,11 +67,11 @@ public class Login extends JFrame implements ActionListener{
 		painel_central.setLayout(new FormLayout(new ColumnSpec[] {
 				FormSpecs.RELATED_GAP_COLSPEC,
 				new ColumnSpec(ColumnSpec.FILL, Sizes.bounded(Sizes.PREFERRED, Sizes.constant("200dlu", true), Sizes.constant("200dlu", true)), 0),
-				ColumnSpec.decode("max(125dlu;pref)"),
+				ColumnSpec.decode("max(125dlu;pref):grow"),
 				ColumnSpec.decode("max(58dlu;pref)"),
 				FormSpecs.RELATED_GAP_COLSPEC,
-				new ColumnSpec(ColumnSpec.FILL, Sizes.bounded(Sizes.PREFERRED, Sizes.constant("58dlu", true), Sizes.constant("58dlu", true)), 0),
-				ColumnSpec.decode("max(260dlu;default)"),},
+				ColumnSpec.decode("max(58dlu;pref)"),
+				ColumnSpec.decode("max(250dlu;default)"),},
 			new RowSpec[] {
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				RowSpec.decode("max(111dlu;default)"),
@@ -85,11 +85,14 @@ public class Login extends JFrame implements ActionListener{
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,}));
 		
 		icone = new JLabel("");
-		icone.setIcon(new ImageIcon(Login.class.getResource("/com/leitordoc/views/icons/user.png")));
+		icone.setIcon(new ImageIcon(Cadastro.class.getResource("/com/leitordoc/views/icons/user.png")));
 		painel_central.add(icone, "3, 3, 4, 1, center, default");
 		
 		nome = new JLabel("Nome / Email");
@@ -100,27 +103,35 @@ public class Login extends JFrame implements ActionListener{
 		painel_central.add(campo_nome, "3, 8, 4, 1");
 		campo_nome.setColumns(40);
 		
+		email = new JLabel("Email");
+		email.setFont(new Font("Tahoma", Font.BOLD, 15));
+		painel_central.add(email, "3, 10");
+		
+		campo_email = new JTextField();
+		painel_central.add(campo_email, "3, 12, 4, 1, fill, default");
+		campo_email.setColumns(10);
+		
 		senha = new JLabel("Senha");
 		senha.setFont(new Font("Tahoma", Font.BOLD, 15));
-		painel_central.add(senha, "3, 10");
+		painel_central.add(senha, "3, 14");
 		
 		campo_senha = new JPasswordField();
 		campo_senha.setEchoChar('*');
-		painel_central.add(campo_senha, "3, 12, 4, 1, fill, default");
+		painel_central.add(campo_senha, "3, 15, 4, 1, fill, default");
 		
-		bt_cadastro = new JButton("Cadastrar");
-		bt_cadastro.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		bt_cadastro.setBackground(new Color(192, 192, 192));
-		bt_cadastro.addActionListener(this);
+		bt_cancelar = new JButton("Cancelar");
+		bt_cancelar.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		bt_cancelar.setBackground(new Color(192, 192, 192));
+		bt_cancelar.addActionListener(this);
 		
-		painel_central.add(bt_cadastro, "4, 14");
+		painel_central.add(bt_cancelar, "4, 17");
+
+		bt_salvar = new JButton("Salvar");
+		bt_salvar.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		bt_salvar.setBackground(new Color(192, 192, 192));
+		bt_salvar.addActionListener(this);
 		
-		bt_entrar = new JButton("Entrar");
-		bt_entrar.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		bt_entrar.setBackground(new Color(192, 192, 192));
-		bt_entrar.addActionListener(this);
-		
-		painel_central.add(bt_entrar, "6, 14");
+		painel_central.add(bt_salvar, "6, 17");
 		
 		this.addWindowListener(new WindowAdapter() {
 			@Override
@@ -145,6 +156,14 @@ public class Login extends JFrame implements ActionListener{
 		this.campo_nome = campo_nome;
 	}
 
+	public JTextField getCampo_email() {
+		return campo_email;
+	}
+
+	public void setCampo_email(JTextField campo_email) {
+		this.campo_email = campo_email;
+	}
+
 	public JPasswordField getCampo_senha() {
 		return campo_senha;
 	}
@@ -153,21 +172,21 @@ public class Login extends JFrame implements ActionListener{
 		this.campo_senha = campo_senha;
 	}
 
-	public JButton getCadastro() {
-		return bt_cadastro;
+	public JButton getCancelar() {
+		return bt_cancelar;
 	}
 
-	public void setCadastro(JButton cadastro) {
-		this.bt_cadastro = cadastro;
+	public void setCancelar(JButton cancelar) {
+		this.bt_cancelar = cancelar;
 	}
 
-	public JButton getEntrar() {
-		return bt_entrar;
+	public JButton getSalvar() {
+		return bt_salvar;
 	}
 
-	public void setEntrar(JButton entrar) {
-		this.bt_entrar = entrar;
+	public void setSalvar(JButton salvar) {
+		this.bt_salvar = salvar;
 	}
-	
+
 	
 }
