@@ -9,5 +9,6 @@
 	<classpathentry kind="lib" path="lib/jgoodies-common-1.8.0.jar"/>
 	<classpathentry kind="lib" path="lib/jgoodies-forms-1.8.0.jar"/>
 	<classpathentry kind="lib" path="lib/jgoodies-forms-1.8.0-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Usuario/Desktop/postgresql-42.5.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
