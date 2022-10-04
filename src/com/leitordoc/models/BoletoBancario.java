@@ -7,23 +7,28 @@ public class BoletoBancario extends Documento {
 		// TODO Auto-generated constructor stub
 	}
 	
-	//Atributos
-//	private int codBanco;
+	//Atributos							tem função para achar
+//	private String nomBeneficiario;
+//	private String docBeneficiario;       ok
+//	private String codBeneficiario;
+//	private String codBanco;			  ok
+//	private String nomPagador;
+//	private String docPagador;			  ok
+//	private String linhaDigitavel;		  ok
+//	private Data emissao;				  ok
+//	private Date vencimento;			  ok
+//	private double valor;				  ok
 //	private int nossoNumero;
+	
 //	private int carteira;
 //	private int usoDoBanco;
-//	private double valor;
 //	private double desconto;
 //	private double juros;
-//	private double valorCobrado;
 //	private boolean aceite;
-//	private String linhaDigitavel;
 //	private String cedente;
-//	private String pagador;
 //	private String info;
 //	private String especie;
 //	private String moeda;
-//	private Data vencimento;
-//	private Data emissao;
+
 
 }
