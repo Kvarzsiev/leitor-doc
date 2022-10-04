@@ -66,7 +66,7 @@ public class Cadastro extends JFrame implements ActionListener{
 		getContentPane().add(painel_central, BorderLayout.CENTER);
 		painel_central.setLayout(new FormLayout(new ColumnSpec[] {
 				FormSpecs.RELATED_GAP_COLSPEC,
-				new ColumnSpec(ColumnSpec.FILL, Sizes.bounded(Sizes.PREFERRED, Sizes.constant("200dlu", true), Sizes.constant("200dlu", true)), 0),
+				new ColumnSpec(ColumnSpec.FILL, Sizes.bounded(Sizes.PREFERRED, Sizes.constant("100dlu", true), Sizes.constant("200dlu", true)), 0),
 				ColumnSpec.decode("max(125dlu;pref):grow"),
 				ColumnSpec.decode("max(58dlu;pref)"),
 				FormSpecs.RELATED_GAP_COLSPEC,
@@ -74,7 +74,7 @@ public class Cadastro extends JFrame implements ActionListener{
 				ColumnSpec.decode("max(250dlu;default)"),},
 			new RowSpec[] {
 				FormSpecs.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("max(111dlu;default)"),
+				RowSpec.decode("max(73dlu;default)"),
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
@@ -88,14 +88,14 @@ public class Cadastro extends JFrame implements ActionListener{
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,}));
+				RowSpec.decode("max(25dlu;default)"),
+				RowSpec.decode("max(27dlu;default)"),}));
 		
 		icone = new JLabel("");
 		icone.setIcon(new ImageIcon(Cadastro.class.getResource("/com/leitordoc/views/icons/user.png")));
 		painel_central.add(icone, "3, 3, 4, 1, center, default");
 		
-		nome = new JLabel("Nome / Email");
+		nome = new JLabel("Nome");
 		nome.setFont(new Font("Tahoma", Font.BOLD, 15));
 		painel_central.add(nome, "3, 6");
 		
@@ -121,14 +121,14 @@ public class Cadastro extends JFrame implements ActionListener{
 		
 		bt_cancelar = new JButton("Cancelar");
 		bt_cancelar.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		bt_cancelar.setBackground(new Color(192, 192, 192));
+		bt_cancelar.setBackground(new Color(255, 255, 255));
 		bt_cancelar.addActionListener(this);
 		
 		painel_central.add(bt_cancelar, "4, 17");
 
 		bt_salvar = new JButton("Salvar");
 		bt_salvar.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		bt_salvar.setBackground(new Color(192, 192, 192));
+		bt_salvar.setBackground(new Color(255, 255, 255));
 		bt_salvar.addActionListener(this);
 		
 		painel_central.add(bt_salvar, "6, 17");
@@ -187,6 +187,5 @@ public class Cadastro extends JFrame implements ActionListener{
 	public void setSalvar(JButton salvar) {
 		this.bt_salvar = salvar;
 	}
-
 	
 }

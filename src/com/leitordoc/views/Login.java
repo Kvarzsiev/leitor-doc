@@ -66,7 +66,7 @@ public class Login extends JFrame implements ActionListener{
 		getContentPane().add(painel_central, BorderLayout.CENTER);
 		painel_central.setLayout(new FormLayout(new ColumnSpec[] {
 				FormSpecs.RELATED_GAP_COLSPEC,
-				new ColumnSpec(ColumnSpec.FILL, Sizes.bounded(Sizes.PREFERRED, Sizes.constant("200dlu", true), Sizes.constant("200dlu", true)), 0),
+				new ColumnSpec(ColumnSpec.FILL, Sizes.bounded(Sizes.PREFERRED, Sizes.constant("80dlu", true), Sizes.constant("200dlu", true)), 0),
 				ColumnSpec.decode("max(125dlu;pref)"),
 				ColumnSpec.decode("max(58dlu;pref)"),
 				FormSpecs.RELATED_GAP_COLSPEC,
@@ -74,9 +74,9 @@ public class Login extends JFrame implements ActionListener{
 				ColumnSpec.decode("max(260dlu;default)"),},
 			new RowSpec[] {
 				FormSpecs.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("max(111dlu;default)"),
+				RowSpec.decode("max(37dlu;default)"),
 				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
+				RowSpec.decode("max(28dlu;default)"),
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
@@ -85,7 +85,7 @@ public class Login extends JFrame implements ActionListener{
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
+				RowSpec.decode("max(21dlu;default)"),
 				FormSpecs.DEFAULT_ROWSPEC,}));
 		
 		icone = new JLabel("");
@@ -110,14 +110,14 @@ public class Login extends JFrame implements ActionListener{
 		
 		bt_cadastro = new JButton("Cadastrar");
 		bt_cadastro.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		bt_cadastro.setBackground(new Color(192, 192, 192));
+		bt_cadastro.setBackground(new Color(255, 255, 255));
 		bt_cadastro.addActionListener(this);
 		
 		painel_central.add(bt_cadastro, "4, 14");
 		
 		bt_entrar = new JButton("Entrar");
 		bt_entrar.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		bt_entrar.setBackground(new Color(192, 192, 192));
+		bt_entrar.setBackground(new Color(255, 255, 255));
 		bt_entrar.addActionListener(this);
 		
 		painel_central.add(bt_entrar, "6, 14");

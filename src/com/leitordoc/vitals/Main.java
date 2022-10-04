@@ -18,16 +18,16 @@ public class Main {
 
 	public static void main(String[] args) throws ParseException {
 		
-		//new Login();
+		new Login();
 		new Cadastro();
-		//new Home();
-		//new EnviarPDF();
-		//new EditarPerfil();
-		//new NovoContato();
-		//new ListarArquivos();
-		//new ListarLogs();
-		//new ListarContato();
-		//new EnvioContato();
+		new Home();
+		new EnviarPDF();
+		new EditarPerfil();
+		new NovoContato();
+		new ListarArquivos();
+		new ListarLogs();
+		new ListarContato();
+		new EnvioContato();
 	}
 
 }
