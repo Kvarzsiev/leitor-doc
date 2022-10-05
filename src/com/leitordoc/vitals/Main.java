@@ -9,7 +9,6 @@ public class Main {
 
 	public static void main(String[] args) throws ParseException {
 		
-		
 		EnderecoMigration em = new EnderecoMigration();
 		em.DownQuery();
 		

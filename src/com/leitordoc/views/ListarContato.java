@@ -23,13 +23,14 @@ import com.jgoodies.forms.layout.RowSpec;
 import java.awt.FlowLayout;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.JTable;
 
 public class ListarContato extends JFrame implements ActionListener{
 
-	public JPanel painel_esquerdo, painel_direito, painel_central;
+	public JPanel painel_esquerdo, painel_central;
 	public JLabel icone, nome_usuario, titulo;
 	public JButton bt_documento, bt_contato, bt_consulta, bt_configuracao, bt_procurar, bt_excluir, bt_adicionar;
-	public JScrollPane scrollPane;
+	private JTable table;
 	
 	public ListarContato() {
 		super("Leitor Doc - Listar Contato");
@@ -46,17 +47,17 @@ public class ListarContato extends JFrame implements ActionListener{
 				FormSpecs.DEFAULT_COLSPEC,
 				ColumnSpec.decode("max(26dlu;default)"),},
 			new RowSpec[] {
-				RowSpec.decode("max(63dlu;default)"),
+				RowSpec.decode("max(42dlu;default)"),
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
-				RowSpec.decode("max(122dlu;default)"),
+				RowSpec.decode("max(57dlu;default)"),
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
-				RowSpec.decode("max(211dlu;default)"),
+				RowSpec.decode("max(127dlu;default)"),
 				FormSpecs.DEFAULT_ROWSPEC,}));
 		
 		icone = new JLabel("");
@@ -70,21 +71,21 @@ public class ListarContato extends JFrame implements ActionListener{
 		painel_esquerdo.add(nome_usuario, "3, 4");
 		
 		bt_documento = new JButton("Documento");
-		bt_documento.setBackground(new Color(128, 128, 128));
+		bt_documento.setBackground(new Color(255, 255, 255));
 		bt_documento.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		bt_documento.addActionListener(this);
 		
 		painel_esquerdo.add(bt_documento, "3, 6");
 		
 		bt_contato = new JButton("Contatos");
-		bt_contato.setBackground(new Color(128, 128, 128));
+		bt_contato.setBackground(new Color(255, 255, 255));
 		bt_contato.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		bt_contato.addActionListener(this);
 		
 		painel_esquerdo.add(bt_contato, "3, 8");
 		
 		bt_consulta = new JButton("Consulta");
-		bt_consulta.setBackground(new Color(128, 128, 128));
+		bt_consulta.setBackground(new Color(255, 255, 255));
 		bt_consulta.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		bt_consulta.addActionListener(this);
 		
@@ -93,33 +94,27 @@ public class ListarContato extends JFrame implements ActionListener{
 		bt_configuracao = new JButton("Configuração");
 		bt_configuracao.setIcon(new ImageIcon(ListarContato.class.getResource("/com/leitordoc/views/icons/configuracoes.png")));
 		bt_configuracao.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		bt_configuracao.setBackground(new Color(128, 128, 128));
+		bt_configuracao.setBackground(new Color(255, 255, 255));
 		bt_configuracao.addActionListener(this);
 		
 		painel_esquerdo.add(bt_configuracao, "3, 12");
-		
-		painel_direito = new JPanel();
-		FlowLayout fl_painel_direito = (FlowLayout) painel_direito.getLayout();
-		fl_painel_direito.setHgap(20);
-		painel_direito.setBackground(new Color(192, 192, 192));
-		getContentPane().add(painel_direito, BorderLayout.EAST);
 		
 		painel_central = new JPanel();
 		painel_central.setBackground(new Color(192, 192, 192));
 		getContentPane().add(painel_central, BorderLayout.CENTER);
 		painel_central.setLayout(new FormLayout(new ColumnSpec[] {
+				ColumnSpec.decode("max(37dlu;default)"),
+				ColumnSpec.decode("max(60dlu;pref):grow"),
 				ColumnSpec.decode("max(50dlu;default)"),
-				ColumnSpec.decode("max(60dlu;pref)"),
-				ColumnSpec.decode("max(140dlu;default)"),
 				ColumnSpec.decode("max(80dlu;default)"),
-				ColumnSpec.decode("max(140dlu;pref)"),
+				FormSpecs.BUTTON_COLSPEC,
 				ColumnSpec.decode("max(60dlu;pref)"),},
 			new RowSpec[] {
 				RowSpec.decode("max(44dlu;default)"),
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("max(417dlu;default)"),
-				RowSpec.decode("max(56dlu;default)"),
+				RowSpec.decode("max(250dlu;pref)"),
+				RowSpec.decode("max(42dlu;default)"),
 				RowSpec.decode("max(28dlu;default)"),}));
 		
 		titulo = new JLabel("Contatos");
@@ -127,22 +122,21 @@ public class ListarContato extends JFrame implements ActionListener{
 		titulo.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		painel_central.add(titulo, "2, 2");
 		
-		scrollPane = new JScrollPane();
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		painel_central.add(scrollPane, "2, 4, 5, 1, fill, fill");
-		
 		bt_procurar = new JButton("Procurar Contato");
 		bt_procurar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		bt_procurar.setIcon(new ImageIcon(ListarContato.class.getResource("/com/leitordoc/views/icons/pesquisar.png")));
-		bt_procurar.setBackground(new Color(192, 192, 192));
+		bt_procurar.setBackground(new Color(255, 255, 255));
 		bt_procurar.addActionListener(this);
+		
+		table = new JTable();
+		painel_central.add(table, "2, 4, 5, 1, fill, fill");
 		
 		painel_central.add(bt_procurar, "2, 6");
 		
 		bt_adicionar = new JButton("Adicionar contato");
 		bt_adicionar.setIcon(new ImageIcon(ListarContato.class.getResource("/com/leitordoc/views/icons/add_contato.png")));
 		bt_adicionar.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		bt_adicionar.setBackground(new Color(192, 192, 192));
+		bt_adicionar.setBackground(new Color(255, 255, 255));
 		bt_adicionar.addActionListener(this);
 		
 		painel_central.add(bt_adicionar, "4, 6");
@@ -150,7 +144,7 @@ public class ListarContato extends JFrame implements ActionListener{
 		bt_excluir = new JButton("Excluir Contato");
 		bt_excluir.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		bt_excluir.setIcon(new ImageIcon(ListarContato.class.getResource("/com/leitordoc/views/icons/excluir.png")));
-		bt_excluir.setBackground(new Color(192, 192, 192));
+		bt_excluir.setBackground(new Color(255, 255, 255));
 		bt_excluir.addActionListener(this);
 		
 		painel_central.add(bt_excluir, "6, 6");

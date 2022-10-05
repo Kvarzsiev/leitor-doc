@@ -28,7 +28,7 @@ import java.awt.FlowLayout;
 
 public class EnviarPDF extends JFrame implements ActionListener{
 
-	public JPanel painel_esquerdo, painel_direito, painel_central;
+	public JPanel painel_esquerdo, painel_central;
 	public JLabel icone, nome_usuario, enviar_corpo, enviar_para, formato;
 	public JButton bt_documento, bt_contato, bt_consulta, bt_configuracao, bt_enviar, bt_cancelar;
 	private JEditorPane corpo_email;
@@ -51,17 +51,17 @@ public class EnviarPDF extends JFrame implements ActionListener{
 				FormSpecs.DEFAULT_COLSPEC,
 				ColumnSpec.decode("max(26dlu;default)"),},
 			new RowSpec[] {
-				RowSpec.decode("max(63dlu;default)"),
+				RowSpec.decode("max(42dlu;default)"),
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
-				RowSpec.decode("max(122dlu;default)"),
+				RowSpec.decode("max(57dlu;default)"),
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
-				RowSpec.decode("max(211dlu;default)"),
+				RowSpec.decode("max(127dlu;default)"),
 				FormSpecs.DEFAULT_ROWSPEC,}));
 		
 		icone = new JLabel("");
@@ -75,21 +75,21 @@ public class EnviarPDF extends JFrame implements ActionListener{
 		painel_esquerdo.add(nome_usuario, "3, 4");
 		
 		bt_documento = new JButton("Documento");
-		bt_documento.setBackground(new Color(128, 128, 128));
+		bt_documento.setBackground(new Color(255, 255, 255));
 		bt_documento.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		bt_documento.addActionListener(this);
 		
 		painel_esquerdo.add(bt_documento, "3, 6");
 		
 		bt_contato = new JButton("Contatos");
-		bt_contato.setBackground(new Color(128, 128, 128));
+		bt_contato.setBackground(new Color(255, 255, 255));
 		bt_contato.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		bt_contato.addActionListener(this);
 		
 		painel_esquerdo.add(bt_contato, "3, 8");
 		
 		bt_consulta = new JButton("Consulta");
-		bt_consulta.setBackground(new Color(128, 128, 128));
+		bt_consulta.setBackground(new Color(255, 255, 255));
 		bt_consulta.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		bt_consulta.addActionListener(this);
 		
@@ -98,36 +98,30 @@ public class EnviarPDF extends JFrame implements ActionListener{
 		bt_configuracao = new JButton("Configuração");
 		bt_configuracao.setIcon(new ImageIcon(EnviarPDF.class.getResource("/com/leitordoc/views/icons/configuracoes.png")));
 		bt_configuracao.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		bt_configuracao.setBackground(new Color(128, 128, 128));
+		bt_configuracao.setBackground(new Color(255, 255, 255));
 		bt_configuracao.addActionListener(this);
 		
 		painel_esquerdo.add(bt_configuracao, "3, 12");
-		
-		painel_direito = new JPanel();
-		FlowLayout flowLayout = (FlowLayout) painel_direito.getLayout();
-		flowLayout.setVgap(0);
-		flowLayout.setHgap(300);
-		getContentPane().add(painel_direito, BorderLayout.EAST);
 		
 		painel_central = new JPanel();
 		painel_central.setBackground(new Color(192, 192, 192));
 		getContentPane().add(painel_central, BorderLayout.CENTER);
 		painel_central.setLayout(new FormLayout(new ColumnSpec[] {
-				ColumnSpec.decode("max(50dlu;default)"),
-				ColumnSpec.decode("max(168dlu;pref)"),},
+				ColumnSpec.decode("max(41dlu;default)"),
+				ColumnSpec.decode("max(82dlu;default)"),},
 			new RowSpec[] {
-				RowSpec.decode("max(81dlu;default)"),
+				RowSpec.decode("max(37dlu;default)"),
 				FormSpecs.DEFAULT_ROWSPEC,
 				RowSpec.decode("max(29dlu;default)"),
 				FormSpecs.DEFAULT_ROWSPEC,
 				RowSpec.decode("max(163dlu;pref)"),
-				RowSpec.decode("max(45dlu;default)"),
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				RowSpec.decode("max(79dlu;default)"),
+				RowSpec.decode("max(32dlu;default)"),
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				RowSpec.decode("max(33dlu;default)"),
 				FormSpecs.DEFAULT_ROWSPEC,}));
 		
 		enviar_para = new JLabel("Enviar para:");
@@ -137,7 +131,7 @@ public class EnviarPDF extends JFrame implements ActionListener{
 		
 		comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "Contato 01", "Contato 02", "Contato 03", "Contato 04", "Contato 05", "Contato 06", "Contato 07", "Contato 08"}));
-		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		painel_central.add(comboBox, "2, 3, fill, default");
 		
 		enviar_corpo = new JLabel("Corpo do email: ");
@@ -154,26 +148,28 @@ public class EnviarPDF extends JFrame implements ActionListener{
 		painel_central.add(formato, "2, 7");
 		
 		tipo_xml = new JRadioButton("XML  ");
+		tipo_xml.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		tipo_xml.setBackground(new Color(192, 192, 192));
 		tipo_xml.setHorizontalAlignment(SwingConstants.CENTER);
-		painel_central.add(tipo_xml, "2, 8");
+		painel_central.add(tipo_xml, "2, 9");
 		
 		tipo_json = new JRadioButton("JSON");
+		tipo_json.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		tipo_json.setBackground(new Color(192, 192, 192));
 		tipo_json.setHorizontalAlignment(SwingConstants.CENTER);
-		painel_central.add(tipo_json, "2, 9");
+		painel_central.add(tipo_json, "2, 10");
 		
 		bt_enviar = new JButton("Enviar o arquivo");
 		bt_enviar.setIcon(new ImageIcon(EnviarPDF.class.getResource("/com/leitordoc/views/icons/enviar.png")));
-		bt_enviar.setBackground(new Color(192, 192, 192));
+		bt_enviar.setBackground(new Color(255, 255, 255));
 		bt_enviar.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		bt_enviar.addActionListener(this);
 		
-		painel_central.add(bt_enviar, "2, 11");
+		painel_central.add(bt_enviar, "2, 12");
 		
 		bt_cancelar = new JButton("Cancelar o envio");
 		bt_cancelar.setIcon(new ImageIcon(EnviarPDF.class.getResource("/com/leitordoc/views/icons/cancelar.png")));
-		bt_cancelar.setBackground(new Color(192, 192, 192));
+		bt_cancelar.setBackground(new Color(255, 255, 255));
 		bt_cancelar.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		bt_cancelar.addActionListener(this);
 		
