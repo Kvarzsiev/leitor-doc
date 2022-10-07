@@ -117,8 +117,9 @@ public class DocumentsUtils {
 	}
 	
 	public static String[] getDocs(String documento) {
+//		System.out.println(documento);
 		// Regex que acha cpf ou cnpj
-		Pattern pattern = Pattern.compile("(\\d{2}\\.\\d{3}\\.\\d{3}\\/\\d{4}\\-\\d{2})|(\\d{3}\\.\\d{3}\\.\\d{3}\\-\\d{2})");
+		Pattern pattern = Pattern.compile("(\\d{2}\\.\\d{3}\\.\\d{3}\\/\\d{4}\\-\\d{2})|(\\d{3}\\.\\d{3}\\.\\d{3}((\\-)|(\\/))\\d{2})");
 		Matcher matcher = pattern.matcher(documento);
 		// Esse array vai conter apenas 2 documentos, o primeiro sendo do beneficiário e o segundo do pagador
 		String[] docs = new String[2];
@@ -128,7 +129,6 @@ public class DocumentsUtils {
 			if (i == 0) {
 				docs[i] = matcher.group();
 				i++;
-//				System.out.println(docs[i]);
 			}
 			// Se o primeiro documento não for igual ao documento atual do matcher, insere o atual na array
 			if (!docs[i-1].contentEquals(matcher.group())) {
@@ -136,12 +136,14 @@ public class DocumentsUtils {
 				i++;
 			}
         }
+//		System.out.println(docs[0]);
+//		System.out.println(docs[1]);
 		return docs;
 	}
 	
 	public static String getLinhaDigitavel(String documento) {
 		// Regex que acha linha digitavel
-		Pattern pattern = Pattern.compile("(\\d{3}-\\d{1}\\s*\\d{9}\\.\\d{1} \\d{10}\\.\\d{1} \\d{10}\\.\\d{1} \\d{1} \\d{14})|(\\d{3}-\\d{1}\\s*\\d{5}\\.\\d{5} \\d{5}\\.\\d{6} \\d{5}\\.\\d{6} \\d{1} \\d{14})");
+		Pattern pattern = Pattern.compile("(\\s*\\d{9}\\.\\d{1} \\d{10}\\.\\d{1} \\d{10}\\.\\d{1} \\d{1} \\d{14})|(\\d{3}-\\d{1}\\s*\\d{5}\\.\\d{5} \\d{5}\\.\\d{6} \\d{5}\\.\\d{6} \\d{1} \\d{14})");
 		Matcher matcher = pattern.matcher(documento);
 		String linhaDigitavel = "";
 		if (matcher.find()) {

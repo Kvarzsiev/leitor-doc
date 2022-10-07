@@ -32,10 +32,10 @@ public class BoletoBancario extends Documento {
 	@Override
 	public String toString() {
 		return "BoletoBancario [nomBeneficiario=" + nomBeneficiario + ", docBeneficiario=" + docBeneficiario
-				+ ", codBeneficiario=" + codBeneficiario + ", codBanco=" + codBanco + ", nomPagador=" + nomPagador
-				+ ", docPagador=" + docPagador + ", linhaDigitavel=" + linhaDigitavel + ", emissao=" + emissao
-				+ ", vencimento=" + vencimento + ", valor=" + valor + ", nossoNumero=" + nossoNumero
-				+ ", localPagamento=" + localPagamento + ", multa=" + multa + ", carteira=" + carteira + ", mora="
+				+ "\n, codBeneficiario=" + codBeneficiario + ", codBanco=" + codBanco + ", nomPagador=" + nomPagador
+				+ ", docPagador=" + docPagador + ",\n linhaDigitavel=" + linhaDigitavel + ", emissao=" + emissao
+				+ ", \n vencimento=" + vencimento + ", valor=" + valor + ", nossoNumero=" + nossoNumero
+				+ ", \n localPagamento=" + localPagamento + ", multa=" + multa + ", carteira=" + carteira + ", mora="
 				+ mora + "]";
 	}
 
