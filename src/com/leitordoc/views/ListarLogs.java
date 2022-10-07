@@ -25,6 +25,7 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.JTable;
 
 public class ListarLogs extends JFrame implements ActionListener{
 
@@ -32,7 +33,7 @@ public class ListarLogs extends JFrame implements ActionListener{
 	public JLabel nome_usuario, titulo, usuario;
 	public JButton bt_documento, bt_contato, bt_consulta, bt_configuracao, bt_filtro, bt_procurar;
 	public JComboBox comboBox;
-	public JScrollPane scrollPane;
+	private JTable table;
 	
 	public ListarLogs() {
 		super("Leitor Doc - Listar Logs");
@@ -49,17 +50,17 @@ public class ListarLogs extends JFrame implements ActionListener{
 				FormSpecs.DEFAULT_COLSPEC,
 				ColumnSpec.decode("max(26dlu;default)"),},
 			new RowSpec[] {
-				RowSpec.decode("max(63dlu;default)"),
+				RowSpec.decode("max(42dlu;default)"),
 				RowSpec.decode("max(61dlu;default)"),
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
-				RowSpec.decode("max(122dlu;default)"),
+				RowSpec.decode("max(57dlu;default)"),
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
-				RowSpec.decode("max(211dlu;default)"),
+				RowSpec.decode("max(127dlu;default)"),
 				FormSpecs.DEFAULT_ROWSPEC,}));
 		
 		usuario = new JLabel("");
@@ -73,21 +74,21 @@ public class ListarLogs extends JFrame implements ActionListener{
 		painel_esquerdo.add(nome_usuario, "3, 4");
 		
 		bt_documento = new JButton("Documento");
-		bt_documento.setBackground(new Color(128, 128, 128));
+		bt_documento.setBackground(new Color(255, 255, 255));
 		bt_documento.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		bt_documento.addActionListener(this);
 		
 		painel_esquerdo.add(bt_documento, "3, 6");
 		
 		bt_contato = new JButton("Contatos");
-		bt_contato.setBackground(new Color(128, 128, 128));
+		bt_contato.setBackground(new Color(255, 255, 255));
 		bt_contato.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		bt_contato.addActionListener(this);
 		
 		painel_esquerdo.add(bt_contato, "3, 8");
 		
 		bt_consulta = new JButton("Consulta");
-		bt_consulta.setBackground(new Color(128, 128, 128));
+		bt_consulta.setBackground(new Color(255, 255, 255));
 		bt_consulta.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		bt_consulta.addActionListener(this);
 		
@@ -96,7 +97,7 @@ public class ListarLogs extends JFrame implements ActionListener{
 		bt_configuracao = new JButton("Configuração");
 		bt_configuracao.setIcon(new ImageIcon(ListarLogs.class.getResource("/com/leitordoc/views/icons/configuracoes.png")));
 		bt_configuracao.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		bt_configuracao.setBackground(new Color(128, 128, 128));
+		bt_configuracao.setBackground(new Color(255, 255, 255));
 		bt_configuracao.addActionListener(this);
 		
 		painel_esquerdo.add(bt_configuracao, "3, 12");
@@ -111,18 +112,19 @@ public class ListarLogs extends JFrame implements ActionListener{
 		painel_central.setBackground(new Color(192, 192, 192));
 		getContentPane().add(painel_central, BorderLayout.CENTER);
 		painel_central.setLayout(new FormLayout(new ColumnSpec[] {
-				ColumnSpec.decode("max(50dlu;default)"),
-				ColumnSpec.decode("max(60dlu;pref)"),
-				ColumnSpec.decode("max(296dlu;default)"),
+				ColumnSpec.decode("max(39dlu;default)"),
+				FormSpecs.PREF_COLSPEC,
+				ColumnSpec.decode("max(96dlu;default)"),
 				ColumnSpec.decode("max(82dlu;pref)"),
 				ColumnSpec.decode("max(84dlu;pref)"),},
 			new RowSpec[] {
 				RowSpec.decode("max(44dlu;default)"),
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("max(417dlu;default)"),
-				RowSpec.decode("max(56dlu;default)"),
-				RowSpec.decode("max(28dlu;default)"),}));
+				RowSpec.decode("max(300dlu;pref)"),
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,}));
 		
 		titulo = new JLabel("Arquivos e Logs");
 		titulo.setHorizontalAlignment(SwingConstants.LEFT);
@@ -131,27 +133,27 @@ public class ListarLogs extends JFrame implements ActionListener{
 		
 		bt_filtro = new JButton("Filtrar por ");
 		bt_filtro.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		bt_filtro.setBackground(new Color(192, 192, 192));
+		bt_filtro.setBackground(new Color(255, 255, 255));
 		bt_filtro.addActionListener(this);
 		
 		painel_central.add(bt_filtro, "4, 2");
 		
 		comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "PDF", "JSON", "XML"}));
-		comboBox.setBackground(new Color(192, 192, 192));
+		comboBox.setBackground(new Color(255, 255, 255));
 		painel_central.add(comboBox, "5, 2, fill, default");
 		
-		scrollPane = new JScrollPane();
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		painel_central.add(scrollPane, "2, 4, 4, 1, fill, fill");
+		table = new JTable();
+		painel_central.add(table, "2, 4, 4, 1, fill, fill");
 		
 		bt_procurar = new JButton("Procure arquivos");
-		bt_procurar.setBackground(new Color(192, 192, 192));
+		bt_procurar.setVerticalAlignment(SwingConstants.TOP);
+		bt_procurar.setBackground(new Color(255, 255, 255));
 		bt_procurar.setIcon(new ImageIcon(ListarLogs.class.getResource("/com/leitordoc/views/icons/pesquisar.png")));
 		bt_procurar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		bt_procurar.addActionListener(this);
 		
-		painel_central.add(bt_procurar, "2, 6");
+		painel_central.add(bt_procurar, "2, 7");
 		
 		
 		this.addWindowListener(new WindowAdapter() {

@@ -41,17 +41,17 @@ public class Home extends JFrame implements ActionListener{
 				FormSpecs.DEFAULT_COLSPEC,
 				ColumnSpec.decode("max(26dlu;default)"),},
 			new RowSpec[] {
-				RowSpec.decode("max(63dlu;default)"),
+				RowSpec.decode("max(42dlu;default)"),
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
-				RowSpec.decode("max(122dlu;default)"),
+				RowSpec.decode("max(56dlu;default)"),
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
-				RowSpec.decode("max(211dlu;default)"),
+				RowSpec.decode("max(127dlu;default)"),
 				FormSpecs.DEFAULT_ROWSPEC,}));
 		
 		icone = new JLabel("");
@@ -65,21 +65,21 @@ public class Home extends JFrame implements ActionListener{
 		painel_esquerdo.add(nome_usuario, "3, 4");
 		
 		bt_documento = new JButton("Documento");
-		bt_documento.setBackground(new Color(128, 128, 128));
+		bt_documento.setBackground(new Color(255, 255, 255));
 		bt_documento.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		bt_documento.addActionListener(this);
 		
 		painel_esquerdo.add(bt_documento, "3, 6");
 		
 		bt_contato = new JButton("Contatos");
-		bt_contato.setBackground(new Color(128, 128, 128));
+		bt_contato.setBackground(new Color(255, 255, 255));
 		bt_contato.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		bt_contato.addActionListener(this);
 		
 		painel_esquerdo.add(bt_contato, "3, 8");
 		
 		bt_consulta = new JButton("Consulta");
-		bt_consulta.setBackground(new Color(128, 128, 128));
+		bt_consulta.setBackground(new Color(255, 255, 255));
 		bt_consulta.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		bt_consulta.addActionListener(this);
 		
@@ -88,7 +88,7 @@ public class Home extends JFrame implements ActionListener{
 		bt_configuracao = new JButton("Configuração");
 		bt_configuracao.setIcon(new ImageIcon(Home.class.getResource("/com/leitordoc/views/icons/configuracoes.png")));
 		bt_configuracao.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		bt_configuracao.setBackground(new Color(128, 128, 128));
+		bt_configuracao.setBackground(new Color(255, 255, 255));
 		bt_configuracao.addActionListener(this);
 		
 		painel_esquerdo.add(bt_configuracao, "3, 12");
@@ -98,19 +98,17 @@ public class Home extends JFrame implements ActionListener{
 		getContentPane().add(painel_central, BorderLayout.CENTER);
 		painel_central.setLayout(new FormLayout(new ColumnSpec[] {
 				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(146dlu;default)"),
-				ColumnSpec.decode("max(147dlu;default)"),
+				ColumnSpec.decode("max(34dlu;default)"),
+				ColumnSpec.decode("max(115dlu;default)"),
 				ColumnSpec.decode("max(58dlu;default)"),
 				ColumnSpec.decode("max(189dlu;default)"),},
 			new RowSpec[] {
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				RowSpec.decode("max(136dlu;default)"),
 				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
-				RowSpec.decode("max(127dlu;default)"),
+				RowSpec.decode("max(112dlu;default)"),
 				FormSpecs.DEFAULT_ROWSPEC,}));
 		
 		txt1 = new JLabel("Processe seus boletos.");
@@ -119,18 +117,18 @@ public class Home extends JFrame implements ActionListener{
 		
 		txt2 = new JLabel("Categorize e organize seus documentos.");
 		txt2.setFont(new Font("Segoe Print", Font.BOLD, 30));
-		painel_central.add(txt2, "3, 5, 3, 1");
+		painel_central.add(txt2, "3, 4, 3, 1");
 		
 		txt3 = new JLabel("Envie os dados por email.");
 		txt3.setFont(new Font("Segoe Print", Font.BOLD, 30));
-		painel_central.add(txt3, "3, 7, 3, 1");
+		painel_central.add(txt3, "3, 5, 3, 1");
 		
 		bt_start = new JButton("Comece aqui!");
 		bt_start.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		bt_start.setBackground(new Color(192, 192, 192));
+		bt_start.setBackground(new Color(255, 255, 255));
 		bt_start.addActionListener(this);
 		
-		painel_central.add(bt_start, "4, 9");
+		painel_central.add(bt_start, "4, 7");
 		
 		
 		this.addWindowListener(new WindowAdapter() {

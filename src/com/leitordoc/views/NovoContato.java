@@ -46,17 +46,17 @@ public class NovoContato extends JFrame implements ActionListener{
 				FormSpecs.DEFAULT_COLSPEC,
 				ColumnSpec.decode("max(26dlu;default)"),},
 			new RowSpec[] {
-				RowSpec.decode("max(63dlu;default)"),
+				RowSpec.decode("max(42dlu;default)"),
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
-				RowSpec.decode("max(122dlu;default)"),
+				RowSpec.decode("max(57dlu;default)"),
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
-				RowSpec.decode("max(211dlu;default)"),
+				RowSpec.decode("max(127dlu;default)"),
 				FormSpecs.DEFAULT_ROWSPEC,}));
 		
 		icone = new JLabel("");
@@ -70,21 +70,21 @@ public class NovoContato extends JFrame implements ActionListener{
 		painel_esquerdo.add(nome_usuario, "3, 4");
 		
 		bt_documento = new JButton("Documento");
-		bt_documento.setBackground(new Color(128, 128, 128));
+		bt_documento.setBackground(new Color(255, 255, 255));
 		bt_documento.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		bt_documento.addActionListener(this);
 		
 		painel_esquerdo.add(bt_documento, "3, 6");
 		
 		bt_contato = new JButton("Contatos");
-		bt_contato.setBackground(new Color(128, 128, 128));
+		bt_contato.setBackground(new Color(255, 255, 255));
 		bt_contato.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		bt_contato.addActionListener(this);
 		
 		painel_esquerdo.add(bt_contato, "3, 8");
 		
 		bt_consulta = new JButton("Consulta");
-		bt_consulta.setBackground(new Color(128, 128, 128));
+		bt_consulta.setBackground(new Color(255, 255, 255));
 		bt_consulta.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		bt_consulta.addActionListener(this);
 		
@@ -93,7 +93,7 @@ public class NovoContato extends JFrame implements ActionListener{
 		bt_configuracao = new JButton("Configuração");
 		bt_configuracao.setIcon(new ImageIcon(NovoContato.class.getResource("/com/leitordoc/views/icons/configuracoes.png")));
 		bt_configuracao.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		bt_configuracao.setBackground(new Color(128, 128, 128));
+		bt_configuracao.setBackground(new Color(255, 255, 255));
 		bt_configuracao.addActionListener(this);
 		
 		painel_esquerdo.add(bt_configuracao, "3, 12");
@@ -108,7 +108,7 @@ public class NovoContato extends JFrame implements ActionListener{
 		painel_central.setBackground(new Color(192, 192, 192));
 		getContentPane().add(painel_central, BorderLayout.CENTER);
 		painel_central.setLayout(new FormLayout(new ColumnSpec[] {
-				ColumnSpec.decode("max(142dlu;default)"),
+				ColumnSpec.decode("max(70dlu;default)"),
 				ColumnSpec.decode("max(57dlu;pref)"),
 				ColumnSpec.decode("max(57dlu;default)"),
 				ColumnSpec.decode("max(66dlu;default)"),
@@ -123,16 +123,7 @@ public class NovoContato extends JFrame implements ActionListener{
 				RowSpec.decode("max(29dlu;default)"),
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
-				RowSpec.decode("max(67dlu;default)"),
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				RowSpec.decode("max(199dlu;default)"),
+				RowSpec.decode("max(183dlu;default)"),
 				RowSpec.decode("max(51dlu;default)"),}));
 		
 		titulo = new JLabel("Novo Contato");
@@ -162,20 +153,20 @@ public class NovoContato extends JFrame implements ActionListener{
 		
 		
 		bt_salvar = new JButton("Salvar");
-		bt_salvar.setBackground(new Color(192, 192, 192));
+		bt_salvar.setBackground(new Color(255, 255, 255));
 		bt_salvar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		bt_salvar.setIcon(new ImageIcon(NovoContato.class.getResource("/com/leitordoc/views/icons/salvar.png")));
 		bt_salvar.addActionListener(this);
 		
-		painel_central.add(bt_salvar, "2, 20, 2, 1");
+		painel_central.add(bt_salvar, "2, 11, 2, 1");
 		
 		bt_excluir = new JButton("Excluir usuário");
-		bt_excluir.setBackground(new Color(192, 192, 192));
+		bt_excluir.setBackground(new Color(255, 255, 255));
 		bt_excluir.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		bt_excluir.setIcon(new ImageIcon(NovoContato.class.getResource("/com/leitordoc/views/icons/excluir.png")));
 		bt_excluir.addActionListener(this);
 		
-		painel_central.add(bt_excluir, "5, 20");
+		painel_central.add(bt_excluir, "5, 11");
 		
 		this.addWindowListener(new WindowAdapter() {
 			@Override

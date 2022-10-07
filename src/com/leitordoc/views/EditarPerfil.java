@@ -48,17 +48,17 @@ public class EditarPerfil extends JFrame implements ActionListener{
 				FormSpecs.DEFAULT_COLSPEC,
 				ColumnSpec.decode("max(26dlu;default)"),},
 			new RowSpec[] {
-				RowSpec.decode("max(63dlu;default)"),
+				RowSpec.decode("max(42dlu;default)"),
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
-				RowSpec.decode("max(122dlu;default)"),
+				RowSpec.decode("max(57dlu;default)"),
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
-				RowSpec.decode("max(211dlu;default)"),
+				RowSpec.decode("max(127dlu;default)"),
 				FormSpecs.DEFAULT_ROWSPEC,}));
 		
 		icone = new JLabel("");
@@ -72,21 +72,21 @@ public class EditarPerfil extends JFrame implements ActionListener{
 		painel_esquerdo.add(nome_usuario, "3, 4");
 		
 		bt_documento = new JButton("Documento");
-		bt_documento.setBackground(new Color(128, 128, 128));
+		bt_documento.setBackground(new Color(255, 255, 255));
 		bt_documento.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		bt_documento.addActionListener(this);
 		
 		painel_esquerdo.add(bt_documento, "3, 6");
 		
 		bt_contato = new JButton("Contatos");
-		bt_contato.setBackground(new Color(128, 128, 128));
+		bt_contato.setBackground(new Color(255, 255, 255));
 		bt_contato.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		bt_contato.addActionListener(this);
 		
 		painel_esquerdo.add(bt_contato, "3, 8");
 		
 		bt_consulta = new JButton("Consulta");
-		bt_consulta.setBackground(new Color(128, 128, 128));
+		bt_consulta.setBackground(new Color(255, 255, 255));
 		bt_consulta.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		bt_consulta.addActionListener(this);
 		
@@ -95,7 +95,7 @@ public class EditarPerfil extends JFrame implements ActionListener{
 		bt_configuracao = new JButton("Configuração");
 		bt_configuracao.setIcon(new ImageIcon(EditarPerfil.class.getResource("/com/leitordoc/views/icons/configuracoes.png")));
 		bt_configuracao.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		bt_configuracao.setBackground(new Color(128, 128, 128));
+		bt_configuracao.setBackground(new Color(255, 255, 255));
 		bt_configuracao.addActionListener(this);
 		
 		painel_esquerdo.add(bt_configuracao, "3, 12");
@@ -110,14 +110,15 @@ public class EditarPerfil extends JFrame implements ActionListener{
 		painel_central.setBackground(new Color(192, 192, 192));
 		getContentPane().add(painel_central, BorderLayout.CENTER);
 		painel_central.setLayout(new FormLayout(new ColumnSpec[] {
-				ColumnSpec.decode("max(142dlu;default)"),
+				ColumnSpec.decode("max(53dlu;default)"),
 				ColumnSpec.decode("max(57dlu;pref)"),
-				ColumnSpec.decode("max(57dlu;default)"),
 				ColumnSpec.decode("max(66dlu;default)"),
-				ColumnSpec.decode("max(123dlu;min)"),},
+				ColumnSpec.decode("max(66dlu;default)"),
+				ColumnSpec.decode("max(124dlu;default)"),
+				ColumnSpec.decode("max(60dlu;min)"),},
 			new RowSpec[] {
 				FormSpecs.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("max(44dlu;default)"),
+				RowSpec.decode("max(21dlu;default)"),
 				FormSpecs.DEFAULT_ROWSPEC,
 				RowSpec.decode("max(31dlu;default)"),
 				FormSpecs.DEFAULT_ROWSPEC,
@@ -125,7 +126,7 @@ public class EditarPerfil extends JFrame implements ActionListener{
 				RowSpec.decode("max(29dlu;default)"),
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
-				RowSpec.decode("max(67dlu;default)"),
+				RowSpec.decode("max(24dlu;default)"),
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
@@ -134,7 +135,7 @@ public class EditarPerfil extends JFrame implements ActionListener{
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
-				RowSpec.decode("max(199dlu;default)"),
+				RowSpec.decode("max(101dlu;default)"),
 				RowSpec.decode("max(51dlu;default)"),}));
 		
 		titulo = new JLabel("Nome");
@@ -144,46 +145,47 @@ public class EditarPerfil extends JFrame implements ActionListener{
 		nome = new JLabel("Nome");
 		painel_central.add(nome, "2, 5");
 		
+		email = new JLabel("Email");
+		painel_central.add(email, "5, 5");
+		
 		campo_nome = new JTextField();
 		painel_central.add(campo_nome, "2, 6, 2, 1, fill, default");
 		campo_nome.setColumns(15);
 		
-		email = new JLabel("Email");
-		painel_central.add(email, "5, 5");
-		
 		campo_email = new JTextField();
-		painel_central.add(campo_email, "5, 6, fill, default");
+		painel_central.add(campo_email, "5, 6, 2, 1, fill, default");
 		campo_email.setColumns(10);
 		
 		descricao = new JLabel("Descrição");
 		painel_central.add(descricao, "2, 8");
 		
+		cpf = new JLabel("CPF");
+		painel_central.add(cpf, "5, 8");
+		
 		campo_descricao = new JTextField();
 		painel_central.add(campo_descricao, "2, 9, 2, 1, fill, default");
 		campo_descricao.setColumns(15);
 		
-		cpf = new JLabel("CPF");
-		painel_central.add(cpf, "5, 8");
-		
 		campo_cpf = new JTextField();
-		painel_central.add(campo_cpf, "5, 9, fill, default");
+		painel_central.add(campo_cpf, "5, 9, 2, 1, fill, default");
 		campo_cpf.setColumns(10);
-		
-		bt_senha = new JButton("Senha");
-		bt_senha.setIcon(new ImageIcon(EditarPerfil.class.getResource("/com/leitordoc/views/icons/alterar_senha.png")));
-		bt_senha.setBackground(new Color(192, 192, 192));
-		bt_senha.addActionListener(this);
-		
-		painel_central.add(bt_senha, "2, 11");
 		
 		senha_atual = new JLabel("Senha Atual");
 		senha_atual.setEnabled(false);
 		painel_central.add(senha_atual, "5, 11");
 		
+		bt_senha = new JButton("Alterar Senha");
+		bt_senha.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		bt_senha.setIcon(new ImageIcon(EditarPerfil.class.getResource("/com/leitordoc/views/icons/alterar_senha.png")));
+		bt_senha.setBackground(new Color(255, 255, 255));
+		bt_senha.addActionListener(this);
+		
+		painel_central.add(bt_senha, "2, 12");
+		
 		campo_senha_atual = new JPasswordField();
 		campo_senha_atual.setEnabled(false);
 		campo_senha_atual.setBackground(new Color(255, 255, 255));
-		painel_central.add(campo_senha_atual, "5, 12, fill, default");
+		painel_central.add(campo_senha_atual, "5, 12, 2, 1, fill, default");
 		
 		nova_senha = new JLabel("Nova Senha");
 		nova_senha.setEnabled(false);
@@ -191,26 +193,26 @@ public class EditarPerfil extends JFrame implements ActionListener{
 		
 		campo_nova_senha = new JPasswordField();
 		campo_nova_senha.setEnabled(false);
-		painel_central.add(campo_nova_senha, "5, 15, fill, default");
+		painel_central.add(campo_nova_senha, "5, 15, 2, 1, fill, default");
 		
 		confirma_senha = new JLabel("Repita a nova senha");
 		confirma_senha.setEnabled(false);
 		painel_central.add(confirma_senha, "5, 17");
 		
-		campo_confirmar_senha = new JPasswordField();
-		campo_confirmar_senha.setEnabled(false);
-		painel_central.add(campo_confirmar_senha, "5, 18, fill, default");
-		
 		bt_salvar = new JButton("Salvar");
-		bt_salvar.setBackground(new Color(192, 192, 192));
+		bt_salvar.setBackground(new Color(255, 255, 255));
 		bt_salvar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		bt_salvar.setIcon(new ImageIcon(EditarPerfil.class.getResource("/com/leitordoc/views/icons/salvar.png")));
 		bt_salvar.addActionListener(this);
 		
+		campo_confirmar_senha = new JPasswordField();
+		campo_confirmar_senha.setEnabled(false);
+		painel_central.add(campo_confirmar_senha, "5, 18, 2, 1, fill, default");
+		
 		painel_central.add(bt_salvar, "2, 20, 2, 1");
 		
 		bt_excluir = new JButton("Excluir usuário");
-		bt_excluir.setBackground(new Color(192, 192, 192));
+		bt_excluir.setBackground(new Color(255, 255, 255));
 		bt_excluir.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		bt_excluir.setIcon(new ImageIcon(EditarPerfil.class.getResource("/com/leitordoc/views/icons/excluir.png")));
 		bt_excluir.addActionListener(this);
