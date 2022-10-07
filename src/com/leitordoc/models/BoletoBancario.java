@@ -9,7 +9,7 @@ public class BoletoBancario extends Documento {
 	
 	public BoletoBancario(int id, String descricao, String filePath, String tipo, String nomBeneficiario,
 			String docBeneficiario, String codBeneficiario, String codBanco, String nomPagador, String docPagador,
-			String linhaDigitavel, Date emissao, Date vencimento, double valor, String nossoNumero,
+			String linhaDigitavel, Date emissao, Date vencimento, String valor, String nossoNumero,
 			String localPagamento, String multa, String carteira, String mora) {
 		super(id, descricao, filePath, tipo);
 		this.nomBeneficiario = nomBeneficiario;
@@ -111,11 +111,11 @@ public class BoletoBancario extends Documento {
 		this.vencimento = vencimento;
 	}
 
-	public double getValor() {
+	public String getValor() {
 		return valor;
 	}
 
-	public void setValor(double valor) {
+	public void setValor(String valor) {
 		this.valor = valor;
 	}
 
@@ -165,7 +165,7 @@ public class BoletoBancario extends Documento {
 	private String linhaDigitavel;
 	private Date emissao;
 	private Date vencimento;
-	private double valor;
+	private String valor;
 	private String nossoNumero;
 	private String localPagamento;
 	private String multa;

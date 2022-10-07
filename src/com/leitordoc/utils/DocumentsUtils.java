@@ -128,6 +128,7 @@ public class DocumentsUtils {
 			if (i == 0) {
 				docs[i] = matcher.group();
 				i++;
+//				System.out.println(docs[i]);
 			}
 			// Se o primeiro documento não for igual ao documento atual do matcher, insere o atual na array
 			if (!docs[i-1].contentEquals(matcher.group())) {
