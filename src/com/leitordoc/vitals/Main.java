@@ -13,6 +13,7 @@ public class Main {
 		
 		try {
 			LeitorPdf lPdf = new LeitorPdf();
+//			lPdf.lerArquivo("C:\\Users\\Usuario\\Desktop\\boleto-caki.pdf");
 			lPdf.lerArquivo("C:\\Users\\Usuario\\Desktop\\boleto.pdf");
 		} catch (IOException ioe) {
 			System.out.println(ioe);

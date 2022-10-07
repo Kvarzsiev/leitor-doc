@@ -7,6 +7,115 @@ import java.util.regex.Pattern;
 
 public class DocumentsUtils {
 
+	public static String getFichaCompensacao(String documento) {
+		String[] splitted = documento.split("(\\d{3}-\\d{1}\\s*\\d{9}\\.\\d{1} \\d{10}\\.\\d{1} \\d{10}\\.\\d{1} \\d{1} \\d{14})|(\\d{3}-\\d{1}\\s*\\d{5}\\.\\d{5} \\d{5}\\.\\d{6} \\d{5}\\.\\d{6} \\d{1} \\d{14})");
+		String fichaCompensacao = splitted[1];
+		return fichaCompensacao;
+	}
+	
+	public static String getMora(String fichaCompensacao) {
+		Pattern pattern = Pattern.compile("((MORA)|(mora))\\s*((de)|(DE))?\\s*[\\d,.]*%");
+		Matcher matcher = pattern.matcher(fichaCompensacao);
+		String match3 = "";
+		if (matcher.find())
+		{
+			String match = matcher.group();
+		    String match2 = match.split("((MORA)|(mora))\\s*((de)|(DE))?\\s*")[1];
+		    match3 = match2.split("\\s*Uso do Banco")[0];
+		}
+		return match3;
+	}
+	
+	public static String getCarteira(String fichaCompensacao) {
+		Pattern pattern = Pattern.compile("Documento\\s*[\\w]*");
+		Matcher matcher = pattern.matcher(fichaCompensacao.split("Uso do Banco")[1]);
+		String match2 = "";
+		if (matcher.find())
+		{
+			String match = matcher.group();
+		    match2 = match.split("Documento\\s*")[1];
+		}
+		return match2;
+	}
+	
+	public static String getNossoNumero(String fichaCompensacao) {
+		Pattern pattern = Pattern.compile("\\d{2}\\/\\d{2}\\/\\d{4}\\s[\\d-.]*\\s*Uso do Banco");
+		Matcher matcher = pattern.matcher(fichaCompensacao);
+		String match3 = "";
+		if (matcher.find())
+		{
+			String match = matcher.group();
+		    String match2 = match.split("\\d{2}\\/\\d{2}\\/\\d{4}\\s")[1];
+		    match3 = match2.split("\\s*Uso do Banco")[0];
+		}
+		return match3;
+	}
+	
+	public static String getMulta (String fichaCompensacao) {
+		Pattern pattern = Pattern.compile("(multa)|(MULTA)+[\\s:deDE]*[\\d,.]*%");
+		Matcher matcher = pattern.matcher(fichaCompensacao);
+		String match3 = "";
+		if (matcher.find())
+		{
+			String match = matcher.group();
+		    String match2 = match.split("(multa)|(MULTA)")[1];
+		    match3 = match2.split("(CPF)|(CNPJ)")[0];
+		}
+		return match3.replace(" ", "").replace("DE", "");
+	}
+	
+	public static String getNomePagador (String fichaCompensacao) {
+		Pattern pattern = Pattern.compile("((Pagador)|(Sacado))[\\s\\w.:/-]*((CPF)|(CNPJ))");
+		Matcher matcher = pattern.matcher(fichaCompensacao);
+		String match3 = "";
+		if (matcher.find())
+		{
+			String match = matcher.group();
+		    String match2 = match.split("(Pagador)|(Sacado)")[1];
+		    match3 = match2.split("(CPF)|(CNPJ)")[0];
+		}
+		return match3.replace("\n", "");
+	}
+	
+	public static String getCodigoBeneficiario (String fichaCompensacao) {
+		Pattern pattern = Pattern.compile("[\\w.-]*\\s*[\\d\\/\\s\\.]*Data do Documento");
+		Matcher matcher = pattern.matcher(fichaCompensacao);
+		String match3 = "";
+		if (matcher.find())
+		{
+			String match = matcher.group();
+		    String match2 = match.split("Data do Documento")[0];
+		    match3 = match2.split("^[\\w-]*\\s")[1];
+		}
+		return match3.replace(" ", "");
+	}
+	
+	public static String getNomBeneficiario (String fichaCompensacao) {
+		Pattern pattern = Pattern.compile("\\s*CÛdigo\\s*(do)?\\s*((Benefici·rio)|(Cedente))\\s*([.A-z·‡‚„ÈËÍÌÔÛÙıˆ˙ÁÒ¡¿¬√…» Õœ”‘’÷⁄«—-]*\\s)*[\\d./-]*");
+		Matcher matcher = pattern.matcher(fichaCompensacao);
+		String match3 = "";
+		if (matcher.find())
+		{
+			String match = matcher.group();
+		    String match2 = match.split("\\s*CÛdigo\\s*(do)?\\s*((Benefici·rio)|(Cedente))\\s*")[1];
+		    match3 = match2.split("\\d+")[0];
+		}
+		return match3;
+	}
+	
+	public static String getLocalPagamento(String fichaCompensacao) {
+		Pattern pattern = Pattern.compile("Local\\s*de\\s*Pagamento\\s*Vencimento\\s*([.A-z·‡‚„ÈËÍÌÔÛÙıˆ˙ÁÒ¡¿¬√…» Õœ”‘’÷⁄«—\\/-]*\\s*)*\\d{2}\\/\\d{2}\\/\\d{4}");
+		Matcher matcher = pattern.matcher(fichaCompensacao);
+		String match3 = "";
+		if (matcher.find())
+		{
+			String match = matcher.group();
+		    String match2 = match.split("\\s*Vencimento\\s*")[1];
+		    match3 = match2.split("\\d{2}\\/\\d{2}\\/\\d{4}")[0];
+		}
+		return match3;
+	}
+	
 	public static String[] getDocs(String documento) {
 		// Regex que acha cpf ou cnpj
 		Pattern pattern = Pattern.compile("(\\d{2}\\.\\d{3}\\.\\d{3}\\/\\d{4}\\-\\d{2})|(\\d{3}\\.\\d{3}\\.\\d{3}\\-\\d{2})");
@@ -31,7 +140,7 @@ public class DocumentsUtils {
 	
 	public static String getLinhaDigitavel(String documento) {
 		// Regex que acha linha digitavel
-		Pattern pattern = Pattern.compile("(\\d{9}\\.\\d{1} \\d{10}\\.\\d{1} \\d{10}\\.\\d{1} \\d{1} \\d{14})");
+		Pattern pattern = Pattern.compile("(\\d{3}-\\d{1}\\s*\\d{9}\\.\\d{1} \\d{10}\\.\\d{1} \\d{10}\\.\\d{1} \\d{1} \\d{14})|(\\d{3}-\\d{1}\\s*\\d{5}\\.\\d{5} \\d{5}\\.\\d{6} \\d{5}\\.\\d{6} \\d{1} \\d{14})");
 		Matcher matcher = pattern.matcher(documento);
 		String linhaDigitavel = "";
 		if (matcher.find()) {
