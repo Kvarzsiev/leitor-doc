@@ -13,5 +13,7 @@
 	<classpathentry kind="lib" path="lib/jgoodies-forms-1.8.0.jar"/>
 	<classpathentry kind="lib" path="lib/jgoodies-forms-1.8.0-sources.jar"/>
 	<classpathentry kind="lib" path="lib/postgresql-42.5.0.jar"/>
+	<classpathentry kind="lib" path="lib/aspose-pdf-22.9-jdk16.jar"/>
+	<classpathentry kind="lib" path="lib/gson-2.9.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

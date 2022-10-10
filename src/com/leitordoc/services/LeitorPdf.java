@@ -21,28 +21,11 @@ public class LeitorPdf {
 //		pdfStripper.setShouldSeparateByBeads(true);
 		String texto = pdfStripper.getText(documento);
 //		System.out.println(texto);
-		String a = DocumentsUtils.getFichaCompensacao(texto);
+
 //		System.out.println(a);
-		String mora = DocumentsUtils.getMora(a);
+
 //		System.out.println(mora);
-		//Primeiro item docBeneficiario, segundo docPagador
-		String[] documentos = DocumentsUtils.getDocs(texto);
-		String linhaDigitavel = DocumentsUtils.getLinhaDigitavel(texto);
-		String codBanco = DocumentsUtils.getCodBanco(texto);
-		// Para transformar todos os valores numa string de apenas números StringUtils.toNumbersOnly(string);
-		String valor = DocumentsUtils.getValor(texto);
-		// A primeira data é "mais cedo", portanto é a data de emissão, a segunda data, a de vencimento
-		Date[] datas = DocumentsUtils.getDatas(texto);
-		String localPagamento = DocumentsUtils.getLocalPagamento(a);
-		String nomBeneficiario = DocumentsUtils.getNomBeneficiario(a);
-		String codigoBeneficiario = DocumentsUtils.getCodigoBeneficiario(a);
-		String nomePagador = DocumentsUtils.getNomePagador(a);
-		String multa = DocumentsUtils.getMulta(texto);		
-		String nossoNumero = DocumentsUtils.getNossoNumero(a);
-		String carteira = DocumentsUtils.getCarteira(a);
-//		
-		BoletoBancario bb = new BoletoBancario(1, "descricao", "C:\\Users\\Usuario\\Desktop\\boleto.pdf", "tipo", nomBeneficiario, documentos[0], codigoBeneficiario, codBanco, nomePagador, documentos[1], linhaDigitavel, datas[0], datas[1], valor, nossoNumero, localPagamento, multa, carteira, mora);
-		
-		System.out.println(bb.toString());
+	
+		documento.close();
 	}
 }
