@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class DocumentsUtils {
+public class Boleto1Utils {
 
 	public static String getFichaCompensacao(String documento) {
 		String[] splitted = documento.split("(\\d{3}-[\\dxX]{1}\\s*\\d{9}\\.\\d{1}\\s+\\d{10}\\.\\d{1}\\s*\\d{10}\\.\\d{1}\\s*\\d{1}\\s*\\d{14})|(\\d{3}-[\\dxX]{1}\\s*\\d{5}\\.\\d{5}\\s*\\d{5}\\.\\d{6}\\s*\\d{5}\\.\\d{6}\\s*\\d{1}\\s*\\d{14})");
@@ -156,8 +156,6 @@ public class DocumentsUtils {
 				i++;
 			}
         }
-//		System.out.println(docs[0]);
-//		System.out.println(docs[1]);
 		return docs;
 	}
 	
@@ -217,7 +215,6 @@ public class DocumentsUtils {
 	}
 	
 	public static String getCodBanco(String documento) {
-		// Regex que acha valor
 		Pattern pattern = Pattern.compile("(^|\\s)\\d{3}-\\d{1}($|\\s)", Pattern.MULTILINE);
 		Matcher matcher = pattern.matcher(documento);
 		String codBanco = null;
@@ -225,5 +222,40 @@ public class DocumentsUtils {
 			codBanco = matcher.group();
 		}
 		return codBanco;
+	}
+	
+	public static String getAceite(String fichaCompensacao) {
+		Pattern pattern = Pattern.compile("\\s[\\w]{1}\\s*\\d{2}\\/\\d{2}\\/\\d{4}");
+		Matcher matcher = pattern.matcher(fichaCompensacao);
+		String aceite = null;
+		if (matcher.find())
+		{
+			String match = matcher.group();
+		    aceite = match.split("\\s*\\d{2}\\/\\d{2}\\/\\d{4}")[0];
+		}
+		return aceite.replace(" ", "");
+	}
+	
+	public static String getInstrucoes(String fichaCompensacao) {
+		Pattern pattern = Pattern.compile("((Desconto)|(Abatimentos)|(Abatimento))[\\w\\s%Í „√‚¬Á«ı’Û”·¡È…(+\\-)/,]+Outros");
+		Matcher matcher = pattern.matcher(fichaCompensacao);
+//		System.out.println(fichaCompensacao);
+		String instrucoes = null;
+		if (matcher.find())
+		{
+			String match = matcher.group();
+//			System.out.println(match);
+			instrucoes = match.split("Outros")[0];
+//			System.out.println("1" + instrucoes);
+			instrucoes = instrucoes.split("((Abatimentos)|(Abatimento))")[1];
+//			System.out.println("2" + instrucoes);
+		}
+		if(instrucoes == null) {
+			return null;
+		}
+		instrucoes = instrucoes.replace("(+) Mora / Multa / Juros", "");
+		instrucoes = instrucoes.replace("(-)", "");
+		instrucoes = instrucoes.replace("\n", " ");
+		return instrucoes.replace("(+)", "");
 	}
 }

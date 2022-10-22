@@ -14,10 +14,10 @@ public class Main {
 
 	public static void main(String[] args) throws ParseException {
 		
-//		BoletoToJsonController.convert("C:\\Users\\Usuario\\Desktop\\boleto.pdf", "");
+		BoletoToJsonController.convert("C:\\Users\\Usuario\\Desktop\\boleto.pdf", "");
 //		System.out.println("\n");
-		BoletoToJsonController.convert("C:\\Users\\Usuario\\Desktop\\boleto-caki.pdf", "");
-		System.out.println("\n");
+//		BoletoToJsonController.convert("C:\\Users\\Usuario\\Desktop\\boleto-caki.pdf", "");
+//		System.out.println("\n");
 //		BoletoToJsonController.convert("C:\\Users\\Usuario\\Desktop\\boleto-sicredi.pdf", "");
 		
 

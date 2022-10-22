@@ -171,10 +171,28 @@ public class BoletoBancario extends Documento {
 	private String multa;
 	private String carteira;
 	private String mora;
+	private String aceite;
+	private String instrucoes;
 	
 	public BoletoBancario(int id, String descricao, String filePath, String tipo) {
 		super(id, descricao, filePath, tipo);
 		// TODO Auto-generated constructor stub
+	}
+
+	public String getAceite() {
+		return aceite;
+	}
+
+	public void setAceite(String aceite) {
+		this.aceite = aceite;
+	}
+
+	public String getInstrucoes() {
+		return instrucoes;
+	}
+
+	public void setInstrucoes(String instrucoes) {
+		this.instrucoes = instrucoes;
 	}
 	
 	//Atributos							tem função para achar
@@ -192,12 +210,11 @@ public class BoletoBancario extends Documento {
 // 	private String localPagamento;	 	  ok
 //	private String multa;				  ok
 //	private String carteira;			  ok
-//	private String mora;				  ok
-//	private int usoDoBanco;
+//	private String mora;				  ok		  
 //	private double desconto;
 //	private double juros;
-//	private boolean aceite;
-//	private String info;
+//	private boolean aceite;				  ok
+//	private String instrucoes;			  ok
 //	private String especie;
 //	private String moeda;
 }

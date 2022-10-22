@@ -8,7 +8,7 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 
 import com.leitordoc.models.BoletoBancario;
-import com.leitordoc.utils.DocumentsUtils;
+//import com.leitordoc.utils.DocumentsUtils;
 
 public class LeitorPdf {
 	public void lerArquivo(String filePath) throws IOException {
