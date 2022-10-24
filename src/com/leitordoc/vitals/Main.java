@@ -13,14 +13,25 @@ import com.leitordoc.views.*;
 public class Main {
 
 	public static void main(String[] args) throws ParseException {
-		
-		BoletoToJsonController.convert("C:\\Users\\Usuario\\Desktop\\boleto.pdf", "");
+
+		new ListarArquivos();
+		/*
+		try {
+			LeitorPdf lPdf = new LeitorPdf();
+//			lPdf.lerArquivo("C:\\Users\\Usuario\\Desktop\\boleto-caki.pdf");
+			lPdf.lerArquivo("C:\\Users\\Usuario\\Desktop\\boleto.pdf");
+		} 
+		catch (IOException ioe) {
+			System.out.println(ioe);
+		}
+		*/
+	}
+
+//		BoletoToJsonController.convert("C:\\Users\\Usuario\\Desktop\\boleto.pdf", "");
 //		System.out.println("\n");
 //		BoletoToJsonController.convert("C:\\Users\\Usuario\\Desktop\\boleto-caki.pdf", "");
 //		System.out.println("\n");
 //		BoletoToJsonController.convert("C:\\Users\\Usuario\\Desktop\\boleto-sicredi.pdf", "");
 		
-
 	}
-
 }
