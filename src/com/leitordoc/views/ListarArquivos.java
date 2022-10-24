@@ -24,6 +24,7 @@ import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
 import java.awt.FlowLayout;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
@@ -37,13 +38,6 @@ public class ListarArquivos extends JFrame implements ActionListener{
 //	public JComboBox comboBox;
 	public JTable tabela;
 	public JScrollPane barraRolagem;
-//	Object [][] dados = {
-//	        {"santander", "BOLETO"},
-//	        {"banrisul", "BOLETO"},
-//	        {"ir_2022", "IR"}
-//	    };
-//
-//	String [] colunas = {"Arquivo", "Tipo"};
 	
 	public ListarArquivos() {
 		super("Leitor Doc - Listar Arquivos");
@@ -199,17 +193,28 @@ public class ListarArquivos extends JFrame implements ActionListener{
 		}
 		
 	}
+	
+	public void carregarArquivos() {
+		JFileChooser fc = new JFileChooser();
+		int returnVal = fc.showOpenDialog(null);
+		if(returnVal==JFileChooser.APPROVE_OPTION) {
+			File arquivo = fc.getSelectedFile();
+			System.out.println("Abrindo: " + arquivo.getName());
+		}
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		if(e.getSource()==bt_carregar) {
+			carregarArquivos();
+		}
 		
 	}
-
+	/*
 	public JButton getBt_documento() {
 		return bt_documento;
 	}
-
+ 
 	public void setBt_documento(JButton bt_documento) {
 		this.bt_documento = bt_documento;
 	}
@@ -237,7 +242,7 @@ public class ListarArquivos extends JFrame implements ActionListener{
 	public void setBt_configuracao(JButton bt_configuracao) {
 		this.bt_configuracao = bt_configuracao;
 	}
-	/*
+	
 	public JButton getBt_filtro() {
 		return bt_filtro;
 	}
@@ -245,7 +250,7 @@ public class ListarArquivos extends JFrame implements ActionListener{
 	public void setBt_filtro(JButton bt_filtro) {
 		this.bt_filtro = bt_filtro;
 	}
-	*/
+	
 	public JButton getBt_carregar() {
 		return bt_carregar;
 	}
