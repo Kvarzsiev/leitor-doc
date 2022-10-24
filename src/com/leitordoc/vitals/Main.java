@@ -25,7 +25,7 @@ public class Main {
 			System.out.println(ioe);
 		}
 		*/
-	}
+//	}
 
 //		BoletoToJsonController.convert("C:\\Users\\Usuario\\Desktop\\boleto.pdf", "");
 //		System.out.println("\n");
