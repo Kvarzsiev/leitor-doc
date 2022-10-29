@@ -33,79 +33,21 @@ import javax.swing.JTable;
 
 public class ListarArquivos extends JFrame implements ActionListener{
 
-	public JPanel /*painel_esquerdo,*/ painelFundo, painel_central;
+	public JPanel  painelFundo, painel_central;
 	public JLabel icone, nome_usuario, titulo;
 	public JButton bt_documento, bt_contato, bt_consulta, bt_configuracao, bt_filtro, bt_carregar, bt_excluir, bt_refresh;
-//	public JComboBox comboBox;
 	public JTable tabela;
 	public JScrollPane barraRolagem;
+	private JScrollPane janelaErro;
+	private JTable tabelaErro;
+	private JLabel lblNewLabel;
+	private JComboBox comboBox;
 	
 	public ListarArquivos() {
 		super("Leitor Doc - Listar Arquivos");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListarArquivos.class.getResource("/com/leitordoc/views/icons/leitor_doc.png")));
 		getContentPane().setBackground(new Color(192, 192, 192));
 		this.setSize(1024, 768);
-		
-		/*painel_esquerdo = new JPanel();
-		painel_esquerdo.setBackground(new Color(128, 128, 128));
-		getContentPane().add(painel_esquerdo, BorderLayout.WEST);
-		painel_esquerdo.setLayout(new FormLayout(new ColumnSpec[] {
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(22dlu;default)"),
-				FormSpecs.DEFAULT_COLSPEC,
-				ColumnSpec.decode("max(26dlu;default)"),},
-			new RowSpec[] {
-				RowSpec.decode("max(42dlu;default)"),
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				RowSpec.decode("max(57dlu;default)"),
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				RowSpec.decode("max(127dlu;default)"),
-				FormSpecs.DEFAULT_ROWSPEC,}));
-		
-		icone = new JLabel("");
-		icone.setHorizontalAlignment(SwingConstants.CENTER);
-		icone.setIcon(new ImageIcon(ListarArquivos.class.getResource("/com/leitordoc/views/icons/user.png")));
-		painel_esquerdo.add(icone, "3, 2");
-		
-		nome_usuario = new JLabel("Nome");
-		nome_usuario.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		nome_usuario.setHorizontalAlignment(SwingConstants.CENTER);
-		painel_esquerdo.add(nome_usuario, "3, 4");
-		
-		bt_documento = new JButton("Documento");
-		bt_documento.setBackground(new Color(255, 255, 255));
-		bt_documento.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		bt_documento.addActionListener(this);
-		
-		painel_esquerdo.add(bt_documento, "3, 6");
-		
-		bt_contato = new JButton("Contatos");
-		bt_contato.setBackground(new Color(255, 255, 255));
-		bt_contato.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		bt_contato.addActionListener(this);
-		
-		painel_esquerdo.add(bt_contato, "3, 8");
-		
-		bt_consulta = new JButton("Consulta");
-		bt_consulta.setBackground(new Color(255, 255, 255));
-		bt_consulta.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		bt_consulta.addActionListener(this);
-		
-		painel_esquerdo.add(bt_consulta, "3, 10");
-		
-		bt_configuracao = new JButton("Configuração");
-		bt_configuracao.setIcon(new ImageIcon(ListarArquivos.class.getResource("/com/leitordoc/views/icons/configuracoes.png")));
-		bt_configuracao.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		bt_configuracao.setBackground(new Color(255, 255, 255));
-		bt_configuracao.addActionListener(this);
-		
-		painel_esquerdo.add(bt_configuracao, "3, 12");*/
 		
 		painelFundo = new JPanel();
 		FlowLayout fl_painel_direito = (FlowLayout) painelFundo.getLayout();
@@ -117,11 +59,10 @@ public class ListarArquivos extends JFrame implements ActionListener{
 		painel_central.setBackground(new Color(192, 192, 192));
 		getContentPane().add(painel_central, BorderLayout.CENTER);
 		painel_central.setLayout(new FormLayout(new ColumnSpec[] {
-				ColumnSpec.decode("max(50dlu;default)"),
-				ColumnSpec.decode("max(60dlu;pref):grow"),
+				ColumnSpec.decode("max(103dlu;default)"),
+				ColumnSpec.decode("max(166dlu;min)"),
 				ColumnSpec.decode("max(86dlu;default)"),
-				ColumnSpec.decode("max(82dlu;pref)"),
-				ColumnSpec.decode("max(84dlu;pref)"),},
+				ColumnSpec.decode("max(166dlu;min)"),},
 			new RowSpec[] {
 				RowSpec.decode("max(44dlu;default)"),
 				FormSpecs.DEFAULT_ROWSPEC,
@@ -129,36 +70,35 @@ public class ListarArquivos extends JFrame implements ActionListener{
 				RowSpec.decode("max(247dlu;default):grow"),
 				RowSpec.decode("max(99dlu;default)"),}));
 		
+		comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Selecione o tipo do arquivo:", "Declaração de IR", "Boleto Bancário"}));
+		comboBox.addActionListener(this);
+		painel_central.add(comboBox, "2, 1, fill, default");
+		
 		titulo = new JLabel("Arquivos");
 		titulo.setHorizontalAlignment(SwingConstants.LEFT);
 		titulo.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		painel_central.add(titulo, "2, 2");
-//		bt_refresh = new JButton("Recarregar");
-//		bt_refresh.addActionListener(this);
-//		painel_central.add(bt_refresh, "1, 1");
-		
-		/*
-		bt_filtro = new JButton("Filtrar por ");
-		bt_filtro.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		bt_filtro.setBackground(new Color(255, 255, 255));
-		bt_filtro.addActionListener(this);
-		
-		painel_central.add(bt_filtro, "4, 2");
-		
-		comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "PDF", "JSON", "XML"}));
-		comboBox.setBackground(new Color(255, 255, 255));
-		painel_central.add(comboBox, "5, 2, fill, default");
-		*/
+
 		bt_carregar = new JButton("Carregar arquivo");
 		bt_carregar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		bt_carregar.setIcon(new ImageIcon(ListarArquivos.class.getResource("/com/leitordoc/views/icons/enviar.png")));
 		bt_carregar.setBackground(new Color(255, 255, 255));
 		bt_carregar.addActionListener(this);
 		
+		lblNewLabel = new JLabel("Arquivos com erro");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		painel_central.add(lblNewLabel, "4, 2");
+		
 		tabela = new JTable();
 		barraRolagem = new JScrollPane(tabela);
-		painel_central.add(barraRolagem, "2, 4, 4, 1, fill, fill");
+		painel_central.add(barraRolagem, "2, 4, fill, fill");
+		
+		janelaErro = new JScrollPane();
+		painel_central.add(janelaErro, "4, 4, fill, fill");
+		
+		tabelaErro = new JTable();
+		janelaErro.setViewportView(tabelaErro);
 		
 		painel_central.add(bt_carregar, "2, 5");
 		
@@ -168,7 +108,7 @@ public class ListarArquivos extends JFrame implements ActionListener{
 		bt_excluir.setBackground(new Color(255, 255, 255));
 		bt_excluir.addActionListener(this);
 		
-		painel_central.add(bt_excluir, "5, 5");
+		painel_central.add(bt_excluir, "4, 5");
 		
 		this.addWindowListener(new WindowAdapter() {
 			@Override
@@ -215,80 +155,22 @@ public class ListarArquivos extends JFrame implements ActionListener{
 		
 	}
 	
+	public void salvarArquivoPasta() {
+		
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==bt_carregar) {
 			carregarArquivo();
 		}
-		if(e.getSource()==bt_excluir) {
+		else if(e.getSource()==bt_excluir) {
 			excluirArquivo();
+		}
+		else if(e.getSource()==comboBox) {
+			salvarArquivoPasta();
 		}
 		
 	}
-	/*
-	public JButton getBt_documento() {
-		return bt_documento;
-	}
- 
-	public void setBt_documento(JButton bt_documento) {
-		this.bt_documento = bt_documento;
-	}
-
-	public JButton getBt_contato() {
-		return bt_contato;
-	}
-
-	public void setBt_contato(JButton bt_contato) {
-		this.bt_contato = bt_contato;
-	}
-
-	public JButton getBt_consulta() {
-		return bt_consulta;
-	}
-
-	public void setBt_consulta(JButton bt_consulta) {
-		this.bt_consulta = bt_consulta;
-	}
-
-	public JButton getBt_configuracao() {
-		return bt_configuracao;
-	}
-
-	public void setBt_configuracao(JButton bt_configuracao) {
-		this.bt_configuracao = bt_configuracao;
-	}
-	
-	public JButton getBt_filtro() {
-		return bt_filtro;
-	}
-
-	public void setBt_filtro(JButton bt_filtro) {
-		this.bt_filtro = bt_filtro;
-	}
-	
-	public JButton getBt_carregar() {
-		return bt_carregar;
-	}
-
-	public void setBt_carregar(JButton bt_carregar) {
-		this.bt_carregar = bt_carregar;
-	}
-
-	public JButton getBt_excluir() {
-		return bt_excluir;
-	}
-
-	public void setBt_excluir(JButton bt_excluir) {
-		this.bt_excluir = bt_excluir;
-	}
-	/*
-	public JComboBox getComboBox() {
-		return comboBox;
-	}
-
-	public void setComboBox(JComboBox comboBox) {
-		this.comboBox = comboBox;
-	}
-	*/
 	
 }
