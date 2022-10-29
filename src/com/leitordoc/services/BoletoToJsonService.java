@@ -1,8 +1,16 @@
 package com.leitordoc.services;
 
+// Importing java input/output classes
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
+import org.xml.sax.SAXException;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import com.aspose.pdf.*;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
@@ -16,7 +24,7 @@ public class BoletoToJsonService {
 	private String readExtractionString;
 	private String tableExtractionString;
 	
-	public static String convert (String filePath) {
+	public static String convert (String filePath) {	
 		BoletoToJsonService service = new BoletoToJsonService();
 		try {
 			service.setReadExtractionMethod(filePath);
@@ -25,42 +33,40 @@ public class BoletoToJsonService {
 		}
 		service.setTableExtractionMethod(filePath);
 		String readEString = service.getReadExtractionString();
-//		System.out.println("res" + readEString);
+//		System.out.println(readEString);
 		String fichaCompensacao1 = Boleto1Utils.getFichaCompensacao(readEString);
+//		System.out.println(fichaCompensacao1);
 		String tableEString = service.getTableExtractionString();
 		//Primeiro item docBeneficiario, segundo docPagador
 		String[] documentos = Boleto1Utils.getDocs(readEString);
-//		if (documentos[0] == null || documentos[1] == null) {
-//			documentos = Boleto2Utils.getDocs(tableEString);
-//		}
-//		String linhaDigitavel = Boleto1Utils.getLinhaDigitavel(readEString);
-		
-//		String codBanco = Boleto1Utils.getCodBanco(fichaCompensacao);
-//		// Para transformar todos os valores numa string de apenas números StringUtils.toNumbersOnly(string);
-//		String valor = Boleto1Utils.getValor(fichaCompensacao);
-//		// A primeira data é "mais cedo", portanto é a data de emissão, a segunda data, a de vencimento
-//		Date[] datas = Boleto1Utils.getDatas(fichaCompensacao);
-//		String localPagamento = Boleto1Utils.getLocalPagamento(fichaCompensacao);
-//		String nomBeneficiario = Boleto1Utils.getNomBeneficiario(fichaCompensacao);
-//		String codigoBeneficiario = Boleto1Utils.getCodigoBeneficiario(fichaCompensacao);
-//		String nomePagador = Boleto1Utils.getNomePagador(fichaCompensacao);
-//		String multa = Boleto1Utils.getMulta(fichaCompensacao);		
-//		String nossoNumero = Boleto1Utils.getNossoNumero(fichaCompensacao);
-//		String carteira = Boleto1Utils.getCarteira(fichaCompensacao);
-//		String mora = Boleto1Utils.getMora(fichaCompensacao);
-//		String aceite = Boleto1Utils.getAceite(fichaCompensacao1);
+		if (documentos[0] == null || documentos[1] == null) {
+			documentos = Boleto2Utils.getDocs(tableEString);
+		}
+		String linhaDigitavel = Boleto1Utils.getLinhaDigitavel(readEString);
+		String codBanco = Boleto1Utils.getCodBanco(readEString);
+		// Para transformar todos os valores numa string de apenas números StringUtils.toNumbersOnly(string);
+		String valor = Boleto1Utils.getValor(fichaCompensacao1);
+		// A primeira data é "mais cedo", portanto é a data de emissão, a segunda data, a de vencimento
+		Date[] datas = Boleto1Utils.getDatas(fichaCompensacao1);
+		String localPagamento = Boleto1Utils.getLocalPagamento(fichaCompensacao1);
+		String nomBeneficiario = Boleto1Utils.getNomBeneficiario(fichaCompensacao1);
+		String codigoBeneficiario = Boleto1Utils.getCodigoBeneficiario(fichaCompensacao1);
+		String nomePagador = Boleto1Utils.getNomePagador(fichaCompensacao1);
+		String multa = Boleto1Utils.getMulta(fichaCompensacao1);		
+		String nossoNumero = Boleto1Utils.getNossoNumero(fichaCompensacao1);
+		String carteira = Boleto1Utils.getCarteira(fichaCompensacao1);
+		String mora = Boleto1Utils.getMora(fichaCompensacao1);
+		String aceite = Boleto1Utils.getAceite(fichaCompensacao1);
 		String instrucoes = Boleto1Utils.getInstrucoes(fichaCompensacao1);
-		System.out.println("instrucoes: " + instrucoes);
-//		
-//		BoletoBancario bb = new BoletoBancario(1, "descricao", 
-//		"C:\\Users\\Usuario\\Desktop\\boleto.pdf", "tipo", 
-//		nomBeneficiario, documentos[0], codigoBeneficiario, codBanco, 
-//		nomePagador, documentos[1], linhaDigitavel, datas[0], datas[1], 
-//		valor, nossoNumero, localPagamento, multa, carteira, mora);
-//		
-//		System.out.println(new Gson().toJson(bb));
-//		return new Gson().toJson(bb); //Boleto em Json
-			return "";
+		String moeda = Boleto1Utils.getMoeda(fichaCompensacao1);
+		BoletoBancario bb = new BoletoBancario(1, "descricao", 
+		"C:\\Users\\Usuario\\Desktop\\boleto.pdf", "tipo", 
+		nomBeneficiario, documentos[0], codigoBeneficiario, codBanco, 
+		nomePagador, documentos[1], linhaDigitavel, datas[0], datas[1], 
+		valor, nossoNumero, localPagamento, multa, carteira, mora, aceite, instrucoes);
+		
+		System.out.println(new Gson().toJson(bb));
+		return new Gson().toJson(bb); //Boleto em Json
 	}
 
 	
@@ -100,8 +106,8 @@ public class BoletoToJsonService {
 		            }
 		        }
 		    }
-//		    System.out.println(output);
 		    this.tableExtractionString = output;
+		    pdfDocument.close();
 	}
 	
 	public String getReadExtractionString() {

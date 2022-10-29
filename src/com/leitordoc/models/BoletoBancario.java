@@ -7,28 +7,7 @@ public class BoletoBancario extends Documento {
 	private String docBeneficiario;
 	private String codBeneficiario;
 	
-	public BoletoBancario(int id, String descricao, String filePath, String tipo, String nomBeneficiario,
-			String docBeneficiario, String codBeneficiario, String codBanco, String nomPagador, String docPagador,
-			String linhaDigitavel, Date emissao, Date vencimento, String valor, String nossoNumero,
-			String localPagamento, String multa, String carteira, String mora) {
-		super(id, descricao, filePath, tipo);
-		this.nomBeneficiario = nomBeneficiario;
-		this.docBeneficiario = docBeneficiario;
-		this.codBeneficiario = codBeneficiario;
-		this.codBanco = codBanco;
-		this.nomPagador = nomPagador;
-		this.docPagador = docPagador;
-		this.linhaDigitavel = linhaDigitavel;
-		this.emissao = emissao;
-		this.vencimento = vencimento;
-		this.valor = valor;
-		this.nossoNumero = nossoNumero;
-		this.localPagamento = localPagamento;
-		this.multa = multa;
-		this.carteira = carteira;
-		this.mora = mora;
-	}
-
+	
 	@Override
 	public String toString() {
 		return "BoletoBancario [nomBeneficiario=" + nomBeneficiario + ", docBeneficiario=" + docBeneficiario
@@ -194,7 +173,53 @@ public class BoletoBancario extends Documento {
 	public void setInstrucoes(String instrucoes) {
 		this.instrucoes = instrucoes;
 	}
+
+	public BoletoBancario(int id, String descricao, String filePath, String tipo, String nomBeneficiario,
+			String docBeneficiario, String codBeneficiario, String codBanco, String nomPagador, String docPagador,
+			String linhaDigitavel, Date emissao, Date vencimento, String valor, String nossoNumero,
+			String localPagamento, String multa, String carteira, String mora, String aceite, String instrucoes) {
+		super(id, descricao, filePath, tipo);
+		this.nomBeneficiario = nomBeneficiario;
+		this.docBeneficiario = docBeneficiario;
+		this.codBeneficiario = codBeneficiario;
+		this.codBanco = codBanco;
+		this.nomPagador = nomPagador;
+		this.docPagador = docPagador;
+		this.linhaDigitavel = linhaDigitavel;
+		this.emissao = emissao;
+		this.vencimento = vencimento;
+		this.valor = valor;
+		this.nossoNumero = nossoNumero;
+		this.localPagamento = localPagamento;
+		this.multa = multa;
+		this.carteira = carteira;
+		this.mora = mora;
+		this.aceite = aceite;
+		this.instrucoes = instrucoes;
+	}
 	
+	public BoletoBancario(int id, String descricao, String filePath, String tipo, String nomBeneficiario,
+			String docBeneficiario, String codBeneficiario, String codBanco, String nomPagador, String docPagador,
+			String linhaDigitavel, Date emissao, Date vencimento, String valor, String nossoNumero,
+			String localPagamento, String multa, String carteira, String mora) {
+		super(id, descricao, filePath, tipo);
+		this.nomBeneficiario = nomBeneficiario;
+		this.docBeneficiario = docBeneficiario;
+		this.codBeneficiario = codBeneficiario;
+		this.codBanco = codBanco;
+		this.nomPagador = nomPagador;
+		this.docPagador = docPagador;
+		this.linhaDigitavel = linhaDigitavel;
+		this.emissao = emissao;
+		this.vencimento = vencimento;
+		this.valor = valor;
+		this.nossoNumero = nossoNumero;
+		this.localPagamento = localPagamento;
+		this.multa = multa;
+		this.carteira = carteira;
+		this.mora = mora;
+	}
+
 	//Atributos							tem função para achar
 //	private String nomBeneficiario;		  ok
 //	private String docBeneficiario;       ok
@@ -215,6 +240,5 @@ public class BoletoBancario extends Documento {
 //	private double juros;
 //	private boolean aceite;				  ok
 //	private String instrucoes;			  ok
-//	private String especie;
-//	private String moeda;
+//	private String moeda;				  ok
 }
