@@ -14,6 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
@@ -194,7 +195,7 @@ public class ListarArquivos extends JFrame implements ActionListener{
 		
 	}
 	
-	public void carregarArquivos() {
+	public void carregarArquivo() {
 		JFileChooser fc = new JFileChooser();
 		int returnVal = fc.showOpenDialog(null);
 		if(returnVal==JFileChooser.APPROVE_OPTION) {
@@ -202,11 +203,25 @@ public class ListarArquivos extends JFrame implements ActionListener{
 			System.out.println("Abrindo: " + arquivo.getName());
 		}
 	}
-
+	
+	public void excluirArquivo() {
+		try {
+			System.out.println(tabela.getValueAt(tabela.getSelectedRow(), 0));
+		}
+		catch(Exception e) {
+			JOptionPane.showMessageDialog(null, "Nehum arquivo selecionado.");
+//			System.out.println(e); 
+		}
+		
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==bt_carregar) {
-			carregarArquivos();
+			carregarArquivo();
+		}
+		if(e.getSource()==bt_excluir) {
+			excluirArquivo();
 		}
 		
 	}
