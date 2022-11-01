@@ -13,15 +13,15 @@ import com.leitordoc.views.*;
 public class Main {
 
 	public static void main(String[] args) throws ParseException {
-		
-		BoletoToJsonController.convert("C:\\Users\\Usuario\\Desktop\\boleto.pdf", "C:\\Users\\Usuario\\Desktop\\jsons\\");
-//		System.out.println("\n");
-		BoletoToJsonController.convert("C:\\Users\\Usuario\\Desktop\\boleto-caki.pdf", "C:\\Users\\Usuario\\Desktop\\jsons\\");
-//		System.out.println("\n");
-		BoletoToJsonController.convert("C:\\Users\\Usuario\\Desktop\\boleto-sicredi.pdf", "C:\\Users\\Usuario\\Desktop\\jsons\\");
-		BoletoToJsonController.convert("C:\\Users\\Usuario\\Desktop\\boleto-bradesco.pdf", "C:\\Users\\Usuario\\Desktop\\jsons\\");
-		BoletoToJsonController.convert("C:\\Users\\Usuario\\Desktop\\boleto-safra.pdf", "C:\\Users\\Usuario\\Desktop\\jsons\\");
-		BoletoToJsonController.convert("C:\\Users\\Usuario\\Desktop\\boleto-nubank.pdf", "C:\\Users\\Usuario\\Desktop\\jsons\\");
-	}
 
+                                      // Pdf input                                    //output folder
+	//	BoletoToJsonController.convert("C:\\Users\\Usuario\\Desktop\\boleto.pdf", "C:\\Users\\Usuario\\Desktop\\jsons\\");
+	//	BoletoToJsonController.convert("C:\\Users\\Usuario\\Desktop\\boleto-caki.pdf", "C:\\Users\\Usuario\\Desktop\\jsons\\");
+	//	BoletoToJsonController.convert("C:\\Users\\Usuario\\Desktop\\boleto-sicredi.pdf", "C:\\Users\\Usuario\\Desktop\\jsons\\");
+	//	BoletoToJsonController.convert("C:\\Users\\Usuario\\Desktop\\boleto-bradesco.pdf", "C:\\Users\\Usuario\\Desktop\\jsons\\");
+  //	BoletoToJsonController.convert("C:\\Users\\Usuario\\Desktop\\boleto-safra.pdf", "C:\\Users\\Usuario\\Desktop\\jsons\\");
+  //	BoletoToJsonController.convert("C:\\Users\\Usuario\\Desktop\\boleto-nubank.pdf", "C:\\Users\\Usuario\\Desktop\\jsons\\");
+  //  BoletoToJsonController.convert("C:\\Users\\Usuario\\Desktop\\boleto-sicredi.pdf", "");
+
+	}
 }
