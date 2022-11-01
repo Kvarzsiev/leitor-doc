@@ -14,24 +14,14 @@ public class Main {
 
 	public static void main(String[] args) throws ParseException {
 
-		new ListarArquivos();
-		/*
-		try {
-			LeitorPdf lPdf = new LeitorPdf();
-//			lPdf.lerArquivo("C:\\Users\\Usuario\\Desktop\\boleto-caki.pdf");
-			lPdf.lerArquivo("C:\\Users\\Usuario\\Desktop\\boleto.pdf");
-		} 
-		catch (IOException ioe) {
-			System.out.println(ioe);
-		}
-		*/
-//	}
+                                      // Pdf input                                    //output folder
+	//	BoletoToJsonController.convert("C:\\Users\\Usuario\\Desktop\\boleto.pdf", "C:\\Users\\Usuario\\Desktop\\jsons\\");
+	//	BoletoToJsonController.convert("C:\\Users\\Usuario\\Desktop\\boleto-caki.pdf", "C:\\Users\\Usuario\\Desktop\\jsons\\");
+	//	BoletoToJsonController.convert("C:\\Users\\Usuario\\Desktop\\boleto-sicredi.pdf", "C:\\Users\\Usuario\\Desktop\\jsons\\");
+	//	BoletoToJsonController.convert("C:\\Users\\Usuario\\Desktop\\boleto-bradesco.pdf", "C:\\Users\\Usuario\\Desktop\\jsons\\");
+  //	BoletoToJsonController.convert("C:\\Users\\Usuario\\Desktop\\boleto-safra.pdf", "C:\\Users\\Usuario\\Desktop\\jsons\\");
+  //	BoletoToJsonController.convert("C:\\Users\\Usuario\\Desktop\\boleto-nubank.pdf", "C:\\Users\\Usuario\\Desktop\\jsons\\");
+  //  BoletoToJsonController.convert("C:\\Users\\Usuario\\Desktop\\boleto-sicredi.pdf", "");
 
-//		BoletoToJsonController.convert("C:\\Users\\Usuario\\Desktop\\boleto.pdf", "");
-//		System.out.println("\n");
-//		BoletoToJsonController.convert("C:\\Users\\Usuario\\Desktop\\boleto-caki.pdf", "");
-//		System.out.println("\n");
-//		BoletoToJsonController.convert("C:\\Users\\Usuario\\Desktop\\boleto-sicredi.pdf", "");
-		
 	}
 }
