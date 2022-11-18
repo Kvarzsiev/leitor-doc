@@ -77,14 +77,18 @@ public class Boleto1Utils {
 	}
 	
 	public static String getNomePagador (String fichaCompensacao) {
-		Pattern pattern = Pattern.compile("((Pagador)|(Sacado))[\\s\\w.A-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ.:/-@]*((CPF)|(CNPJ))");
+//		System.out.println("teste: " + fichaCompensacao);
+		Pattern pattern = Pattern.compile("((Pagador)|(Sacado))[\\s\\w.A-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ.:/\\-@]*((CPF)|(CNPJ))");
 		Matcher matcher = pattern.matcher(fichaCompensacao);
 		String match3 = "";
 		if (matcher.find())
 		{
 			String match = matcher.group();
+			System.out.println("match :" + match);
 		    String match2 = match.split("(Pagador)|(Sacado)")[1];
+		    System.out.println("match :" + match2);
 		    match3 = match2.split("(CPF)|(CNPJ)")[0];
+		    System.out.println("match :" + match3);
 		}
 		match3 = match3.replace("\n", "");
 		match3 = match3.replaceAll("\\s?[\\d-]+", "");
@@ -158,8 +162,9 @@ public class Boleto1Utils {
 	}
 	
 	public static String getLinhaDigitavel(String documento) {
+//		System.out.println(documento);
 		// Regex que acha linha digitavel
-		Pattern pattern = Pattern.compile("(\\s*\\d{9}\\.\\d{1} \\d{10}\\.\\d{1} \\d{10}\\.\\d{1} \\d{1} \\d{14})|(\\d{3}-\\d{1}\\s*\\d{5}\\.\\d{5} \\d{5}\\.\\d{6} \\d{5}\\.\\d{6} \\d{1} \\d{14})");
+		Pattern pattern = Pattern.compile("(\\s*\\d{9}\\.\\d{1} \\d{10}\\.\\d{1} \\d{10}\\.\\d{1} \\d{1} \\d{14})|(\\s*\\d{5}\\.\\d{5} \\d{5}\\.\\d{6} \\d{5}\\.\\d{6} \\d{1} \\d{14})");
 		Matcher matcher = pattern.matcher(documento);
 		String linhaDigitavel = "";
 		if (matcher.find()) {

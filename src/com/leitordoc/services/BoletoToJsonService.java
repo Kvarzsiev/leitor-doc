@@ -59,9 +59,8 @@ public class BoletoToJsonService {
 		String aceite = Boleto1Utils.getAceite(fichaCompensacao1);
 		String instrucoes = Boleto1Utils.getInstrucoes(fichaCompensacao1);
 		String moeda = Boleto1Utils.getMoeda(fichaCompensacao1);
-		BoletoBancario bb = new BoletoBancario(1, "descricao", 
-		"C:\\Users\\Usuario\\Desktop\\boleto.pdf", "tipo", 
-		nomBeneficiario, documentos[0], codigoBeneficiario, codBanco, 
+		BoletoBancario bb = new BoletoBancario(1, "descricao", filePath, "tipo", 
+		nomBeneficiario, documentos[0], codigoBeneficiario, moeda, codBanco, 
 		nomePagador, documentos[1], linhaDigitavel, datas[0], datas[1], 
 		valor, nossoNumero, localPagamento, multa, carteira, mora, aceite, instrucoes);
 		
