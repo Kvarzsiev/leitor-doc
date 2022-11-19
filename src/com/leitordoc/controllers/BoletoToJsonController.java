@@ -1,20 +1,24 @@
 package com.leitordoc.controllers;
 
+import com.google.gson.Gson;
+import com.leitordoc.models.BoletoBancario;
 import com.leitordoc.services.BoletoToJsonService;
-import com.leitordoc.repositories.SaveJsonRepository;
 import java.io.File;  // Import the File class
 import java.io.IOException;  // Import the IOException class to handle errors
 import java.io.FileWriter;   // Import the FileWriter class
 
 public class BoletoToJsonController {
 
-	public static void convert(String inputFilePath, String outputFilePath) {
-		String JSONString = BoletoToJsonService.convert(inputFilePath);
+	public static void convert(String inputFilePath) {
+		BoletoBancario bb = BoletoToJsonService.convert(inputFilePath);
 
+		String JSONString = new Gson().toJson(bb);
+		
 		//Pega o nome do arquivo e adiciona .json
 		String outputFileName = inputFilePath.split("Desktop[\\\\]{1}")[1];
 		outputFileName = (outputFileName.split("\\.pdf")[0]) + ".json";
 		
+		String outputFilePath = "./files/json/boleto";
 		save(outputFilePath + outputFileName, JSONString);
 	}
 	

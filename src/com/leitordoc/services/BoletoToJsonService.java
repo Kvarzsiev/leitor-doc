@@ -24,18 +24,15 @@ public class BoletoToJsonService {
 	private String readExtractionString;
 	private String tableExtractionString;
 	
-	public static String convert (String filePath) {	
+	public static BoletoBancario convert (String filePath) {	
 		BoletoToJsonService service = new BoletoToJsonService();
 		try {
 			service.setReadExtractionMethod(filePath);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		service.setTableExtractionMethod(filePath);
 		String readEString = service.getReadExtractionString();
-//		System.out.println(readEString);
 		String fichaCompensacao1 = Boleto1Utils.getFichaCompensacao(readEString);
-//		System.out.println(fichaCompensacao1);
 		String tableEString = service.getTableExtractionString();
 		//Primeiro item docBeneficiario, segundo docPagador
 		String[] documentos = Boleto1Utils.getDocs(readEString);
@@ -65,7 +62,7 @@ public class BoletoToJsonService {
 		valor, nossoNumero, localPagamento, multa, carteira, mora, aceite, instrucoes);
 		
 		System.out.println(new Gson().toJson(bb));
-		return new Gson().toJson(bb); //Boleto em Json
+		return bb; //Boleto em Json
 	}
 
 	
@@ -81,34 +78,6 @@ public class BoletoToJsonService {
 		documento.close();
 	}
 
-	public void setTableExtractionMethod(String filePath) {
-//		 String filePath = "C:\\Users\\Usuario\\Desktop\\boleto-caki.pdf";
-		    com.aspose.pdf.Document pdfDocument = new com.aspose.pdf.Document(filePath);
-		    com.aspose.pdf.TableAbsorber absorber = new com.aspose.pdf.TableAbsorber();
-		    String output = null;
-		    // Scan pages
-		    for (com.aspose.pdf.Page page : pdfDocument.getPages()) {
-		        absorber.visit(page);
-		        for (com.aspose.pdf.AbsorbedTable table : absorber.getTableList()) {
-//		            System.out.println("Table");
-		            // Iterate throught list of rows
-		            for (com.aspose.pdf.AbsorbedRow row : table.getRowList()) {
-		                // Iterate throught list of cell
-		                for (com.aspose.pdf.AbsorbedCell cell : row.getCellList()) {
-		                    for (com.aspose.pdf.TextFragment fragment : cell.getTextFragments()) {
-		                        StringBuilder sb = new StringBuilder();
-		                        for (com.aspose.pdf.TextSegment seg : fragment.getSegments())
-		                            sb.append(seg.getText());
-		                        output += sb.toString() + "|";
-		                    }
-		                }
-		            }
-		        }
-		    }
-		    this.tableExtractionString = output;
-		    pdfDocument.close();
-	}
-	
 	public String getReadExtractionString() {
 		return readExtractionString;
 	}

@@ -1,6 +1,7 @@
 package com.leitordoc.models;
 
 import java.util.Date;
+import com.leitordoc.validators.BoletoBancarioValidator;
 
 public class BoletoBancario extends Documento {
 	private String nomBeneficiario;
@@ -21,7 +22,17 @@ public class BoletoBancario extends Documento {
 	private String mora;
 	private String aceite;
 	private String instrucoes;
-
+	private BoletoBancarioValidator validator;
+	
+	@Override
+	public String toString() {
+		return "BoletoBancario [nomBeneficiario=" + nomBeneficiario + ", docBeneficiario=" + docBeneficiario
+				+ "\n, codBeneficiario=" + codBeneficiario + ", codBanco=" + codBanco + ", nomPagador=" + nomPagador
+				+ ", docPagador=" + docPagador + ",\n linhaDigitavel=" + linhaDigitavel + ", emissao=" + emissao
+				+ ", \n vencimento=" + vencimento + ", valor=" + valor + ", nossoNumero=" + nossoNumero
+				+ ", \n localPagamento=" + localPagamento + ", multa=" + multa + ", carteira=" + carteira + ", mora="
+				+ mora + "]";
+	}
 	
 	public String getNomBeneficiario() {
 		return nomBeneficiario;
@@ -204,4 +215,11 @@ public class BoletoBancario extends Documento {
 		this.instrucoes = instrucoes;
 	}
 
+	public BoletoBancarioValidator getValidator() {
+		return validator;
+	}
+
+	public void setValidator(BoletoBancarioValidator validator) {
+		this.validator = validator;
+	}
 }
