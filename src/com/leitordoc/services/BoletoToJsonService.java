@@ -1,6 +1,5 @@
 package com.leitordoc.services;
 
-// Importing java input/output classes
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -12,6 +11,7 @@ import java.io.IOException;
 import java.util.Date;
 import com.aspose.pdf.*;
 
+import org.apache.pdfbox.multipdf.Splitter;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 
@@ -22,7 +22,6 @@ import com.leitordoc.utils.Boleto1Utils;
 
 public class BoletoToJsonService {
 	private String readExtractionString;
-	private String tableExtractionString;
 	
 	public static BoletoBancario convert (String filePath) {	
 		BoletoToJsonService service = new BoletoToJsonService();
@@ -33,12 +32,8 @@ public class BoletoToJsonService {
 		}
 		String readEString = service.getReadExtractionString();
 		String fichaCompensacao1 = Boleto1Utils.getFichaCompensacao(readEString);
-		String tableEString = service.getTableExtractionString();
 		//Primeiro item docBeneficiario, segundo docPagador
 		String[] documentos = Boleto1Utils.getDocs(readEString);
-		if (documentos[0] == null || documentos[1] == null) {
-			documentos = Boleto2Utils.getDocs(tableEString);
-		}
 		String linhaDigitavel = Boleto1Utils.getLinhaDigitavel(readEString);
 		String codBanco = Boleto1Utils.getCodBanco(readEString);
 		// Para transformar todos os valores numa string de apenas números StringUtils.toNumbersOnly(string);
@@ -80,8 +75,5 @@ public class BoletoToJsonService {
 
 	public String getReadExtractionString() {
 		return readExtractionString;
-	}
-	public String getTableExtractionString() {
-		return tableExtractionString;
 	}
 }

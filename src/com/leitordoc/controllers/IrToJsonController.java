@@ -1,18 +1,20 @@
 package com.leitordoc.controllers;
 
 import com.google.gson.Gson;
-import com.leitordoc.models.BoletoBancario;
+import com.leitordoc.models.DeclaracaoIR;
 import com.leitordoc.services.BoletoToJsonService;
+import com.leitordoc.services.IrToJsonService;
+
 import java.io.File;  
 import java.io.IOException; 
-import java.io.FileWriter;  
+import java.io.FileWriter;   
 
-public class BoletoToJsonController {
+public class IrToJsonController {
 
 	public static void convert(String inputFilePath) {
-		BoletoBancario bb = BoletoToJsonService.convert(inputFilePath);
+		DeclaracaoIR dir = IrToJsonService.convert(inputFilePath);
 
-		String JSONString = new Gson().toJson(bb);
+		String JSONString = new Gson().toJson(dir);
 		
 		//Pega o nome do arquivo e adiciona .json
 		String outputFileName = inputFilePath.split("Desktop[\\\\]{1}")[1];
