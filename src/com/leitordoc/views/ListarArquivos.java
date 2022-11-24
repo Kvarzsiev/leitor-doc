@@ -71,7 +71,7 @@ public class ListarArquivos extends JFrame implements ActionListener{
 				RowSpec.decode("max(99dlu;default)"),}));
 		
 		comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Selecione o tipo do arquivo:", "Declaração de IR", "Boleto Bancário"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Boleto Bancário", "Declaração de IR"}));
 		comboBox.addActionListener(this);
 		painel_central.add(comboBox, "2, 1, fill, default");
 		
