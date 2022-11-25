@@ -17,7 +17,6 @@ import org.apache.pdfbox.text.PDFTextStripper;
 
 import com.google.gson.Gson;
 import com.leitordoc.models.BoletoBancario;
-import com.leitordoc.utils.Boleto2Utils;
 import com.leitordoc.utils.Boleto1Utils;
 
 public class BoletoToJsonService {

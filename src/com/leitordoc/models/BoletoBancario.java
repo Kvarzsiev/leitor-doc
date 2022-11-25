@@ -22,7 +22,6 @@ public class BoletoBancario extends Documento {
 	private String mora;
 	private String aceite;
 	private String instrucoes;
-	private BoletoBancarioValidator validator;
 	
 	@Override
 	public String toString() {
@@ -215,11 +214,4 @@ public class BoletoBancario extends Documento {
 		this.instrucoes = instrucoes;
 	}
 
-	public BoletoBancarioValidator getValidator() {
-		return validator;
-	}
-
-	public void setValidator(BoletoBancarioValidator validator) {
-		this.validator = validator;
-	}
 }
