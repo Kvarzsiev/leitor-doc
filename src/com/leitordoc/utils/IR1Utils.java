@@ -55,8 +55,21 @@ public class IR1Utils {
 		return match3;
 	}
 //	private String anoCalendario;
-//	private Endereco endereco;
+	public static String getAnoCalendario(String page1) {
+		Pattern pattern = Pattern.compile("((ANO-CALENDÁRIO)|(ANO-CALENDARIO))\\s[\\d]{4}\\s");
+		Matcher matcher = pattern.matcher(page1);
+		String match3 = "";
+		if (matcher.find())
+		{
+			String match = matcher.group();
+		    String match2 = match.split("((ANO-CALENDÁRIO)|(ANO-CALENDARIO))\\s")[1];
+		    match3 = match2.split("\\s")[0];
+		}
+		return match3;
+	}
+//	private Endereco endereco; endereco utils
 //	private Ocupacao ocupacao;
+	
 //	private ArrayList<String> dependentes; 
 //	// TODO Simplificada vs completa
 //	private ArrayList<String> rendimentosJPDependentes;

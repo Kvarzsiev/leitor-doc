@@ -1,7 +1,9 @@
 package com.leitordoc.models;
 
+import java.util.ArrayList;
+
 public class Resumo {
-	private RendimentoTributavel rendimentoTributavel;
+	private ArrayList<RendimentoTributavel> rendimentosTributaveis;
 	private ImpostoPago impostoPago;
 	private String impostoRestituir;
 	private String saldoAPagar;
@@ -10,11 +12,11 @@ public class Resumo {
 	private EvolucaoPatrimonial evolucaoPatrimonial;
 	private OutrasInformacoes outrasInformacoes;
 	
-	public Resumo(RendimentoTributavel rendimentoTributavel, ImpostoPago impostoPago, String impostoRestituir,
+	public Resumo(ArrayList<RendimentoTributavel> rendimentosTributaveis, ImpostoPago impostoPago, String impostoRestituir,
 			String saldoAPagar, Parcelamento parcelamento, InformacaoBancaria informacaoBancaria,
 			EvolucaoPatrimonial evolucaoPatrimonial, OutrasInformacoes outrasInformacoes) {
 		super();
-		this.rendimentoTributavel = rendimentoTributavel;
+		this.rendimentosTributaveis = rendimentosTributaveis;
 		this.impostoPago = impostoPago;
 		this.impostoRestituir = impostoRestituir;
 		this.saldoAPagar = saldoAPagar;
@@ -23,11 +25,11 @@ public class Resumo {
 		this.evolucaoPatrimonial = evolucaoPatrimonial;
 		this.outrasInformacoes = outrasInformacoes;
 	}
-	public RendimentoTributavel getRendimentoTributavel() {
-		return rendimentoTributavel;
+	public ArrayList<RendimentoTributavel> getRendimentoTributavel() {
+		return rendimentosTributaveis;
 	}
-	public void setRendimentoTributavel(RendimentoTributavel rendimentoTributavel) {
-		this.rendimentoTributavel = rendimentoTributavel;
+	public void setRendimentoTributavel(ArrayList<RendimentoTributavel> rendimentosTributaveis) {
+		this.rendimentosTributaveis = rendimentosTributaveis;
 	}
 	public ImpostoPago getImpostoPago() {
 		return impostoPago;

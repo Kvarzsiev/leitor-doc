@@ -1,8 +1,7 @@
 package com.leitordoc.models;
 
 public class Endereco {
-	private String endereco;
-	private int numero;
+	private String numero;
 	private String complemento;
 	private String bairro;
 	private String municipio;
@@ -10,28 +9,22 @@ public class Endereco {
 	private String cep;
 	private String rua;
 	
-	public Endereco(String endereco, int numero, String complemento, String bairro, String municipio, String uf,
-			String cep, String rua) {
+	public Endereco(String rua, String numero, String complemento, String bairro, String municipio, String uf,
+			String cep) {
 		super();
-		this.endereco = endereco;
+		this.rua = rua;
 		this.numero = numero;
 		this.complemento = complemento;
 		this.bairro = bairro;
 		this.municipio = municipio;
 		this.uf = uf;
 		this.cep = cep;
-		this.rua = rua;
 	}
-	public String getEndereco() {
-		return endereco;
-	}
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
-	}
-	public int getNumero() {
+	
+	public String getNumero() {
 		return numero;
 	}
-	public void setNumero(int numero) {
+	public void setNumero(String numero) {
 		this.numero = numero;
 	}
 	public String getComplemento() {
