@@ -118,21 +118,49 @@ public class ListarArquivos extends JFrame implements ActionListener{
 		});
 		
 		this.setVisible(true);
-		getNomesArquivos();
+		getArquivosProcessados();
 	}
 	
-	public void getNomesArquivos() {
-//		Lista na tabela o nome de todos aruivos do diretório /com.leitordoc.arquivos
-		File file = new File(getClass().getResource("/com.leitordoc.arquivos").getFile());
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==bt_carregar) {
+//			carregarArquivo();
+			System.out.println();
+		}
+		else if(e.getSource()==bt_excluir) {
+			excluirArquivo();
+		}
+		else if(e.getSource()==comboBox) {
+			getArquivosProcessados();
+		}
+		
+	}
+	
+	public void getArquivosProcessados() {
+//		Lista na tabela o nome de todos arquivos do diretório com base no item selecionado no combobox
+		File file;
+//		Verifica qual opção esta selecionada no combobox para definir o diretório de arquivos a ser buscado os arquivos
+		if(comboBox.getSelectedIndex()==0) {
+			file = new File(getClass().getResource("/com.leitordoc.arquivos/boletos").getFile());
+		} else {
+			file = new File(getClass().getResource("/com.leitordoc.arquivos/irs").getFile());
+		}
+//		Cria array com todos arquivos do diretório
 		File[] files = file.listFiles();
-		DefaultTableModel model = (DefaultTableModel)tabela.getModel();
-		model.setColumnIdentifiers(new String[] {"Nome"});
+//		Cria objeto model para acessar propriedades da tabela
+		DefaultTableModel tableModel = (DefaultTableModel)tabela.getModel();
+		tableModel.setColumnIdentifiers(new String[] {"Nome"});
+//		Remove todas linhas da tabela
+		int numLinhas = tableModel.getRowCount();
+		for(int i=0;i<numLinhas;i++) {
+			tableModel.removeRow(0);
+		}
+//		Adiciona as linhas com nomes dos arquivos do diretorio especifico na tabela
 		Object[] row = new Object[1];
 		for(int i=0;i<files.length;i++) {
 			row[0] = files[i].getName();
-			model.addRow(row);
+		tableModel.addRow(row);
 		}
-		
 	}
 	
 	public void carregarArquivo() {
@@ -154,23 +182,4 @@ public class ListarArquivos extends JFrame implements ActionListener{
 		}
 		
 	}
-	
-	public void salvarArquivoPasta() {
-		
-	}
-	
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if(e.getSource()==bt_carregar) {
-			carregarArquivo();
-		}
-		else if(e.getSource()==bt_excluir) {
-			excluirArquivo();
-		}
-		else if(e.getSource()==comboBox) {
-			salvarArquivoPasta();
-		}
-		
-	}
-	
 }
