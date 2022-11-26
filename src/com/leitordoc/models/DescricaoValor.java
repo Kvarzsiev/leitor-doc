@@ -1,10 +1,11 @@
 package com.leitordoc.models;
 
-public class OutrasInformacoes {
+public class DescricaoValor {
 	private String descricao;
 	private String valor;
 	
-	public OutrasInformacoes(String descricao, String valor) {
+	
+	public DescricaoValor(String descricao, String valor) {
 		super();
 		this.descricao = descricao;
 		this.valor = valor;
