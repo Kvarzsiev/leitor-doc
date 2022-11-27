@@ -35,6 +35,7 @@ import com.leitordoc.utils.EnderecoUtils;
 import com.leitordoc.utils.IR1Utils;
 import com.leitordoc.utils.OcupacaoUtils;
 import com.leitordoc.utils.ResumoUtils;
+import com.leitordoc.validators.ResumoValidator;
 
 public class IrToJsonService {
 	private ArrayList<String> stringfiedPages;
@@ -60,6 +61,8 @@ public class IrToJsonService {
 		String anoCalendario = IR1Utils.getAnoCalendario(pages.get(0));
 		Endereco endereco = EnderecoUtils.mountEndereco(pages.get(0));
 		Ocupacao ocupacao = OcupacaoUtils.mountOcupacao(pages.get(0));
+		System.out.println(pages.get(0));
+//		ArrayList<String> dependentes = IR1Utils.getDependentes(pages.get(0));
 //		System.out.println(anoCalendario);
 
 //		private ArrayList<String> dependentes; 
@@ -76,8 +79,7 @@ public class IrToJsonService {
 		
 //		private Resumo resumo;
 		String paginasResumo = service.getResumoPages();
-//		Resumo resumo = 
-				ResumoUtils.mountResumo(paginasResumo);
+		ResumoValidator rv = ResumoUtils.mountResumo(paginasResumo);
 
 		
 		DeclaracaoIR dir = new DeclaracaoIR();

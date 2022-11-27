@@ -5,6 +5,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.leitordoc.models.BensEDireitos;
+import com.leitordoc.models.Dependente;
+import com.leitordoc.models.DependentesInf;
 import com.leitordoc.models.DividasOnus;
 import com.leitordoc.models.Endereco;
 import com.leitordoc.models.ImpostoPagoRetido;
@@ -67,10 +69,40 @@ public class IR1Utils {
 		}
 		return match3;
 	}
-//	private Endereco endereco; endereco utils
-//	private Ocupacao ocupacao;
+//	private DependentesInf dependentes; 
+	public static DependentesInf getDependentesInf(String page1) {
+		Pattern pattern = Pattern.compile("(DEPENDENTES)\\s[\\s\\w,à-úÀ-Ú.%()/\\-º]+\\s(ALIMENTANDOS)");
+		Matcher matcher = pattern.matcher(page1);
+		String match3 = "";
+		if (matcher.find())
+		{
+			String match = matcher.group();
+		    String match2 = match.split("(CPF)\\s")[1];
+		    match3 = match2.split("\\s(ALIMENTANDOS)")[0];
+		}
+		ArrayList<Dependente> dependentes = new ArrayList<Dependente>();
+		String[] arr = match3.split("\n");
+		if (arr.length > 0) {
+			for (int i = 0; i < arr.length; i++) {
+				String[] codSplit = arr[i].split("\\s", 2);
+				String cod = "";
+				if (codSplit.length > 0) {
+					cod = codSplit[0];
+				}
+				String nomeSplit = arr[i].split();
+				String nome = "";
+				if (nomeSplit > 0) {
+					nome = nomeSplit[0];
+				}
+				Dependente d = new Dependente(match3, match3, page1, match3);
+			}
+		}
+		
+		
+		return match3;
+	}
 	
-//	private ArrayList<String> dependentes; 
+
 //	// TODO Simplificada vs completa
 //	private ArrayList<String> rendimentosJPDependentes;
 //	private ArrayList<String> rendimentosPFExteriorTitular;
@@ -80,5 +112,4 @@ public class IR1Utils {
 //	private ImpostoPagoRetido impostoPagoRetido;
 //	private BensEDireitos bensEDireitos;
 //	private DividasOnus dividasOnus;
-//	private Resumo resumo;
 }

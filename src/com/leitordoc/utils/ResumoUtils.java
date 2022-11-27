@@ -5,19 +5,26 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.leitordoc.models.DescricaoValor;
+import com.leitordoc.models.InformacaoBancaria;
+import com.leitordoc.models.Parcelamento;
 import com.leitordoc.models.Resumo;
+import com.leitordoc.validators.ResumoValidator;
 
 public class ResumoUtils {
 	
-	public static Resumo mountResumo (String concatenatedFinalPages) {
+	public static ResumoValidator mountResumo (String concatenatedFinalPages) {
 		
-		System.out.println(concatenatedFinalPages);
 		ArrayList<DescricaoValor> arrRendimentoTributavel = getRendimentoTributavel(concatenatedFinalPages);
 		ArrayList<DescricaoValor> arrImpostoPago = getImpostoPago(concatenatedFinalPages);
 		String impostoRestituir = getImpostoRestituir(concatenatedFinalPages);
 		String saldoPagar = getSaldoPagar(concatenatedFinalPages);
-		Resumo r = new Resumo(arrRendimentoTributavel, arrImpostoPago, impostoRestituir, saldoPagar, null, null, null, null);
-		return r;
+		Parcelamento parcelamento = getParcelamento(concatenatedFinalPages);
+		InformacaoBancaria informacaoBancaria = getInformacaoBancaria(concatenatedFinalPages);
+		ArrayList<DescricaoValor> arrEvolucaoPatrimonial = getEvolucaoPatrimonial(concatenatedFinalPages);
+		ArrayList<DescricaoValor> arrOutrasInformacoes = getOutrasInformacoes(concatenatedFinalPages);
+		Resumo resumo = new Resumo(arrRendimentoTributavel, arrImpostoPago, impostoRestituir, saldoPagar, parcelamento, informacaoBancaria, arrEvolucaoPatrimonial, arrOutrasInformacoes);
+		ResumoValidator rv = new ResumoValidator(resumo);
+		return rv;
 	}
 	
 //	private RendimentoTributavel rendimentoTributavel;
@@ -47,7 +54,6 @@ public class ResumoUtils {
 	}
 //	private ImpostoPago impostoPago;
 	public static ArrayList<DescricaoValor> getImpostoPago(String pages) {
-		System.out.println(pages);
 		Pattern pattern = Pattern.compile("\\sIMPOSTO\\sPAGO\\s[\\s\\w,à-úÀ-Ú.%()/\\-º]*\\s((IMPOSTO\\sA\\sRESTITUIR)|(Imposto\\sa\\srestituir))");
 		Matcher matcher = pattern.matcher(pages);
 		String match3 = "";
@@ -98,7 +104,130 @@ public class ResumoUtils {
 		return match3;
 	}
 //	private Parcelamento parcelamento;
+	public static Parcelamento getParcelamento(String pages) {
+		Pattern pattern = Pattern.compile("((PARCELAMENTO)|(Parcelamento))\\s[\\s\\w,à-úÀ-Ú.%()/\\-º]+\\s((INFORMAÇÕES\\sBANCÁRIAS)|(Informações\\sbancárias))");
+		Matcher matcher = pattern.matcher(pages);
+		String match3 = "";
+		if (matcher.find())
+		{
+			String match = matcher.group();
+		    String match2 = match.split("((PARCELAMENTO)|(Parcelamento))\\s")[1];
+		    match3 = match2.split("\\s((INFORMAÇÕES\\sBANCÁRIAS)|(Informações\\sbancárias))")[0];
+		}
+		String[] a = match3.split("\\n");
+
+		String valorQuota = a[0].split("[A-zà-úÀ-Ú\\s/]+")[1];
+		String numQuotas = a[1].split("[A-zà-úÀ-Ú\\s/]+")[1];
+		Parcelamento parcelamento = new Parcelamento(valorQuota, numQuotas);
+		
+		return parcelamento;
+	}
 //	private InformacaoBancaria informacaoBancaria;
+	public static InformacaoBancaria getInformacaoBancaria(String pages) {
+		Pattern pattern = Pattern.compile("((INFORMAÇÕES\\sBANCÁRIAS)|(Informações\\sbancárias))\\s[\\s\\w,à-úÀ-Ú.%()/\\-º]+\\sConta\\spara\\scrédito\\s([\\d,./-]+)?");
+		Matcher matcher = pattern.matcher(pages);
+		String match3 = "";
+		if (matcher.find())
+		{
+			String match = matcher.group();
+		    match3 = match.split("((INFORMAÇÕES\\sBANCÁRIAS)|(Informações\\sbancárias))\\s")[1];
+		}
+		String[] a = match3.split("\\n");
+
+		String tipConta = "";
+		String banco = "";
+		String agencia = "";
+		String contaCredito = "";
+		if (a.length > 0) {
+
+			for (int i = 0; i < a.length; i++) {
+				switch (i) {
+					case 0: 
+						String[] splitTipConta = a[i].split("[A-zà-úÀ-Ú\\s/]+");
+						if (splitTipConta.length > 0) {
+							tipConta = splitTipConta[1];
+						}
+						break;
+					case 1:
+						String[] splitBanco = a[i].split("[A-zà-úÀ-Ú\\s/]+");
+						if (splitBanco.length > 0) {
+							banco = splitBanco[1];
+						}
+						break;
+					case 2:
+						String[] splitAgencia = a[i].split("[A-zà-úÀ-Ú\\s/]+");
+						if (splitAgencia.length > 0) {
+							agencia = splitAgencia[1];
+						}
+						break;
+					case 3:
+						String[] splitContaCredito = a[i].split("[A-zà-úÀ-Ú\\s/]+");
+						if (splitContaCredito.length > 0) {
+							contaCredito = splitContaCredito[1];
+						}
+						break;
+				}
+			}
+		}
+		InformacaoBancaria informacaoBancaria = new InformacaoBancaria(tipConta, banco, agencia, contaCredito);
+		return informacaoBancaria;
+	}
 //	private EvolucaoPatrimonial evolucaoPatrimonial;
+	public static ArrayList<DescricaoValor> getEvolucaoPatrimonial(String pages) {
+		Pattern pattern = Pattern.compile("((EVOLUÇÃO\\sPATRIMONIAL)|(Evolução\\spatrimonial))\\s[\\s\\w,à-úÀ-Ú.%()/\\-º]+\\s(OUTRAS\\sINFORMAÇÕES)");
+		Matcher matcher = pattern.matcher(pages);
+		String match3 = "";
+		if (matcher.find())
+		{
+			String match = matcher.group();
+		    String match2 = match.split("((EVOLUÇÃO\\sPATRIMONIAL)|(Evolução\\spatrimonial))\\s")[1];
+		    match3 = match2.split("\\s(OUTRAS\\sINFORMAÇÕES)")[0];
+		}
+		String[] a = match3.split("\\n");
+		
+		ArrayList<DescricaoValor> arrEvolucaoPatrimonial = new ArrayList<DescricaoValor>();
+		if (a.length > 0) {
+			for (int i = 0; i < a.length; i++) {
+				String descricao = a[i].split("[\\d.,]+")[0];
+				String valor = a[i].split("[A-zà-úÀ-Ú\\s/]+")[1];
+				DescricaoValor evolucaoPatrimonial = new DescricaoValor(descricao, valor);
+				arrEvolucaoPatrimonial.add(evolucaoPatrimonial);
+			}
+		}
+		
+		return arrEvolucaoPatrimonial;
+	}
 //	private OutrasInformacoes outrasInformacoes;
+	public static ArrayList<DescricaoValor> getOutrasInformacoes(String pages) {
+		Pattern pattern = Pattern.compile("(OUTRAS\\sINFORMAÇÕES)\\s[\\s\\w,à-úÀ-Ú.%()/\\-º]+\\sPágina");
+		Matcher matcher = pattern.matcher(pages);
+		String match3 = "";
+		if (matcher.find())
+		{
+			String match = matcher.group();
+		    String match2 = match.split("(OUTRAS\\sINFORMAÇÕES)\\s")[1];
+		    match3 = match2.split("\\sPágina")[0];
+		}
+		String[] a = match3.split("\\n");
+		
+		ArrayList<DescricaoValor> arrOutrasInformacoes = new ArrayList<DescricaoValor>();
+		if (a.length > 0) {
+			for (int i = 0; i < a.length; i++) {
+				String[] splitDescricao = a[i].split("[\\d.,]+");
+				String descricao = "";
+				if (splitDescricao.length > 0) {
+					descricao = splitDescricao[0];
+				}
+				String[] splitValor = a[i].split("[A-zà-úÀ-Ú\\s/]+");
+				String valor = "";
+				if (splitValor.length > 0) {
+					descricao = splitValor[1];
+				}
+				DescricaoValor outraInformacao = new DescricaoValor(descricao, valor);
+				arrOutrasInformacoes.add(outraInformacao);
+			}
+		}
+		
+		return arrOutrasInformacoes;
+	}
 }
