@@ -77,34 +77,63 @@ public class IR1Utils {
 		if (matcher.find())
 		{
 			String match = matcher.group();
+			if (match.contains("Sem Informações")) {
+				return new DependentesInf(new ArrayList<Dependente>(), "");
+			}
 		    String match2 = match.split("(CPF)\\s")[1];
 		    match3 = match2.split("\\s(ALIMENTANDOS)")[0];
 		}
 		ArrayList<Dependente> dependentes = new ArrayList<Dependente>();
 		String[] arr = match3.split("\n");
+		int i = 0;
 		if (arr.length > 0) {
-			for (int i = 0; i < arr.length; i++) {
-				String[] codSplit = arr[i].split("\\s", 2);
+			for (i = 0; i < arr.length - 1; i++) {
+				Pattern codPattern = Pattern.compile("[\\d]{2}\\s");
+				Matcher codMatcher = codPattern.matcher(arr[i]);
 				String cod = "";
-				if (codSplit.length > 0) {
-					cod = codSplit[0];
+				if (codMatcher.find()) {
+					cod = codMatcher.group();
 				}
-				String nomeSplit = arr[i].split();
+				Pattern nomePattern = Pattern.compile("[\\d]{2}\\s[\\s\\wà-úÀ-Ú'\\-]+\\s[\\d]{2}\\/[\\d]{2}\\/[\\d]{4}");
+				Matcher nomeMatcher = nomePattern.matcher(arr[i]);
 				String nome = "";
-				if (nomeSplit > 0) {
-					nome = nomeSplit[0];
+				if (nomeMatcher.find()) {
+					nome = nomeMatcher.group();
+					String[] nomeSplit = nome.split("[\\d]{2}\\s");
+					
+					if (nomeSplit.length > 0) {
+						nome = nomeSplit[1];
+					}
+					nomeSplit = nome.split("\\s[\\d]{2}\\/[\\d]{2}\\/[\\d]{4}");
+					if (nomeSplit.length > 0) {
+						nome = nomeSplit[0];
+					}
 				}
-				Dependente d = new Dependente(match3, match3, page1, match3);
+				Pattern datNascPattern = Pattern.compile("[\\d]{2}\\/[\\d]{2}\\/[\\d]{4}");
+				Matcher datNascMatcher = datNascPattern.matcher(arr[i]);
+				String datNasc = "";
+				if (datNascMatcher.find()) {
+					datNasc = datNascMatcher.group();
+				}
+				Pattern cpfPattern = Pattern.compile("(\\d{3}\\.\\d{3}\\.\\d{3}((\\-)|(\\/))\\d{2})");
+				Matcher cpfMatcher = cpfPattern.matcher(arr[i]);
+				String cpf = "";
+				if (cpfMatcher.find()) {
+					cpf = cpfMatcher.group();
+				}
+				Dependente d = new Dependente(cod, nome, datNasc, cpf);
+				dependentes.add(d);
 			}
 		}
-		
-		
-		return match3;
+		String totalDeducao = arr[i].split("DEPENDENTES\\s")[1];
+		DependentesInf di = new DependentesInf(dependentes, totalDeducao);
+		return di;
 	}
 	
+//	private ArrayList<String> rendimentosPJDependentes;
 
 //	// TODO Simplificada vs completa
-//	private ArrayList<String> rendimentosJPDependentes;
+
 //	private ArrayList<String> rendimentosPFExteriorTitular;
 //	private ArrayList<String> rendimentosPFExteriorDependente;
 //	private RendimentoNaoTributavelIsento rendimentoNaoTributavelIsento;

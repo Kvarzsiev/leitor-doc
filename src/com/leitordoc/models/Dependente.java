@@ -1,6 +1,7 @@
 package com.leitordoc.models;
 
 public class Dependente {
+
 	private String codigo;
 	private String nome;
 	private String dataNasc;
@@ -36,5 +37,9 @@ public class Dependente {
 	}
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
+	}
+	@Override
+	public String toString() {
+		return "Dependente [codigo=" + codigo + ", nome=" + nome + ", dataNasc=" + dataNasc + ", cpf=" + cpf + "]";
 	}
 }

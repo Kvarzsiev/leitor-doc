@@ -14,7 +14,7 @@ public class Main {
 
                                       // Pdf input                               
 //		BoletoToJsonController.convert("C:\\Users\\Usuario\\Desktop\\boleto.pdf");
-//		IrToJsonController.convert("C:\\Users\\Usuario\\Desktop\\dir1.pdf");
-		IrToJsonController.convert("C:\\Users\\Usuario\\Desktop\\dirMae.pdf");
+		IrToJsonController.convert("C:\\Users\\Usuario\\Desktop\\dir1.pdf");
+//		IrToJsonController.convert("C:\\Users\\Usuario\\Desktop\\dirMae.pdf");
 	}
 }

@@ -23,6 +23,7 @@ import com.google.gson.Gson;
 import com.leitordoc.models.BensEDireitos;
 import com.leitordoc.models.BoletoBancario;
 import com.leitordoc.models.DeclaracaoIR;
+import com.leitordoc.models.DependentesInf;
 import com.leitordoc.models.DividasOnus;
 import com.leitordoc.models.Endereco;
 import com.leitordoc.models.ImpostoPagoRetido;
@@ -34,6 +35,7 @@ import com.leitordoc.utils.Boleto1Utils;
 import com.leitordoc.utils.EnderecoUtils;
 import com.leitordoc.utils.IR1Utils;
 import com.leitordoc.utils.OcupacaoUtils;
+import com.leitordoc.utils.RendimentoNaoTributavelIsentoUtils;
 import com.leitordoc.utils.ResumoUtils;
 import com.leitordoc.validators.ResumoValidator;
 
@@ -49,29 +51,33 @@ public class IrToJsonService {
 	public static DeclaracaoIR convert (String filePath) {	
 		IrToJsonService service = new IrToJsonService();
 		try {
-			service.setReadExtractionMethod(filePath);
+			// lê o pdf e salva num array de strings (páginas)
+			service.setRead(filePath);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		ArrayList<String> sortBypages = service.getStringfiedPages();
 		ArrayList<String> pages = service.getStringfiedPages();
 		
-		String nome = IR1Utils.getNome(pages.get(0));
-		String cpf = IR1Utils.getCPF(pages.get(0));
-		String exercicio = IR1Utils.getExercicio(pages.get(0));
-		String anoCalendario = IR1Utils.getAnoCalendario(pages.get(0));
-		Endereco endereco = EnderecoUtils.mountEndereco(pages.get(0));
-		Ocupacao ocupacao = OcupacaoUtils.mountOcupacao(pages.get(0));
-		System.out.println(pages.get(0));
-//		ArrayList<String> dependentes = IR1Utils.getDependentes(pages.get(0));
+		String nome = IR1Utils.getNome(sortBypages.get(0));
+		String cpf = IR1Utils.getCPF(sortBypages.get(0));
+		String exercicio = IR1Utils.getExercicio(sortBypages.get(0));
+		String anoCalendario = IR1Utils.getAnoCalendario(sortBypages.get(0));
+		Endereco endereco = EnderecoUtils.mountEndereco(sortBypages.get(0));
+		Ocupacao ocupacao = OcupacaoUtils.mountOcupacao(sortBypages.get(0));
+		DependentesInf dependentesInf = IR1Utils.getDependentesInf(sortBypages.get(0));
+		
+		String rendNaoTributaveisPages = service.getRendimentosNaoTributaveisPages();
+		ArrayList<RendimentoNaoTributavelIsento> rendimentoNaoTributavelIsento = RendimentoNaoTributavelIsentoUtils.mountRendimentoNaoTributavelIsento(rendNaoTributaveisPages);
+//		rendimentosRecebidosPJ
+//		ArrayList<String> rendimentosJPDependentes = IR1Utils;
 //		System.out.println(anoCalendario);
-
-//		private ArrayList<String> dependentes; 
 		
 //		// TODO Simplificada vs completa
 //		private ArrayList<String> rendimentosJPDependentes;
 //		private ArrayList<String> rendimentosPFExteriorTitular;
 //		private ArrayList<String> rendimentosPFExteriorDependente;
-//		private RendimentoNaoTributavelIsento rendimentoNaoTributavelIsento;
+
 //		private RendimentosTributacaoExclusiva rendimentosTributacaoExclusiva;
 //		private ImpostoPagoRetido impostoPagoRetido;
 //		private BensEDireitos bensEDireitos;
@@ -88,7 +94,7 @@ public class IrToJsonService {
 		return dir; //Boleto em Json
 	}
 
-	public void setReadExtractionMethod(String filePath) throws IOException {
+	public void setRead(String filePath) throws IOException {
 		File arquivo = new File(filePath);
 		PDDocument documento = PDDocument.load(arquivo);
 		Splitter splitter = new Splitter();
@@ -106,7 +112,6 @@ public class IrToJsonService {
 	public ArrayList<String> getStringfiedPages() {
 		return stringfiedPages;
 	}
-
 	public void addStringfiedPage(String stringfiedPage) {
 		this.stringfiedPages.add(stringfiedPage);
 	}
@@ -124,6 +129,29 @@ public class IrToJsonService {
 				}
 				break;
 			}
+		}
+		return paginasConcatenadas;
+	}
+	
+	public String getRendimentosNaoTributaveisPages() {
+		String paginasConcatenadas = "";
+		int i = 0;
+		int startPage = 0;
+		int finalPage = 0;
+		for (i = 0; i < this.stringfiedPages.size(); i++ ) {
+			Pattern startPattern = Pattern.compile("(RENDIMENTOS\\sISENTOS\\sE\\sNÃO\\sTRIBUTÁVEIS)");
+			Matcher startMatcher = startPattern.matcher(this.stringfiedPages.get(i));
+			if (startMatcher.find()) {
+				startPage = i;
+			}
+			Pattern finalPattern = Pattern.compile("RENDIMENTOS\\sSUJEITOS\\sÀ\\sTRIBUTAÇÃO\\sEXCLUSIVA\\s\\/\\sDEFINITIVA");
+			Matcher finalMatcher = finalPattern.matcher(this.stringfiedPages.get(i));
+			if (finalMatcher.find()) {
+				finalPage = i;
+			}
+		}
+		for (int j = startPage; j <= finalPage; j++) {
+			paginasConcatenadas = paginasConcatenadas.concat(this.stringfiedPages.get(j));
 		}
 		return paginasConcatenadas;
 	}

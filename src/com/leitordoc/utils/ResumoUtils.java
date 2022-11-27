@@ -13,7 +13,6 @@ import com.leitordoc.validators.ResumoValidator;
 public class ResumoUtils {
 	
 	public static ResumoValidator mountResumo (String concatenatedFinalPages) {
-		
 		ArrayList<DescricaoValor> arrRendimentoTributavel = getRendimentoTributavel(concatenatedFinalPages);
 		ArrayList<DescricaoValor> arrImpostoPago = getImpostoPago(concatenatedFinalPages);
 		String impostoRestituir = getImpostoRestituir(concatenatedFinalPages);
@@ -32,8 +31,7 @@ public class ResumoUtils {
 		Pattern pattern = Pattern.compile("RENDIMENTOS\\sTRIBUTÁVEIS\\sE\\sDESCONTO\\sSIMPLIFICADO\\s[\\w\\d\\s,à-úÀ-Ú.%()/]*\\sIMPOSTO\\sPAGO");
 		Matcher matcher = pattern.matcher(pages);
 		String match3 = "";
-		if (matcher.find())
-		{
+		if (matcher.find()) {
 			String match = matcher.group();
 		    String match2 = match.split("RENDIMENTOS\\sTRIBUTÁVEIS\\sE\\sDESCONTO\\sSIMPLIFICADO\\s")[1];
 		    match3 = match2.split("\\sIMPOSTO\\sPAGO")[0];

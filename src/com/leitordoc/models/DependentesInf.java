@@ -6,7 +6,6 @@ public class DependentesInf {
 	private ArrayList<Dependente> dependentes;
 	private String deducaoTotal;
 	
-	
 	public DependentesInf(ArrayList<Dependente> dependentes, String deducaoTotal) {
 		super();
 		this.dependentes = dependentes;
@@ -23,5 +22,9 @@ public class DependentesInf {
 	}
 	public void setDeducaoTotal(String deducaoTotal) {
 		this.deducaoTotal = deducaoTotal;
+	}
+	@Override
+	public String toString() {
+		return "DependentesInf [dependentes=" + dependentes + ", deducaoTotal=" + deducaoTotal + "]";
 	} 
 }
