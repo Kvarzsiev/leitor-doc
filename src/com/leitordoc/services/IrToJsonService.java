@@ -32,6 +32,7 @@ import com.leitordoc.models.RendimentoNaoTributavelIsento;
 import com.leitordoc.models.Rendimentos;
 import com.leitordoc.models.RendimentosTributacaoExclusiva;
 import com.leitordoc.models.Resumo;
+import com.leitordoc.utils.BensEDireitosUtils;
 import com.leitordoc.utils.Boleto1Utils;
 import com.leitordoc.utils.DividasOnusUtils;
 import com.leitordoc.utils.EnderecoUtils;
@@ -83,6 +84,9 @@ public class IrToJsonService {
 //		private ArrayList<String> rendimentosPFExteriorDependente;
 
 //		private ImpostoPagoRetido impostoPagoRetido;
+		
+		String bensEDireitosPages = service.getBensDireitosPages();
+		BensEDireitos bensEDireitos = BensEDireitosUtils.mountBensEDireitos(bensEDireitosPages);
 //		private BensEDireitos bensEDireitos;
 		String dividasOnusPages = service.getDividasOnusPages();
 		DividasOnus dividasOnus = DividasOnusUtils.mountDividasOnus(dividasOnusPages);
@@ -112,14 +116,12 @@ public class IrToJsonService {
 		}
 		documento.close();
 	}
-	
 	public ArrayList<String> getStringfiedPages() {
 		return stringfiedPages;
 	}
 	public void addStringfiedPage(String stringfiedPage) {
 		this.stringfiedPages.add(stringfiedPage);
 	}
-
 	public String getResumoPages() {
 		String paginasConcatenadas = "";
 		int trueIndexer = this.stringfiedPages.size() - 1;
@@ -136,17 +138,18 @@ public class IrToJsonService {
 		}
 		return paginasConcatenadas;
 	}
-	
 	public String getRendimentosNaoTributaveisPages() {
 		String paginasConcatenadas = "";
 		int i = 0;
 		int startPage = 0;
+		Boolean encontrouStartPage = false;
 		int finalPage = 0;
 		for (i = 0; i < this.stringfiedPages.size(); i++ ) {
 			Pattern startPattern = Pattern.compile("(RENDIMENTOS\\sISENTOS\\sE\\sNÃO\\sTRIBUTÁVEIS)");
 			Matcher startMatcher = startPattern.matcher(this.stringfiedPages.get(i));
-			if (startMatcher.find()) {
+			if (startMatcher.find() && !encontrouStartPage) {
 				startPage = i;
+				encontrouStartPage = true;
 			}
 			Pattern finalPattern = Pattern.compile("RENDIMENTOS\\sSUJEITOS\\sÀ\\sTRIBUTAÇÃO\\sEXCLUSIVA\\s\\/\\sDEFINITIVA");
 			Matcher finalMatcher = finalPattern.matcher(this.stringfiedPages.get(i));
@@ -163,12 +166,14 @@ public class IrToJsonService {
 		String paginasConcatenadas = "";
 		int i = 0;
 		int startPage = 0;
+		Boolean encontrouStartPage = false;
 		int finalPage = 0;
 		for (i = 0; i < this.stringfiedPages.size(); i++ ) {
 			Pattern startPattern = Pattern.compile("(RENDIMENTOS\\sSUJEITOS\\sÀ\\sTRIBUTAÇÃO\\sEXCLUSIVA\\s\\/\\sDEFINITIVA)");
 			Matcher startMatcher = startPattern.matcher(this.stringfiedPages.get(i));
-			if (startMatcher.find()) {
+			if (startMatcher.find() && !encontrouStartPage) {
 				startPage = i;
+				encontrouStartPage = true;
 			}
 			Pattern finalPattern = Pattern.compile("(RENDIMENTOS\\sTRIBUTÁVEIS\\sRECEBIDOS\\sDE\\sPESSOA\\sJURÍDICA\\sPELO\\sTITULAR)");
 			Matcher finalMatcher = finalPattern.matcher(this.stringfiedPages.get(i));
@@ -185,12 +190,14 @@ public class IrToJsonService {
 		String paginasConcatenadas = "";
 		int i = 0;
 		int startPage = 0;
+		Boolean encontrouStartPage = false;
 		int finalPage = 0;
 		for (i = 0; i < this.stringfiedPages.size(); i++ ) {
 			Pattern startPattern = Pattern.compile("(DÍVIDAS\\sE\\sÔNUS\\sREAIS)");
 			Matcher startMatcher = startPattern.matcher(this.stringfiedPages.get(i));
-			if (startMatcher.find()) {
+			if (startMatcher.find() && !encontrouStartPage) {
 				startPage = i;
+				encontrouStartPage = true;
 			}
 			Pattern finalPattern = Pattern.compile("(DOAÇÕES\\sA\\sPARTIDOS\\sPOLÍTICOS\\sE\\sCANDIDATOS\\sA\\sCARGOS\\sELETIVOS)");
 			Matcher finalMatcher = finalPattern.matcher(this.stringfiedPages.get(i));
@@ -207,14 +214,16 @@ public class IrToJsonService {
 		String paginasConcatenadas = "";
 		int i = 0;
 		int startPage = 0;
+		Boolean encontrouStartPage = false;
 		int finalPage = 0;
 		for (i = 0; i < this.stringfiedPages.size(); i++ ) {
-			Pattern startPattern = Pattern.compile("DECLARAÇÃO DE BENS E DIREITOS");
+			Pattern startPattern = Pattern.compile("DECLARAÇÃO\\sDE\\sBENS\\sE\\sDIREITOS");
 			Matcher startMatcher = startPattern.matcher(this.stringfiedPages.get(i));
-			if (startMatcher.find()) {
+			if (startMatcher.find() && !encontrouStartPage) {
 				startPage = i;
+				encontrouStartPage = true;
 			}
-			Pattern finalPattern = Pattern.compile("(DOAÇÕES\\sA\\sPARTIDOS\\sPOLÍTICOS\\sE\\sCANDIDATOS\\sA\\sCARGOS\\sELETIVOS)");
+			Pattern finalPattern = Pattern.compile("(DÍVIDAS\\sE\\sÔNUS\\sREAIS)");
 			Matcher finalMatcher = finalPattern.matcher(this.stringfiedPages.get(i));
 			if (finalMatcher.find()) {
 				finalPage = i;

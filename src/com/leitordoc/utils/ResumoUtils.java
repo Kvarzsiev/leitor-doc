@@ -122,7 +122,7 @@ public class ResumoUtils {
 	}
 //	private InformacaoBancaria informacaoBancaria;
 	public static InformacaoBancaria getInformacaoBancaria(String pages) {
-		Pattern pattern = Pattern.compile("((INFORMAÇÕES\\sBANCÁRIAS)|(Informações\\sbancárias))\\s[\\s\\w,à-úÀ-Ú.%()/\\-º]+\\sConta\\spara\\scrédito\\s([\\d,./-]+)?");
+		Pattern pattern = Pattern.compile("((INFORMAÇÕES\\sBANCÁRIAS)|(Informações\\sbancárias))\\s[\\s\\w,à-úÀ-Ú.%()/\\-º:]+\\sConta\\spara\\scrédito\\s([\\d,./-]+)?");
 		Matcher matcher = pattern.matcher(pages);
 		String match3 = "";
 		if (matcher.find())
@@ -137,13 +137,17 @@ public class ResumoUtils {
 		String agencia = "";
 		String contaCredito = "";
 		if (a.length > 0) {
-
 			for (int i = 0; i < a.length; i++) {
 				switch (i) {
 					case 0: 
-						String[] splitTipConta = a[i].split("[A-zà-úÀ-Ú\\s/]+");
-						if (splitTipConta.length > 0) {
+						//TODO rever esse campo no IR do Pai
+						String[] splitTipConta = a[i].split("[A-zà-úÀ-Ú\\s/\\:]+");
+						if (splitTipConta.length > 1) {
+//							System.out.println("a");
 							tipConta = splitTipConta[1];
+						} else if (splitTipConta.length > 0) {
+//							System.out.println("b");
+							tipConta = a[i];
 						}
 						break;
 					case 1:
