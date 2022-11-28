@@ -1,43 +1,21 @@
 package com.leitordoc.models;
 
+import java.util.ArrayList;
+
 public class DividasOnus {
-	private String codigo;
-	private String discriminacao;
-	private String situacao;
-	private String valorPago;
+	private ArrayList<DividaOnus> listaDividas;
 	private String total;
 	
-	public DividasOnus(String codigo, String discriminacao, String situacao, String valorPago, String total) {
+	public DividasOnus(ArrayList<DividaOnus> listaDividas, String total) {
 		super();
-		this.codigo = codigo;
-		this.discriminacao = discriminacao;
-		this.situacao = situacao;
-		this.valorPago = valorPago;
+		this.listaDividas = listaDividas;
 		this.total = total;
 	}
-	public String getCodigo() {
-		return codigo;
+	public ArrayList<DividaOnus> getListaDividas() {
+		return listaDividas;
 	}
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
-	}
-	public String getDiscriminacao() {
-		return discriminacao;
-	}
-	public void setDiscriminacao(String discriminacao) {
-		this.discriminacao = discriminacao;
-	}
-	public String getSituacao() {
-		return situacao;
-	}
-	public void setSituacao(String situacao) {
-		this.situacao = situacao;
-	}
-	public String getValorPago() {
-		return valorPago;
-	}
-	public void setValorPago(String valorPago) {
-		this.valorPago = valorPago;
+	public void setListaDividas(ArrayList<DividaOnus> listaDividas) {
+		this.listaDividas = listaDividas;
 	}
 	public String getTotal() {
 		return total;
@@ -45,4 +23,6 @@ public class DividasOnus {
 	public void setTotal(String total) {
 		this.total = total;
 	}
+	
+	
 }

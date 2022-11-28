@@ -30,19 +30,12 @@ public class ResumoValidator extends Validator {
 		this.validate(resumo.getImpostoRestituir());
 		this.validate(resumo.getSaldoAPagar());
 		this.validateParcelamento(resumo.getParcelamento());
-		this.validateInformacaoBancaria(resumo.getInformacaoBancaria());
 		this.validate(resumo.getEvolucaoPatrimonial());
-		this.validate(resumo.getOutrasInformacoes());
 	}
 	
 	private void validateParcelamento(Parcelamento parcelamento) {
 		this.validate(parcelamento.getValorQuota());
 		this.validate(parcelamento.getNumeroQuota());
 	}
-	private void validateInformacaoBancaria(InformacaoBancaria informacaoBancaria) {
-		this.validate(informacaoBancaria.getTipoDaConta());
-		this.validate(informacaoBancaria.getBanco());
-		this.validate(informacaoBancaria.getAgencia());
-		this.validate(informacaoBancaria.getConta());
-	}
+	
 }

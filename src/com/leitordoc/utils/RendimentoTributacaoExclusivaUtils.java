@@ -4,14 +4,15 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.leitordoc.models.RendimentoNaoTributavelIsento;
 import com.leitordoc.models.Rendimentos;
 
-public class RendimentoNaoTributavelIsentoUtils {
-	
-	public static ArrayList<Rendimentos> mountRendimentoNaoTributavelIsento (String pages) {
+public class RendimentoTributacaoExclusivaUtils {
+
+	public static ArrayList<Rendimentos> mountRendimentoTributacaoExclusiva (String pages) {
+//		System.out.println(pages);
 		ArrayList<Rendimentos> arr = new ArrayList<Rendimentos>();
-		Pattern pattern = Pattern.compile("RENDIMENTOS\\sISENTOS\\sE\\sNÃO\\sTRIBUTÁVEIS\\s[\\w\\d\\s,à-úÀ-Ú.%()/\\-º:]+\\sRENDIMENTOS\\sSUJEITOS\\sÀ\\sTRIBUTAÇÃO\\sEXCLUSIVA\\s\\/\\sDEFINITIVA");
+		// Separa a parte necessária do resto das páginas
+		Pattern pattern = Pattern.compile("RENDIMENTOS\\sSUJEITOS\\sÀ\\sTRIBUTAÇÃO\\sEXCLUSIVA\\s\\/\\sDEFINITIVA\\s[\\w\\d\\s,à-úÀ-Ú.%()/\\-º:]+\\s(RENDIMENTOS\\sTRIBUTÁVEIS\\sRECEBIDOS\\sDE\\sPESSOA\\sJURÍDICA\\sPELO\\sTITULAR)");
 		Matcher matcher = pattern.matcher(pages);
 		String match = "";
 		if (matcher.find()) {
@@ -19,7 +20,7 @@ public class RendimentoNaoTributavelIsentoUtils {
 		}
 		// Pode ser que retorne o cabeçalho (caso os campos estejam divididos em 2 páginas) - removendo cabeçalho abaixo
 		String[] split = match.split("Página\\s[\\w\\d\\s,à-úÀ-Ú.%()/\\-º:]+ANO-CALENDÁRIO\\s[\\d]{4}\\s");
-		if (split.length > 0) {
+		if (split.length > 1) {
 			String plchlder = split[0] + split[1];
 			match = plchlder;
 		}

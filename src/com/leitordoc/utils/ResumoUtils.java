@@ -28,7 +28,7 @@ public class ResumoUtils {
 	
 //	private RendimentoTributavel rendimentoTributavel;
 	public static ArrayList<DescricaoValor> getRendimentoTributavel(String pages) {
-		Pattern pattern = Pattern.compile("RENDIMENTOS\\sTRIBUTÁVEIS\\sE\\sDESCONTO\\sSIMPLIFICADO\\s[\\w\\d\\s,à-úÀ-Ú.%()/]*\\sIMPOSTO\\sPAGO");
+		Pattern pattern = Pattern.compile("RENDIMENTOS\\sTRIBUTÁVEIS\\sE\\sDESCONTO\\sSIMPLIFICADO\\s[\\w\\s,à-úÀ-Ú.%()/]*\\sIMPOSTO\\sPAGO");
 		Matcher matcher = pattern.matcher(pages);
 		String match3 = "";
 		if (matcher.find()) {
