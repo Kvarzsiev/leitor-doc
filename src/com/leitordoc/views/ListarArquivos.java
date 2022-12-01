@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -23,6 +24,8 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
+import com.leitordoc.controllers.BoletoToJsonController;
+
 import java.awt.FlowLayout;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
@@ -124,8 +127,7 @@ public class ListarArquivos extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==bt_carregar) {
-//			carregarArquivo();
-			System.out.println();
+			carregarArquivo();
 		}
 		else if(e.getSource()==bt_excluir) {
 			excluirArquivo();
@@ -174,11 +176,19 @@ public class ListarArquivos extends JFrame implements ActionListener{
 	}
 	
 	public void carregarArquivo() {
+		String filePath = null;
 		JFileChooser fc = new JFileChooser();
 		int returnVal = fc.showOpenDialog(null);
 		if(returnVal==JFileChooser.APPROVE_OPTION) {
-			File arquivo = fc.getSelectedFile();
-			System.out.println("Abrindo: " + arquivo.getName());
+			File file = fc.getSelectedFile();
+			filePath = file.getPath();
+			filePath = filePath.replace("\\", "\\\\");
+			System.out.println(filePath);
+			if(comboBox.getSelectedIndex()==0) {
+				BoletoToJsonController.convert(filePath, "");
+			} else if(comboBox.getSelectedIndex()==1){
+				
+			}
 		}
 	}
 	
