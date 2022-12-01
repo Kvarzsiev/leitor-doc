@@ -131,36 +131,46 @@ public class ListarArquivos extends JFrame implements ActionListener{
 			excluirArquivo();
 		}
 		else if(e.getSource()==comboBox) {
+//			Lista na tabela o nome de todos arquivos do diretório com base no item selecionado no combobox
 			getArquivosProcessados();
 		}
 		
 	}
 	
 	public void getArquivosProcessados() {
-//		Lista na tabela o nome de todos arquivos do diretório com base no item selecionado no combobox
-		File file;
-//		Verifica qual opção esta selecionada no combobox para definir o diretório de arquivos a ser buscado os arquivos
-		if(comboBox.getSelectedIndex()==0) {
-			file = new File(getClass().getResource("/com.leitordoc.arquivos/boletos").getFile());
-		} else {
-			file = new File(getClass().getResource("/com.leitordoc.arquivos/irs").getFile());
-		}
-//		Cria array com todos arquivos do diretório
-		File[] files = file.listFiles();
 //		Cria objeto model para acessar propriedades da tabela
 		DefaultTableModel tableModel = (DefaultTableModel)tabela.getModel();
 		tableModel.setColumnIdentifiers(new String[] {"Nome"});
-//		Remove todas linhas da tabela
-		int numLinhas = tableModel.getRowCount();
-		for(int i=0;i<numLinhas;i++) {
-			tableModel.removeRow(0);
+		File file;
+		File[] files;
+		try {
+//			Verifica qual opção esta selecionada no combobox para definir o diretório de arquivos a ser buscado os arquivos
+			if(comboBox.getSelectedIndex()==0) {
+				file = new File(getClass().getResource("/com.leitordoc.arquivos/boletos").getFile());
+			} else {
+				file = new File(getClass().getResource("/com.leitordoc.arquivos/irs").getFile());
+			}
+//			Cria array com todos arquivos do diretório
+			files = file.listFiles();
+//			Remove todas linhas da tabela
+			int numLinhas = tableModel.getRowCount();
+			for(int i=0;i<numLinhas;i++) {
+				tableModel.removeRow(0);
+			}
+//			Adiciona as linhas com nomes dos arquivos do diretorio especifico na tabela
+			Object[] row = new Object[1];
+			for(int i=0;i<files.length;i++) {
+				row[0] = files[i].getName();
+			tableModel.addRow(row);
+			}
+		} catch(NullPointerException e) {
+//			Remove todas linhas da tabela
+			int numLinhas = tableModel.getRowCount();
+			for(int i=0;i<numLinhas;i++) {
+				tableModel.removeRow(0);
+			}
 		}
-//		Adiciona as linhas com nomes dos arquivos do diretorio especifico na tabela
-		Object[] row = new Object[1];
-		for(int i=0;i<files.length;i++) {
-			row[0] = files[i].getName();
-		tableModel.addRow(row);
-		}
+
 	}
 	
 	public void carregarArquivo() {
