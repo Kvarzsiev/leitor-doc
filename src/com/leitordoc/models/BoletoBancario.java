@@ -2,7 +2,7 @@ package com.leitordoc.models;
 
 import java.util.Date;
 
-public class BoletoBancario extends Documento {
+public class BoletoBancario {
 	private String nomBeneficiario;
 	private String docBeneficiario;
 	private String codBeneficiario;
@@ -112,10 +112,6 @@ public class BoletoBancario extends Documento {
 	public void setMora(String mora) {
 		this.mora = mora;
 	}
-	public BoletoBancario(int id, String descricao, String filePath, String tipo) {
-		super(id, descricao, filePath, tipo);
-		// TODO Auto-generated constructor stub
-	}
 	public String getAceite() {
 		return aceite;
 	}
@@ -134,11 +130,10 @@ public class BoletoBancario extends Documento {
 	public void setMoeda(String moeda) {
 		this.moeda = moeda;
 	}
-	public BoletoBancario(int id, String descricao, String filePath, String tipo, String nomBeneficiario,
+	public BoletoBancario(String nomBeneficiario,
 			String docBeneficiario, String codBeneficiario, String codBanco, String nomPagador, String docPagador,
 			String linhaDigitavel, Date emissao, Date vencimento, String valor, String nossoNumero,
 			String localPagamento, String multa, String carteira, String mora, String aceite, String instrucoes) {
-		super(id, descricao, filePath, tipo);
 		this.nomBeneficiario = nomBeneficiario;
 		this.docBeneficiario = docBeneficiario;
 		this.codBeneficiario = codBeneficiario;
@@ -157,11 +152,10 @@ public class BoletoBancario extends Documento {
 		this.aceite = aceite;
 		this.instrucoes = instrucoes;
 	}
-	public BoletoBancario(int id, String descricao, String filePath, String tipo, String nomBeneficiario,
+	public BoletoBancario(String nomBeneficiario,
 			String docBeneficiario, String codBeneficiario, String codBanco, String nomPagador, String docPagador,
 			String linhaDigitavel, Date emissao, Date vencimento, String valor, String nossoNumero,
 			String localPagamento, String multa, String carteira, String mora) {
-		super(id, descricao, filePath, tipo);
 		this.nomBeneficiario = nomBeneficiario;
 		this.docBeneficiario = docBeneficiario;
 		this.codBeneficiario = codBeneficiario;
@@ -178,11 +172,10 @@ public class BoletoBancario extends Documento {
 		this.carteira = carteira;
 		this.mora = mora;
 	}
-	public BoletoBancario(int id, String descricao, String filePath, String tipo, String nomBeneficiario,
+	public BoletoBancario(String nomBeneficiario,
 			String docBeneficiario, String codBeneficiario, String moeda, String codBanco, String nomPagador,
 			String docPagador, String linhaDigitavel, Date emissao, Date vencimento, String valor, String nossoNumero,
 			String localPagamento, String multa, String carteira, String mora, String aceite, String instrucoes) {
-		super(id, descricao, filePath, tipo);
 		this.nomBeneficiario = nomBeneficiario;
 		this.docBeneficiario = docBeneficiario;
 		this.codBeneficiario = codBeneficiario;

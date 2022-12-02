@@ -16,6 +16,7 @@ public class IrToJsonController {
 		IRValidator irv = IrToJsonService.convert(inputFilePath);
 
 		String JSONString = new Gson().toJson(irv.getDir());
+//		System.out.println("teste: " + JSONString);
 		
 		//Pega o nome do arquivo e adiciona .json
 		String outputFileName = inputFilePath.split("Desktop[\\\\]{1}")[1];

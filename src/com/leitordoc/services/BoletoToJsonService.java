@@ -50,12 +50,12 @@ public class BoletoToJsonService {
 		String aceite = Boleto1Utils.getAceite(fichaCompensacao1);
 		String instrucoes = Boleto1Utils.getInstrucoes(fichaCompensacao1);
 		String moeda = Boleto1Utils.getMoeda(fichaCompensacao1);
-		BoletoBancario bb = new BoletoBancario(1, "descricao", filePath, "tipo", 
+		BoletoBancario bb = new BoletoBancario(
 		nomBeneficiario, documentos[0], codigoBeneficiario, moeda, codBanco, 
 		nomePagador, documentos[1], linhaDigitavel, datas[0], datas[1], 
 		valor, nossoNumero, localPagamento, multa, carteira, mora, aceite, instrucoes);
 		
-		System.out.println(new Gson().toJson(bb));
+//		System.out.println(new Gson().toJson(bb));
 		return bb; //Boleto em Json
 	}
 

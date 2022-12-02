@@ -5,8 +5,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.leitordoc.models.BensEDireitos;
+import com.leitordoc.models.Completa;
 import com.leitordoc.models.Dependente;
 import com.leitordoc.models.DependentesInf;
+import com.leitordoc.models.DescricaoValor;
 import com.leitordoc.models.DividasOnus;
 import com.leitordoc.models.Endereco;
 import com.leitordoc.models.ImpostoPagoRetido;
@@ -16,7 +18,6 @@ import com.leitordoc.models.RendimentosTributacaoExclusiva;
 import com.leitordoc.models.Resumo;
 
 public class IR1Utils {
-//	private String nome;
 	public static String getNome(String page1) {
 		Pattern pattern = Pattern.compile("NOME:[\\s\\w]*CPF");
 		Matcher matcher = pattern.matcher(page1);
@@ -26,11 +27,10 @@ public class IR1Utils {
 			String match = matcher.group();
 		    String match2 = match.split("NOME:")[1];
 		    match3 = match2.split("CPF")[0];
+		    match3 = match3.replace("\n", "");
 		}
 		return match3;
 	}
-	
-//	private String cpf;
 	public static String getCPF(String page1) {
 		Pattern pattern = Pattern.compile("CPF:\\s(\\d{3}\\.\\d{3}\\.\\d{3}((\\-)|(\\/))\\d{2})\\sIMPOSTO");
 		Matcher matcher = pattern.matcher(page1);
@@ -43,7 +43,6 @@ public class IR1Utils {
 		}
 		return match3;
 	}
-//	private String exercicio;
 	public static String getExercicio(String page1) {
 		Pattern pattern = Pattern.compile("((EXERCÍCIO)|(EXERCICIO))\\s[\\d]*\\sANO");
 		Matcher matcher = pattern.matcher(page1);
@@ -56,7 +55,6 @@ public class IR1Utils {
 		}
 		return match3;
 	}
-//	private String anoCalendario;
 	public static String getAnoCalendario(String page1) {
 		Pattern pattern = Pattern.compile("((ANO-CALENDÁRIO)|(ANO-CALENDARIO))\\s[\\d]{4}\\s");
 		Matcher matcher = pattern.matcher(page1);
@@ -69,7 +67,6 @@ public class IR1Utils {
 		}
 		return match3;
 	}
-//	private DependentesInf dependentes; 
 	public static DependentesInf getDependentesInf(String page1) {
 		Pattern pattern = Pattern.compile("(DEPENDENTES)\\s[\\s\\w,à-úÀ-Ú.%()/\\-º]+\\s(ALIMENTANDOS)");
 		Matcher matcher = pattern.matcher(page1);
@@ -129,16 +126,146 @@ public class IR1Utils {
 		DependentesInf di = new DependentesInf(dependentes, totalDeducao);
 		return di;
 	}
+	public static String getRendimentosPJDependentes(String pages) {
+		Pattern pattern = Pattern.compile("(?<=(RENDIMENTOS\\sTRIBUTÁVEIS\\sRECEBIDOS\\sDE\\sPESSOA\\sJURÍDICA\\sPELOS\\sDEPENDENTES))[\\w\\s,à-úÀ-Ú.%()/]+(?=(RENDIMENTOS\\sTRIBUTÁVEIS\\sRECEBIDOS\\sDE\\sPESSOA\\sFÍSICA\\sE\\sDO\\sEXTERIOR\\sPELO\\sTITULAR))");
+		Matcher matcher = pattern.matcher(pages);
+		String match3 = "";
+		if (matcher.find())
+		{
+			match3 = matcher.group();
+			
+			// Remove cabeçalho
+			String[] split = match3.split("Página\\s[\\w\\d\\s,à-úÀ-Ú.%()/\\-º:]+ANO-CALENDÁRIO\\s[\\d]{4}\\s");
+			if (split.length > 1) {
+				String plchlder = split[0] + split[1];
+				match3 = plchlder;
+			}
+		}
+		return match3;
+	}
+	public static String getRendimentosPFExteriorTitular(String pages) {
+		Pattern pattern = Pattern.compile("(?<=(RENDIMENTOS\\sTRIBUTÁVEIS\\sRECEBIDOS\\sDE\\sPESSOA\\sFÍSICA\\sE\\sDO\\sEXTERIOR\\sPELO\\sTITULAR))[\\w\\s,à-úÀ-Ú.%()/]+(?=(RENDIMENTOS\\sTRIBUTÁVEIS\\sRECEBIDOS\\sDE\\sPESSOA\\sFÍSICA\\sE\\sDO\\sEXTERIOR\\sPELOS\\sDEPENDENTES))");
+		Matcher matcher = pattern.matcher(pages);
+		String match3 = "";
+		if (matcher.find())
+		{
+			match3 = matcher.group();
+			
+			// Remove cabeçalho
+			String[] split = match3.split("Página\\s[\\w\\d\\s,à-úÀ-Ú.%()/\\-º:]+ANO-CALENDÁRIO\\s[\\d]{4}\\s");
+			if (split.length > 1) {
+				String plchlder = split[0] + split[1];
+				match3 = plchlder;
+			}
+		}
+		return match3;
+	}
 	
-//	private ArrayList<String> rendimentosPJDependentes;
+	public static String getRendimentosPFExteriorDependente (String pages) {
+		Pattern pattern = Pattern.compile("(?<=(RENDIMENTOS\\sTRIBUTÁVEIS\\sRECEBIDOS\\sDE\\sPESSOA\\sFÍSICA\\sE\\sDO\\sEXTERIOR\\sPELOS\\sDEPENDENTES))[\\w\\s,à-úÀ-Ú.%()/]+(?=(RENDIMENTOS\\sTRIBUTÁVEIS\\sRECEBIDOS\\sDE\\sPESSOA\\sFÍSICA\\sE\\sDO\\sEXTERIOR\\sPELOS\\sDEPENDENTES))");
+		Matcher matcher = pattern.matcher(pages);
+		String match3 = "";
+		if (matcher.find())
+		{
+			match3 = matcher.group();
+			
+			// Remove cabeçalho
+			String[] split = match3.split("Página\\s[\\w\\d\\s,à-úÀ-Ú.%()/\\-º:]+ANO-CALENDÁRIO\\s[\\d]{4}\\s");
+			if (split.length > 1) {
+				String plchlder = split[0] + split[1];
+				match3 = plchlder;
+			}
+		}
+		
+		return match3;
+	}
+	
+//	private ImpostoPagoRetido impostoPagoRetido;
+	public static ArrayList<ImpostoPagoRetido> getImpostoPagoRetido(String pages) {
+		ArrayList<ImpostoPagoRetido> impostoPagoRetidoArr = new ArrayList<ImpostoPagoRetido>();
+		Pattern pattern = Pattern.compile("(?<=(IMPOSTO\\sPAGO\\s\\/\\sRETIDO\\s))[\\w\\s,à-úÀ-Ú.%()/\\-º:]+\\s(?=(PAGAMENTOS\\sEFETUADOS))");
+		Matcher matcher = pattern.matcher(pages);
+		String match3 = "";
+		if (matcher.find())
+		{
+			String match = matcher.group();
+		    String[] plchldr = match.split("\\(Valores\\sem\\sReais\\)\\s");
+		    if (plchldr.length > 1) {
+		    	 match3 = plchldr[1];
+		    } else {
+		    	return impostoPagoRetidoArr;
+		    }
+		}
+		// Separa nas quebras de linha
+		String[] a = match3.split("\\n");
+		if (a.length > 0) {
+			for (int i = 0; i < a.length; i++) {
+//				System.out.println("linha: " + a[i]);
+				String razao = a[i].split("[\\d.,]+,\\d{2}")[0];
+//				System.out.println("Raz: " + razao);
+				String valor = a[i].split("[A-zà-úÀ-Ú\\s/:\\(\\)\\-]+")[1];
+//				System.out.println("Val: " + valor);
+				ImpostoPagoRetido impostoPagoRetido = new ImpostoPagoRetido(razao, valor);
+				impostoPagoRetidoArr.add(impostoPagoRetido);
+			}
+		}
+		
+		return impostoPagoRetidoArr;
+	}
 
-//	// TODO Simplificada vs completa
+	// TODO Simplificada vs completa
+	public static ArrayList<Completa> getRendTributRecebPessJurCompleta(String pages) {
+//		System.out.println(pages);
+		ArrayList<Completa> rendTributRecebPessJurCompletaArr = new ArrayList<Completa>();
+		Pattern pattern = Pattern.compile("(?<=(RENDIMENTOS\\sTRIBUTÁVEIS\\sRECEBIDOS\\sDE\\sPESSOA\\sJURÍDICA\\sPELO\\sTITULAR))[\\w\\s,à-úÀ-Ú.%()/\\-º:]+\\s(?=(RENDIMENTOS\\sTRIBUTÁVEIS\\sRECEBIDOS\\sDE\\sPESSOA\\sJURÍDICA\\sPELOS\\sDEPENDENTES))");
+		Matcher matcher = pattern.matcher(pages);
+		String match3 = "";
+		if (matcher.find())
+		{
+			String match = matcher.group();
+		    String[] plchldr = match.split("DE\\sPES.\\sJURÍDICA\\sOFICIAL\\sNA\\sFONTE\\sSALÁRIO\\s");
+		    if (plchldr.length > 1) {
+		    	 match3 = plchldr[1];
+		    } else {
+		    	return rendTributRecebPessJurCompletaArr;
+		    }
+		}
+		
+		Pattern itemPattern = Pattern.compile("[\\w\\s,à-úÀ-Ú.%()/:\\-]+?(\\d{2}\\.\\d{3}\\.\\d{3}\\/\\d{4}\\-\\d{2}\\s)|(\\d{3}\\.\\d{3}\\.\\d{3}((\\-)|(\\/))\\d{2}\\s)");
+		Matcher itemMatcher = itemPattern.matcher(match3);
+		while (itemMatcher.find())
+		{
+			String match = itemMatcher.group();
+			// Separa os valores
+			String[] plchldr = match.split("(?<=([\\d.]+,[\\d]{2}))\\s");
+			String fontePagadora = "";
+			String rendRecebidos = "";
+			String contrPrev = "";
+			String impRetido = "";
+			String _13Sal = "";
+			String irrf13Sal = "";
+			
+			if (plchldr.length == 6) {
+				String[] plchldr2 = plchldr[0].split("\\s(?=([\\d.]+,[\\d]{2}))");
+				
+				fontePagadora = plchldr2[0].concat(" "); 
+				fontePagadora = fontePagadora.concat(plchldr[5]);
+				fontePagadora = fontePagadora.replace("\n", " ");
+				rendRecebidos = plchldr2[1];
+				contrPrev = plchldr[1];
+				impRetido = plchldr[2];
+				_13Sal = plchldr[3];
+				irrf13Sal = plchldr[4];
+				
+			} 
+			
+			Completa c = new Completa(fontePagadora, rendRecebidos, contrPrev, impRetido, _13Sal, irrf13Sal);
+			rendTributRecebPessJurCompletaArr.add(c);
+		}
+		
+		return rendTributRecebPessJurCompletaArr;
+	}
 
 //	private ArrayList<String> rendimentosPFExteriorTitular;
 //	private ArrayList<String> rendimentosPFExteriorDependente;
-//	private RendimentoNaoTributavelIsento rendimentoNaoTributavelIsento;
-//	private RendimentosTributacaoExclusiva rendimentosTributacaoExclusiva;
-//	private ImpostoPagoRetido impostoPagoRetido;
-//	private BensEDireitos bensEDireitos;
-//	private DividasOnus dividasOnus;
 }

@@ -14,6 +14,7 @@ public class BoletoToJsonController {
 
 		String JSONString = new Gson().toJson(bb);
 		
+		
 		//Pega o nome do arquivo e adiciona .json
 		String outputFileName = inputFilePath.split("Desktop[\\\\]{1}")[1];
 		outputFileName = (outputFileName.split("\\.pdf")[0]) + ".json";
@@ -24,15 +25,16 @@ public class BoletoToJsonController {
 	
 	public static void save(String outputFilePath, String JSONString) {
 		try {
-			  // Cria arquivo (local e nome especificados no outputFilePath)
+			  // Referencia arquivo (local e nome especificados no outputFilePath)
 		      File myObj = new File(outputFilePath);
+		      // Cria arquivo se não existe
 		      if (myObj.createNewFile()) {
-		        System.out.println("File created: " + myObj.getName());
+		        System.out.println("Criado: " + myObj.getName());
 		      } else {
-		        System.out.println("File already exists.");
+		        System.out.println("Arquivo existente.");
 		      }
 		} catch (IOException e) {
-		      System.out.println("An error occurred.");
+		      System.out.println("Ocorreu um erro.");
 		      e.printStackTrace();
 		}
 		try {
@@ -41,7 +43,6 @@ public class BoletoToJsonController {
 		      myWriter.write(JSONString);
 		      myWriter.close();	  
 		} catch (IOException e) {
-
 		      e.printStackTrace();
 		}
 	}

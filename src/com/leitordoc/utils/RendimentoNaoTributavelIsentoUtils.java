@@ -19,17 +19,17 @@ public class RendimentoNaoTributavelIsentoUtils {
 		}
 		// Pode ser que retorne o cabeçalho (caso os campos estejam divididos em 2 páginas) - removendo cabeçalho abaixo
 		String[] split = match.split("Página\\s[\\w\\d\\s,à-úÀ-Ú.%()/\\-º:]+ANO-CALENDÁRIO\\s[\\d]{4}\\s");
-		if (split.length > 0) {
+		if (split.length > 1) {
 			String plchlder = split[0] + split[1];
 			match = plchlder;
 		}
 		// Separando cada tipo de rendimento
-		Pattern rendimentoPattern = Pattern.compile("[\\d]{2}.\\s[\\w\\d\\s,à-úÀ-Ú.%()/\\-º:]+?(?=(([\\d]{2}\\.\\s)|(TOTAL\\s)))");
+		Pattern rendimentoPattern = Pattern.compile("[\\d]{2}.\\s[\\w\\s,à-úÀ-Ú.%()/\\-º:]+?(?=(([\\d]{2}\\.\\s)|(TOTAL\\s)))");
 		Matcher rendimentoMatcher = rendimentoPattern.matcher(match);
 		String rendItem = "";
 		while (rendimentoMatcher.find()) {
 			rendItem = rendimentoMatcher.group();
-			Pattern tipPattern = Pattern.compile("[\\d]{2}\\.\\s[\\w\\d\\s,à-úÀ-Ú.%()/\\-º:]+?\\s(?=Beneficiário)");
+			Pattern tipPattern = Pattern.compile("[\\d]{2}\\.\\s[\\w\\s,à-úÀ-Ú.%()/\\-º:]+?\\s(?=Beneficiário)");
 			Matcher tipMatcher = tipPattern.matcher(rendItem);
 			String tipRend = "";
 			if (tipMatcher.find()) {
@@ -44,7 +44,7 @@ public class RendimentoNaoTributavelIsentoUtils {
 				total = totalMatcher.group();
 			}
 			// Separando cada item dentro do tipo de rendimento
-			Pattern itemTipoPattern = Pattern.compile("Titular\\s[\\w\\d\\s,à-úÀ-Ú.%()/\\-º:]+?(?=(Titular)|(marcadecaim))");
+			Pattern itemTipoPattern = Pattern.compile("Titular\\s[\\w\\s,à-úÀ-Ú.%()/\\-º:]+?(?=(Titular)|(marcadecaim))");
 			Matcher itemTipoMatcher = itemTipoPattern.matcher(rendItem + "marcadecaim");
 			String itemTipo = "";
 			while (itemTipoMatcher.find()) {
