@@ -25,6 +25,7 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
 import com.leitordoc.controllers.BoletoToJsonController;
+import com.leitordoc.controllers.IrToJsonController;
 
 import java.awt.FlowLayout;
 import javax.swing.JComboBox;
@@ -176,20 +177,39 @@ public class ListarArquivos extends JFrame implements ActionListener{
 	}
 	
 	public void carregarArquivo() {
-		String filePath = null;
-		JFileChooser fc = new JFileChooser();
-		int returnVal = fc.showOpenDialog(null);
-		if(returnVal==JFileChooser.APPROVE_OPTION) {
-			File file = fc.getSelectedFile();
-			filePath = file.getPath();
-			filePath = filePath.replace("\\", "\\\\");
-			System.out.println(filePath);
-			if(comboBox.getSelectedIndex()==0) {
-				BoletoToJsonController.convert(filePath, "");
-			} else if(comboBox.getSelectedIndex()==1){
-				
-			}
+		comboBox.setEnabled(false);
+//		Instancia do escolhedor de arquivos
+		JFileChooser escolhedor = new JFileChooser();
+//		Seta o escolhedor de arquivos para apensa permitir selecionar diretórios
+		escolhedor.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+//		armazena em opcao a escolha do usuário (qual botão ele apertou na janela do escolhedor (abrir ou cancelar))
+		int opcao = escolhedor.showOpenDialog(null);
+//		Verifica se opção escolhida na janela do escolhedor de arquivos foi de confirmar a escolha
+		if(opcao==JFileChooser.APPROVE_OPTION) {
+//			obtem objeto da pasta escolhida 
+			File folder = escolhedor.getSelectedFile();
+//			loop que chama o controllador para cada arquivo da pasta
+			for (File fileEntry : folder.listFiles()) {
+//				Se existir outras pastas dentro da pasta a iteração do loop eh pulada para proxima
+		        if (fileEntry.isDirectory()) {
+		            continue;
+		        }
+		        String filePath = fileEntry.getPath().replace("\\", "\\\\");
+		        System.out.println(filePath);
+		        try {
+			        if(comboBox.getSelectedIndex()==0) {
+						BoletoToJsonController.convert(filePath);
+					} else {
+						IrToJsonController.convert(filePath);
+					}
+		        } 
+		        catch(Exception e ) {
+		        	System.out.println(e.getLocalizedMessage());
+		        	comboBox.setEnabled(true);
+		        }
+		    }
 		}
+		comboBox.setEnabled(true);
 	}
 	
 	public void excluirArquivo() {
