@@ -138,7 +138,7 @@ public class ListarArquivos extends JFrame implements ActionListener{
 		        int col = tabela.columnAtPoint(evt.getPoint());
 		        if (row >= 0 && col >= 0) {
 		        	String selectedFile = (String) tabela.getValueAt(row, col);
-		        	System.out.println(selectedFile);
+//		        	System.out.println(selectedFile);
 		        	File folder;
 		        	File[] files;
 		        	try {
@@ -152,7 +152,7 @@ public class ListarArquivos extends JFrame implements ActionListener{
 		    				if(fileEntry.isDirectory()) {
 		    					continue;
 		    				} else if(fileEntry.getName().equals(selectedFile)) {
-		    					System.out.println(fileEntry.getAbsolutePath());
+//		    					System.out.println(fileEntry.getAbsolutePath());
 		    					String path = fileEntry.getAbsolutePath();
 		    					path.replace("\\", "\\\\");
 		    					Runtime.getRuntime().exec("notepad "+path);
@@ -175,7 +175,7 @@ public class ListarArquivos extends JFrame implements ActionListener{
 		        int col = tabelaErro.columnAtPoint(evt.getPoint());
 		        if (row >= 0 && col >= 0) {
 		        	String selectedFile = (String) tabelaErro.getValueAt(row, col);
-		        	System.out.println(selectedFile);
+//		        	System.out.println(selectedFile);
 		        	File folder;
 		        	File[] files;
 		        	try {
@@ -189,7 +189,7 @@ public class ListarArquivos extends JFrame implements ActionListener{
 		    				if(fileEntry.isDirectory()) {
 		    					continue;
 		    				} else if(fileEntry.getName().equals(selectedFile)) {
-		    					System.out.println(fileEntry.getAbsolutePath());
+//		    					System.out.println(fileEntry.getAbsolutePath());
 		    					String path = fileEntry.getAbsolutePath();
 		    					path.replace("\\", "\\\\");
 		    					Runtime.getRuntime().exec("notepad "+path);
@@ -208,6 +208,7 @@ public class ListarArquivos extends JFrame implements ActionListener{
 		
 		this.setVisible(true);
 		getArquivosProcessados();
+		getArquivosProcessadosComFalha();
 	}
 	
 	@Override
@@ -340,6 +341,8 @@ public class ListarArquivos extends JFrame implements ActionListener{
 		        }
 		    }
 		}
+//		getArquivosProcessados();
+//		getArquivosProcessadosComFalha();
 		comboBox.setEnabled(true);
 	}
 	
