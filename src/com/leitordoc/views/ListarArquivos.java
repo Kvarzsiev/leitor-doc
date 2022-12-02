@@ -214,6 +214,9 @@ public class ListarArquivos extends JFrame implements ActionListener{
 		});
 		
 		this.setVisible(true);
+		refreshTabelas();
+	}
+	public void refreshTabelas() { 
 		getArquivosProcessados();
 		getArquivosProcessadosComFalha();
 	}
@@ -222,14 +225,15 @@ public class ListarArquivos extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==bt_carregar) {
 			carregarArquivo();
+			refreshTabelas();
 		}
 		else if(e.getSource()==bt_excluir) {
 			excluirArquivo();
+			refreshTabelas();
 		}
 		else if(e.getSource()==comboBox) {
 //			Lista na tabela o nome de todos arquivos do diretório com base no item selecionado no combobox
-			getArquivosProcessados();
-			getArquivosProcessadosComFalha();
+			refreshTabelas();
 		}
 		
 	}
@@ -354,25 +358,37 @@ public class ListarArquivos extends JFrame implements ActionListener{
 	}
 	
 	public void excluirArquivo() {
+//		System.out.println(tabela.getSelectedRow()+" "+tabelaErro.getSelectedRow());
 		try {
-			System.out.println(tabela.getValueAt(tabela.getSelectedRow(), 0));
-			String selectedFile = (String) tabela.getValueAt(tabela.getSelectedRow(), 0);
 			File folder;
-        	File[] files;
-        	try {
-        		if(comboBox.getSelectedIndex()==0) {
+			String selectedFile;
+			if(tabela.getSelectedRow()>=0) {
+				selectedFile = (String) tabela.getValueAt(tabela.getSelectedRow(), 0);
+				if(comboBox.getSelectedIndex()==0) {
+    				folder = new File(getClass().getClassLoader().getResource("json/boleto").getFile());
+    			} else {
+    				folder = new File(getClass().getClassLoader().getResource("json/ir").getFile());
+    			}
+			} else {
+				selectedFile = (String) tabelaErro.getValueAt(tabelaErro.getSelectedRow(), 0);
+				if(comboBox.getSelectedIndex()==0) {
     				folder = new File(getClass().getClassLoader().getResource("json/boleto/falha").getFile());
     			} else {
     				folder = new File(getClass().getClassLoader().getResource("json/ir/falha").getFile());
     			}
+			}
+			
+					
+			System.out.println(selectedFile);
+//        	File[] files;
+        	try {
 //    			Cria array com todos arquivos do diretório
     			for (File fileEntry : folder.listFiles()) {
     				if(fileEntry.isDirectory()) {
     					continue;
     				} else if(fileEntry.getName().equals(selectedFile)) {
 //    					System.out.println(fileEntry.getAbsolutePath());
-    					String path = fileEntry.getAbsolutePath();
-    					path.replace("\\", "\\\\");
+    					fileEntry.delete();
     					System.out.println("Arquivo deletado");
     				}
 //    				System.out.println(fileEntry.getName());
@@ -384,8 +400,9 @@ public class ListarArquivos extends JFrame implements ActionListener{
 			}
 		}
 		catch(Exception e) {
-			JOptionPane.showMessageDialog(null, "Nehum arquivo selecionado.");
-//			System.out.println(e); 
+//			JOptionPane.showMessageDialog(null, "Nehum arquivo selecionado.");
+			e.printStackTrace();
+//			System.out.println(e.getMessage());
 		}
 		
 	}
