@@ -94,14 +94,24 @@ public class ListarArquivos extends JFrame implements ActionListener{
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		painel_central.add(lblNewLabel, "4, 2");
 		
-		tabela = new JTable();
+		tabela = new JTable() {
+			private static final long serialVersionUID = 1L;
+			public boolean isCellEditable(int row, int column) {                
+	            return false;               
+			}
+		};
 		barraRolagem = new JScrollPane(tabela);
 		painel_central.add(barraRolagem, "2, 4, fill, fill");
 		
 		janelaErro = new JScrollPane();
 		painel_central.add(janelaErro, "4, 4, fill, fill");
 		
-		tabelaErro = new JTable();
+		tabelaErro = new JTable() {
+			private static final long serialVersionUID = 1L;
+			public boolean isCellEditable(int row, int column) {                
+	            return false;               
+			}
+		};
 		janelaErro.setViewportView(tabelaErro);
 		
 		painel_central.add(bt_carregar, "2, 5");
@@ -119,6 +129,81 @@ public class ListarArquivos extends JFrame implements ActionListener{
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}
+		});
+//		Observa quando uma linha da tabela é cliacada
+		tabela.addMouseListener(new java.awt.event.MouseAdapter() {
+		    @Override
+		    public void mouseClicked(java.awt.event.MouseEvent evt) {
+		        int row = tabela.rowAtPoint(evt.getPoint());
+		        int col = tabela.columnAtPoint(evt.getPoint());
+		        if (row >= 0 && col >= 0) {
+		        	String selectedFile = (String) tabela.getValueAt(row, col);
+		        	System.out.println(selectedFile);
+		        	File folder;
+		        	File[] files;
+		        	try {
+		        		if(comboBox.getSelectedIndex()==0) {
+		    				folder = new File(getClass().getClassLoader().getResource("json/boleto").getFile());
+		    			} else {
+		    				folder = new File(getClass().getClassLoader().getResource("json/ir").getFile());
+		    			}
+//		    			Cria array com todos arquivos do diretório
+		    			for (File fileEntry : folder.listFiles()) {
+		    				if(fileEntry.isDirectory()) {
+		    					continue;
+		    				} else if(fileEntry.getName().equals(selectedFile)) {
+		    					System.out.println(fileEntry.getAbsolutePath());
+		    					String path = fileEntry.getAbsolutePath();
+		    					path.replace("\\", "\\\\");
+		    					Runtime.getRuntime().exec("notepad "+path);
+		    				}
+//		    				System.out.println(fileEntry.getName());
+		    			}
+//						
+					} catch (Exception e) {
+						System.out.println("Erro ao buscar arquivos em pasta");
+//						e.printStackTrace();
+					}
+
+		        }
+		    }
+		});
+		tabelaErro.addMouseListener(new java.awt.event.MouseAdapter() {
+		    @Override
+		    public void mouseClicked(java.awt.event.MouseEvent evt) {
+		        int row = tabelaErro.rowAtPoint(evt.getPoint());
+		        int col = tabelaErro.columnAtPoint(evt.getPoint());
+		        if (row >= 0 && col >= 0) {
+		        	String selectedFile = (String) tabelaErro.getValueAt(row, col);
+		        	System.out.println(selectedFile);
+		        	File folder;
+		        	File[] files;
+		        	try {
+		        		if(comboBox.getSelectedIndex()==0) {
+		    				folder = new File(getClass().getClassLoader().getResource("json/boleto/falha").getFile());
+		    			} else {
+		    				folder = new File(getClass().getClassLoader().getResource("json/ir/falha").getFile());
+		    			}
+//		    			Cria array com todos arquivos do diretório
+		    			for (File fileEntry : folder.listFiles()) {
+		    				if(fileEntry.isDirectory()) {
+		    					continue;
+		    				} else if(fileEntry.getName().equals(selectedFile)) {
+		    					System.out.println(fileEntry.getAbsolutePath());
+		    					String path = fileEntry.getAbsolutePath();
+		    					path.replace("\\", "\\\\");
+		    					Runtime.getRuntime().exec("notepad "+path);
+		    				}
+//		    				System.out.println(fileEntry.getName());
+		    			}
+//						
+					} catch (Exception e) {
+						System.out.println("Erro ao buscar arquivos em pasta");
+//						e.printStackTrace();
+					}
+
+		        }
+		    }
 		});
 		
 		this.setVisible(true);
