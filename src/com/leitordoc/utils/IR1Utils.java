@@ -186,7 +186,7 @@ public class IR1Utils {
 		if (matcher.find())
 		{
 			String match = matcher.group();
-		    String[] plchldr = match.split("\\(Valores\\sem\\sReais\\)\\s");
+		    String[] plchldr = match.split("(?<=(\\\\))[\\w\\s,à-úÀ-Ú.%()/\\-º:]+(?=(\\.pdf))");
 		    if (plchldr.length > 1) {
 		    	 match3 = plchldr[1];
 		    } else {

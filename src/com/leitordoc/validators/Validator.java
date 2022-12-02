@@ -1,11 +1,12 @@
 package com.leitordoc.validators;
 
+import java.util.Date;
 import java.util.ArrayList;
 
 import com.leitordoc.models.DescricaoValor;
 
 public abstract class Validator {
-	private boolean valido = true;
+	private Boolean valido = true;
 	
 	public Validator() {
 		super();
@@ -13,7 +14,7 @@ public abstract class Validator {
 	public boolean isValido() {
 		return valido;
 	}
-	public void setValido(boolean valido) {
+	public void setValido(Boolean valido) {
 		this.valido = valido;
 	}
 	// Verdadeiro até provado o contrário :p

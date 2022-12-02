@@ -3,23 +3,35 @@ package com.leitordoc.controllers;
 import com.google.gson.Gson;
 import com.leitordoc.models.BoletoBancario;
 import com.leitordoc.services.BoletoToJsonService;
+import com.leitordoc.validators.BoletoBancarioValidator;
+
 import java.io.File;  
-import java.io.IOException; 
+import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.io.FileWriter;  
 
 public class BoletoToJsonController {
 
 	public static void convert(String inputFilePath) {
-		BoletoBancario bb = BoletoToJsonService.convert(inputFilePath);
+		BoletoBancarioValidator bbv = BoletoToJsonService.convert(inputFilePath);
 
-		String JSONString = new Gson().toJson(bb);
+		String JSONString = new Gson().toJson(bbv.getBoleto());
 		
+		Pattern pattern = Pattern.compile("(?<=(\\\\))[\\w\\s,à-úÀ-Ú.%()/\\-º:]+(?=(\\.pdf))");
+		Matcher matcher = pattern.matcher(inputFilePath);
+		String outputFileName = "";
+		if (matcher.find())
+		{
+			outputFileName = matcher.group();
+		}
+		outputFileName = outputFileName + ".json";
 		
-		//Pega o nome do arquivo e adiciona .json
-		String outputFileName = inputFilePath.split("Desktop[\\\\]{1}")[1];
-		outputFileName = (outputFileName.split("\\.pdf")[0]) + ".json";
+		String outputFilePath = "./files/json/boleto/";
+		if (!bbv.isValido()) {
+			outputFilePath = "./files/json/boleto/falha/";
+		}
 		
-		String outputFilePath = "./files/json/boleto";
 		save(outputFilePath + outputFileName, JSONString);
 	}
 	

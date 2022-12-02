@@ -18,11 +18,12 @@ import org.apache.pdfbox.text.PDFTextStripper;
 import com.google.gson.Gson;
 import com.leitordoc.models.BoletoBancario;
 import com.leitordoc.utils.Boleto1Utils;
+import com.leitordoc.validators.BoletoBancarioValidator;
 
 public class BoletoToJsonService {
 	private String readExtractionString;
 	
-	public static BoletoBancario convert (String filePath) {	
+	public static BoletoBancarioValidator convert (String filePath) {	
 		BoletoToJsonService service = new BoletoToJsonService();
 		try {
 			service.setReadExtractionMethod(filePath);
@@ -55,8 +56,8 @@ public class BoletoToJsonService {
 		nomePagador, documentos[1], linhaDigitavel, datas[0], datas[1], 
 		valor, nossoNumero, localPagamento, multa, carteira, mora, aceite, instrucoes);
 		
-//		System.out.println(new Gson().toJson(bb));
-		return bb; //Boleto em Json
+		BoletoBancarioValidator bbv = new BoletoBancarioValidator(bb);		
+		return bbv; //Boleto em Json
 	}
 
 	

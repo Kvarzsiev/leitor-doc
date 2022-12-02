@@ -4,16 +4,18 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.leitordoc.models.Ocupacao;
+import com.leitordoc.validators.OcupacaoValidator;
 
 public class OcupacaoUtils {
 
-	public static Ocupacao mountOcupacao(String page1) {
+	public static OcupacaoValidator mountOcupacao(String page1) {
 		String natureza = getNatureza(page1);
 		String ocupacaoPrincipal = getOcupacaoPrincipal(page1);
 		String tipoDeclaracao = getTipoDeclaracao(page1);
 		String nroReciboUltimaEntrega = getNroReciboUltimaEntrega(page1);
 		Ocupacao o = new Ocupacao(natureza, ocupacaoPrincipal, tipoDeclaracao, nroReciboUltimaEntrega);
-		return o;
+		OcupacaoValidator ov = new OcupacaoValidator(o);
+		return ov;
 	}
 	
 //	private String natureza;

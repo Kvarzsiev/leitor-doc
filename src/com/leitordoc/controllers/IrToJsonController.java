@@ -7,7 +7,9 @@ import com.leitordoc.services.IrToJsonService;
 import com.leitordoc.validators.IRValidator;
 
 import java.io.File;  
-import java.io.IOException; 
+import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.io.FileWriter;   
 
 public class IrToJsonController {
@@ -18,9 +20,14 @@ public class IrToJsonController {
 		String JSONString = new Gson().toJson(irv.getDir());
 //		System.out.println("teste: " + JSONString);
 		
-		//Pega o nome do arquivo e adiciona .json
-		String outputFileName = inputFilePath.split("Desktop[\\\\]{1}")[1];
-		outputFileName = (outputFileName.split("\\.pdf")[0]) + ".json";
+		Pattern pattern = Pattern.compile("(?<=(\\\\))[\\w\\s,à-úÀ-Ú.%()/\\-º:]+(?=(\\.pdf))");
+		Matcher matcher = pattern.matcher(inputFilePath);
+		String outputFileName = "";
+		if (matcher.find())
+		{
+			outputFileName = matcher.group();
+		}
+		outputFileName = outputFileName + ".json";
 		String outputFilePath = "./files/json/ir/";
 		if (!irv.isValido()) {
 			outputFilePath = "./files/json/ir/falha/";

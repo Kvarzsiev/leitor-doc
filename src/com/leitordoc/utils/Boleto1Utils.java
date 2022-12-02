@@ -77,18 +77,14 @@ public class Boleto1Utils {
 	}
 	
 	public static String getNomePagador (String fichaCompensacao) {
-//		System.out.println("teste: " + fichaCompensacao);
 		Pattern pattern = Pattern.compile("((Pagador)|(Sacado))[\\s\\w.A-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ.:/\\-@]*((CPF)|(CNPJ))");
 		Matcher matcher = pattern.matcher(fichaCompensacao);
 		String match3 = "";
 		if (matcher.find())
 		{
 			String match = matcher.group();
-			System.out.println("match :" + match);
 		    String match2 = match.split("(Pagador)|(Sacado)")[1];
-		    System.out.println("match :" + match2);
 		    match3 = match2.split("(CPF)|(CNPJ)")[0];
-		    System.out.println("match :" + match3);
 		}
 		match3 = match3.replace("\n", "");
 		match3 = match3.replaceAll("\\s?[\\d-]+", "");
@@ -145,6 +141,8 @@ public class Boleto1Utils {
 		Matcher matcher = pattern.matcher(documento);
 		// Esse array vai conter apenas 2 documentos, o primeiro sendo do beneficiário e o segundo do pagador
 		String[] docs = new String[2];
+		docs[0] = "";
+		docs[1] = "";
 		int i = 0;
 		while (matcher.find() && i < 2) {
 			// Pega o primeiro documento

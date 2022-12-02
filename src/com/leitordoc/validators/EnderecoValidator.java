@@ -5,7 +5,6 @@ import com.leitordoc.models.Resumo;
 
 public class EnderecoValidator extends Validator {
 	private Endereco endereco;
-	private Boolean valido;
 	
 	public EnderecoValidator(Endereco endereco) {
 		super();
@@ -17,12 +16,6 @@ public class EnderecoValidator extends Validator {
 	}
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
-	}
-	public Boolean getValido() {
-		return valido;
-	}
-	public void setValido(Boolean valido) {
-		this.valido = valido;
 	}
 	
 	public void validate(Endereco endereco) {

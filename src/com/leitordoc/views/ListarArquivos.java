@@ -324,7 +324,7 @@ public class ListarArquivos extends JFrame implements ActionListener{
 		            continue;
 		        }
 		        String filePath = fileEntry.getPath().replace("\\", "\\\\");
-		        System.out.println(filePath);
+		        System.out.println("filepath:" + filePath);
 		        try {
 			        if(comboBox.getSelectedIndex()==0) {
 						BoletoToJsonController.convert(filePath);
@@ -333,7 +333,9 @@ public class ListarArquivos extends JFrame implements ActionListener{
 					}
 		        } 
 		        catch(Exception e ) {
-		        	System.out.println(e.getLocalizedMessage());
+//		        	System.out.println("a");
+		        	e.printStackTrace();
+		        	System.out.println("Exception: " + e.getLocalizedMessage());
 		        	comboBox.setEnabled(true);
 		        }
 		    }

@@ -28,6 +28,7 @@ import com.leitordoc.utils.RendimentoTributacaoExclusivaUtils;
 import com.leitordoc.utils.ResumoUtils;
 import com.leitordoc.validators.EnderecoValidator;
 import com.leitordoc.validators.IRValidator;
+import com.leitordoc.validators.OcupacaoValidator;
 import com.leitordoc.validators.ResumoValidator;
 
 public class IrToJsonService {
@@ -47,6 +48,7 @@ public class IrToJsonService {
 			// lê o pdf e salva num array de strings (páginas)
 			service.setRead(filePath);
 		} catch (IOException e) {
+			System.out.println("aaa");
 			e.printStackTrace();
 		}
 		ArrayList<String> sortBypages = service.getStringfiedPages();
@@ -59,10 +61,10 @@ public class IrToJsonService {
 			irv.setValido(false);
 		}
 		EnderecoValidator enderecoValidator = EnderecoUtils.mountEndereco(sortBypages.get(0));
-		Ocupacao ocupacao = OcupacaoUtils.mountOcupacao(sortBypages.get(0));
-//		if (!enderecoValidator.isValido() ||) {
-//			this.validate(endereco.getUf());
-//		}
+		OcupacaoValidator ocupacaoValidator = OcupacaoUtils.mountOcupacao(sortBypages.get(0));
+		if (!enderecoValidator.isValido() || !ocupacaoValidator.isValido()) {
+			irv.setValido(false);
+		}
 		DependentesInf dependentesInf = IR1Utils.getDependentesInf(sortBypages.get(0));	
 		String rendTribRecPJPages = service.getPagesBetween("RENDIMENTOS\\sTRIBUTÁVEIS\\sRECEBIDOS\\sDE\\sPESSOA\\sJURÍDICA\\sPELO\\sTITULAR", "RENDIMENTOS\\sTRIBUTÁVEIS\\sRECEBIDOS\\sDE\\sPESSOA\\sJURÍDICA\\sPELOS\\sDEPENDENTES");
 		ArrayList<Completa> rendTributRecebPessJur = IR1Utils.getRendTributRecebPessJurCompleta(rendTribRecPJPages);
@@ -90,7 +92,7 @@ public class IrToJsonService {
 		String paginasResumo = service.getResumoPages();
 		ResumoValidator rv = ResumoUtils.mountResumo(paginasResumo);
 		
-		DeclaracaoIR dir = new DeclaracaoIR(nome, cpf, exercicio, anoCalendario, enderecoValidator.getEndereco(), ocupacao, dependentesInf, 
+		DeclaracaoIR dir = new DeclaracaoIR(nome, cpf, exercicio, anoCalendario, enderecoValidator.getEndereco(), ocupacaoValidator.getOcupacao(), dependentesInf, 
 		rendTributRecebPessJur, rendimentosPJDependentes, rendimentosPFExteriorTitular, rendimentosPFExteriorDependente,
 		rendimentoNaoTributavelIsento, rendimentoTributacaoExclusiva, impostoPagoRetido, bensEDireitos, dividasOnus, rv.getResumo());
 		

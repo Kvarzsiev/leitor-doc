@@ -5,15 +5,14 @@ import com.leitordoc.models.DeclaracaoIR;
 public class IRValidator extends Validator {
 	
 	private DeclaracaoIR dir;
-	private Boolean valido = true;
 	
 	public IRValidator() {
 		super();
 	}
-	public IRValidator(DeclaracaoIR dir, Boolean valido) {
+	public IRValidator(DeclaracaoIR dir) {
 		super();
 		this.dir = dir;
-		this.valido = valido;
+		this.validate(dir);
 	}
 	public DeclaracaoIR getDir() {
 		return dir;
@@ -21,11 +20,7 @@ public class IRValidator extends Validator {
 	public void setDir(DeclaracaoIR dir) {
 		this.dir = dir;
 	}
-	public Boolean getValido() {
-		return valido;
+	public void validate(DeclaracaoIR dir) {
+		
 	}
-	public void setValido(Boolean valido) {
-		this.valido = valido;
-	}
-	
 }
