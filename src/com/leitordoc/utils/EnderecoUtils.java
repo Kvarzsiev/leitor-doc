@@ -4,10 +4,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.leitordoc.models.Endereco;
+import com.leitordoc.validators.EnderecoValidator;
 
 public class EnderecoUtils {
 	
-	public static Endereco mountEndereco(String page1) {
+	public static EnderecoValidator mountEndereco(String page1) {
 		String rua = getRua(page1);
 		String numero = getNumero(page1);
 		String complemento = getComplemento(page1);
@@ -16,7 +17,8 @@ public class EnderecoUtils {
 		String uf = getUf(page1);
 		String cep = getCep(page1);
 		Endereco e = new Endereco(rua, numero, complemento, bairro, municipio, uf, cep);
-		return e;
+		EnderecoValidator ev = new EnderecoValidator(e);
+		return ev;
 	}
 //	private String rua;
 	public static String getRua(String page1) {

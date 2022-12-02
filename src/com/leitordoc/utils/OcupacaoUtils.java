@@ -39,6 +39,7 @@ public class OcupacaoUtils {
 			String match = matcher.group();
 		    String match2 = match.split("((Ocupação\\sPrincipal)|(OCUPAÇÃO\\sPRINCIPAL)):\\s")[1];
 		    match3 = match2.split("\\s((Tipo\\sde\\sdeclaração)|(TIPO\\sDE\\sDECLARAÇÃO))")[0];
+		    match3 = match3.replace("\n", "");
 		}
 		return match3;
 	}

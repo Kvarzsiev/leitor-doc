@@ -1,40 +1,24 @@
 package com.leitordoc.services;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-
-import org.xml.sax.SAXException;
-
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import com.aspose.pdf.*;
 
 import org.apache.pdfbox.multipdf.Splitter;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 
-import com.google.gson.Gson;
 import com.leitordoc.models.BensEDireitos;
-import com.leitordoc.models.BoletoBancario;
 import com.leitordoc.models.Completa;
 import com.leitordoc.models.DeclaracaoIR;
 import com.leitordoc.models.DependentesInf;
 import com.leitordoc.models.DividasOnus;
-import com.leitordoc.models.Endereco;
 import com.leitordoc.models.ImpostoPagoRetido;
 import com.leitordoc.models.Ocupacao;
-import com.leitordoc.models.RendimentoNaoTributavelIsento;
 import com.leitordoc.models.Rendimentos;
-import com.leitordoc.models.RendimentosTributacaoExclusiva;
-import com.leitordoc.models.Resumo;
 import com.leitordoc.utils.BensEDireitosUtils;
-import com.leitordoc.utils.Boleto1Utils;
 import com.leitordoc.utils.DividasOnusUtils;
 import com.leitordoc.utils.EnderecoUtils;
 import com.leitordoc.utils.IR1Utils;
@@ -42,6 +26,7 @@ import com.leitordoc.utils.OcupacaoUtils;
 import com.leitordoc.utils.RendimentoNaoTributavelIsentoUtils;
 import com.leitordoc.utils.RendimentoTributacaoExclusivaUtils;
 import com.leitordoc.utils.ResumoUtils;
+import com.leitordoc.validators.EnderecoValidator;
 import com.leitordoc.validators.IRValidator;
 import com.leitordoc.validators.ResumoValidator;
 
@@ -73,13 +58,16 @@ public class IrToJsonService {
 		if (nome.length() == 0 || cpf.length() == 0 || exercicio.length() == 0 || anoCalendario.length() == 0) {
 			irv.setValido(false);
 		}
-		Endereco endereco = EnderecoUtils.mountEndereco(sortBypages.get(0));
+		EnderecoValidator enderecoValidator = EnderecoUtils.mountEndereco(sortBypages.get(0));
 		Ocupacao ocupacao = OcupacaoUtils.mountOcupacao(sortBypages.get(0));
+//		if (!enderecoValidator.isValido() ||) {
+//			this.validate(endereco.getUf());
+//		}
 		DependentesInf dependentesInf = IR1Utils.getDependentesInf(sortBypages.get(0));	
 		String rendTribRecPJPages = service.getPagesBetween("RENDIMENTOS\\sTRIBUT¡VEIS\\sRECEBIDOS\\sDE\\sPESSOA\\sJURÕDICA\\sPELO\\sTITULAR", "RENDIMENTOS\\sTRIBUT¡VEIS\\sRECEBIDOS\\sDE\\sPESSOA\\sJURÕDICA\\sPELOS\\sDEPENDENTES");
 		ArrayList<Completa> rendTributRecebPessJur = IR1Utils.getRendTributRecebPessJurCompleta(rendTribRecPJPages);
-		String rendimentosJPDependentesPages = service.getPagesBetween("RENDIMENTOS\\sTRIBUT¡VEIS\\sRECEBIDOS\\sDE\\sPESSOA\\sJURÕDICA\\sPELOS\\sDEPENDENTES", "RENDIMENTOS\\sTRIBUT¡VEIS\\sRECEBIDOS\\sDE\\sPESSOA\\sFÕSICA\\sE\\sDO\\sEXTERIOR\\sPELO\\sTITULAR");
-		String rendimentosJPDependentes = IR1Utils.getRendimentosPJDependentes(rendimentosJPDependentesPages);
+		String rendimentosPJDependentesPages = service.getPagesBetween("RENDIMENTOS\\sTRIBUT¡VEIS\\sRECEBIDOS\\sDE\\sPESSOA\\sJURÕDICA\\sPELOS\\sDEPENDENTES", "RENDIMENTOS\\sTRIBUT¡VEIS\\sRECEBIDOS\\sDE\\sPESSOA\\sFÕSICA\\sE\\sDO\\sEXTERIOR\\sPELO\\sTITULAR");
+		String rendimentosPJDependentes = IR1Utils.getRendimentosPJDependentes(rendimentosPJDependentesPages);
 		String rendimentosPFExteriorTitularPages = service.getPagesBetween("RENDIMENTOS\\sTRIBUT¡VEIS\\sRECEBIDOS\\sDE\\sPESSOA\\sFÕSICA\\sE\\sDO\\sEXTERIOR\\sPELO\\sTITULAR", "RENDIMENTOS\\sTRIBUT¡VEIS\\sRECEBIDOS\\sDE\\sPESSOA\\sFÕSICA\\sE\\sDO\\sEXTERIOR\\sPELOS\\sDEPENDENTES");
 		String rendimentosPFExteriorTitular = IR1Utils.getRendimentosPFExteriorTitular(rendimentosPFExteriorTitularPages);
 		String rendimentosPFExteriorDependentePages = service.getPagesBetween("RENDIMENTOS\\sTRIBUT¡VEIS\\sRECEBIDOS\\sDE\\sPESSOA\\sFÕSICA\\sE\\sDO\\sEXTERIOR\\sPELOS\\sDEPENDENTES", "RENDIMENTOS\\sISENTOS\\sE\\sN√O\\sTRIBUT¡VEIS");
@@ -87,7 +75,7 @@ public class IrToJsonService {
 		
 		String rendNaoTributaveisPages = service.getPagesBetween("(RENDIMENTOS\\sISENTOS\\sE\\sN√O\\sTRIBUT¡VEIS)", "RENDIMENTOS\\sSUJEITOS\\s¿\\sTRIBUTA«√O\\sEXCLUSIVA\\s\\/\\sDEFINITIVA");
 		ArrayList<Rendimentos> rendimentoNaoTributavelIsento = RendimentoNaoTributavelIsentoUtils.mountRendimentoNaoTributavelIsento(rendNaoTributaveisPages);
-		String rendTributacaoExclusivaPages = service.getPagesBetween("(RENDIMENTOS\\sSUJEITOS\\s¿\\sTRIBUTA«√O\\sEXCLUSIVA\\s\\/\\sDEFINITIVA)", "(RENDIMENTOS\\sTRIBUT¡VEIS\\sRECEBIDOS\\sDE\\sPESSOA\\sJURÕDICA\\sPELO\\sTITULAR)");
+		String rendTributacaoExclusivaPages = service.getPagesBetween("(RENDIMENTOS\\sSUJEITOS\\s¿\\sTRIBUTA«√O\\sEXCLUSIVA\\s\\/\\sDEFINITIVA)", "RENDIMENTOS\\sTRIBUT¡VEIS\\sRECEBIDOS\\sDE\\sPESSOA\\sJURÕDICA\\sPELO\\sTITULAR\\s\\(IMPOSTO\\sCOM\\sEXIGIBILIDADE\\sSUSPENSA\\)");
 		ArrayList<Rendimentos> rendimentoTributacaoExclusiva = RendimentoTributacaoExclusivaUtils.mountRendimentoTributacaoExclusiva(rendTributacaoExclusivaPages);
 		
 		String impostoPagoRetidoPages = service.getPagesBetween("IMPOSTO\\sPAGO\\s\\/\\sRETIDO\\s", "PAGAMENTOS\\sEFETUADOS");
@@ -102,8 +90,8 @@ public class IrToJsonService {
 		String paginasResumo = service.getResumoPages();
 		ResumoValidator rv = ResumoUtils.mountResumo(paginasResumo);
 		
-		DeclaracaoIR dir = new DeclaracaoIR(nome, cpf, exercicio, anoCalendario, endereco, ocupacao, dependentesInf, 
-		rendTributRecebPessJur, rendimentosJPDependentes, rendimentosPFExteriorTitular, rendimentosPFExteriorDependente,
+		DeclaracaoIR dir = new DeclaracaoIR(nome, cpf, exercicio, anoCalendario, enderecoValidator.getEndereco(), ocupacao, dependentesInf, 
+		rendTributRecebPessJur, rendimentosPJDependentes, rendimentosPFExteriorTitular, rendimentosPFExteriorDependente,
 		rendimentoNaoTributavelIsento, rendimentoTributacaoExclusiva, impostoPagoRetido, bensEDireitos, dividasOnus, rv.getResumo());
 		
 		irv.setDir(dir);

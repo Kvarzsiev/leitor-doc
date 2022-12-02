@@ -4,18 +4,10 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.leitordoc.models.BensEDireitos;
 import com.leitordoc.models.Completa;
 import com.leitordoc.models.Dependente;
 import com.leitordoc.models.DependentesInf;
-import com.leitordoc.models.DescricaoValor;
-import com.leitordoc.models.DividasOnus;
-import com.leitordoc.models.Endereco;
 import com.leitordoc.models.ImpostoPagoRetido;
-import com.leitordoc.models.Ocupacao;
-import com.leitordoc.models.RendimentoNaoTributavelIsento;
-import com.leitordoc.models.RendimentosTributacaoExclusiva;
-import com.leitordoc.models.Resumo;
 
 public class IR1Utils {
 	public static String getNome(String page1) {
@@ -140,6 +132,7 @@ public class IR1Utils {
 				String plchlder = split[0] + split[1];
 				match3 = plchlder;
 			}
+			match3 = match3.replace("\n", "");
 		}
 		return match3;
 	}
@@ -157,30 +150,34 @@ public class IR1Utils {
 				String plchlder = split[0] + split[1];
 				match3 = plchlder;
 			}
+			match3 = match3.replace("\n", "");
 		}
 		return match3;
 	}
-	
 	public static String getRendimentosPFExteriorDependente (String pages) {
-		Pattern pattern = Pattern.compile("(?<=(RENDIMENTOS\\sTRIBUTÁVEIS\\sRECEBIDOS\\sDE\\sPESSOA\\sFÍSICA\\sE\\sDO\\sEXTERIOR\\sPELOS\\sDEPENDENTES))[\\w\\s,à-úÀ-Ú.%()/]+(?=(RENDIMENTOS\\sTRIBUTÁVEIS\\sRECEBIDOS\\sDE\\sPESSOA\\sFÍSICA\\sE\\sDO\\sEXTERIOR\\sPELOS\\sDEPENDENTES))");
+		Pattern pattern = Pattern.compile("(?<=(RENDIMENTOS\\sTRIBUTÁVEIS\\sRECEBIDOS\\sDE\\sPESSOA\\sFÍSICA\\sE\\sDO\\sEXTERIOR\\sPELOS\\sDEPENDENTES))[\\w\\s,à-úÀ-Ú.%()/\\-:]+(?=(RENDIMENTOS\\sISENTOS\\sE\\sNÃO\\sTRIBUTÁVEIS))");
 		Matcher matcher = pattern.matcher(pages);
 		String match3 = "";
 		if (matcher.find())
 		{
 			match3 = matcher.group();
-			
 			// Remove cabeçalho
 			String[] split = match3.split("Página\\s[\\w\\d\\s,à-úÀ-Ú.%()/\\-º:]+ANO-CALENDÁRIO\\s[\\d]{4}\\s");
-			if (split.length > 1) {
-				String plchlder = split[0] + split[1];
+			if (split.length > 0) {
+				String plchlder = "";
+				if (split.length > 1) {
+					plchlder = split[0] + split[1];
+				} else {
+					plchlder = split[0];
+				}
 				match3 = plchlder;
+				match3 = match3.replace("\n", "");
 			}
 		}
 		
 		return match3;
 	}
 	
-//	private ImpostoPagoRetido impostoPagoRetido;
 	public static ArrayList<ImpostoPagoRetido> getImpostoPagoRetido(String pages) {
 		ArrayList<ImpostoPagoRetido> impostoPagoRetidoArr = new ArrayList<ImpostoPagoRetido>();
 		Pattern pattern = Pattern.compile("(?<=(IMPOSTO\\sPAGO\\s\\/\\sRETIDO\\s))[\\w\\s,à-úÀ-Ú.%()/\\-º:]+\\s(?=(PAGAMENTOS\\sEFETUADOS))");

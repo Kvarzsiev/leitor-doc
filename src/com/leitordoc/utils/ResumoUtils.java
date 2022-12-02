@@ -42,7 +42,7 @@ public class ResumoUtils {
 		if (a.length > 0) {
 			for (int i = 0; i < a.length; i++) {
 				String descricao = a[i].split("[\\d.,]+")[0];
-				String valor = a[i].split("[A-zà-úÀ-Ú\\s/]+")[1];
+				String valor = a[i].split("[A-zà-úÀ-Ú\\s/%()]+")[1];
 				DescricaoValor rendimentoTributavel = new DescricaoValor(descricao, valor);
 				arrRendimentoTributavel.add(rendimentoTributavel);
 			}
@@ -66,27 +66,25 @@ public class ResumoUtils {
 		ArrayList<DescricaoValor> arrImpostoPago = new ArrayList<DescricaoValor>();
 		if (a.length > 0) {
 			for (int i = 0; i < a.length; i++) {
-				String descricao = a[i].split("[\\d.,]+")[0];
-				String valor = a[i].split("[A-zà-úÀ-Ú\\s/]+")[1];
+				String descricao = a[i].split("[\\d.]+,[\\d]{2}")[0];
+				String valor = a[i].split("[\\wA-zà-úÀ-Ú\\s/\\-.º()/]+\\s(?=([\\d.]+,[\\d]{2}))")[1];
 				DescricaoValor impostoPago = new DescricaoValor(descricao, valor);
 				arrImpostoPago.add(impostoPago);
 			}
 		}
-		
 		return arrImpostoPago;
 	}
 //	private String impostoRestituir;
 	public static String getImpostoRestituir(String pages) {
-		Pattern pattern = Pattern.compile("((IMPOSTO\\sA\\sRESTITUIR)|(Imposto\\sa\\srestituir))\\s[\\d,\\s]+\\s((SALDO\\sIMPOSTO)|(Saldo\\simposto))");
+		Pattern pattern = Pattern.compile("(?<=(IMPOSTO\\sA\\sRESTITUIR\\s)|(Imposto\\sa\\srestituir\\s))[\\d,.\\s]+\\s(?=(SALDO\\sIMPOSTO)|(Saldo\\simposto))");
 		Matcher matcher = pattern.matcher(pages);
-		String match3 = "";
+		String match = "";
 		if (matcher.find())
 		{
-			String match = matcher.group();
-		    String match2 = match.split("((IMPOSTO\\sA\\sRESTITUIR)|(Imposto\\sa\\srestituir))\\s")[1];
-		    match3 = match2.split("\\s((SALDO\\sIMPOSTO)|(Saldo\\simposto))")[0];
+			match = matcher.group();
+			match = match.replace("\n", "");
 		}
-		return match3;
+		return match;
 	}
 //	private String saldoAPagar;
 	public static String getSaldoPagar(String pages) {
@@ -157,7 +155,7 @@ public class ResumoUtils {
 						}
 						break;
 					case 2:
-						String[] splitAgencia = a[i].split("[A-zà-úÀ-Ú\\s/]+");
+						String[] splitAgencia = a[i].split("[A-zà-úÀ-Ú\\s\\(\\)\\/]+");
 						if (splitAgencia.length > 0) {
 							agencia = splitAgencia[1];
 						}
@@ -190,8 +188,8 @@ public class ResumoUtils {
 		ArrayList<DescricaoValor> arrEvolucaoPatrimonial = new ArrayList<DescricaoValor>();
 		if (a.length > 0) {
 			for (int i = 0; i < a.length; i++) {
-				String descricao = a[i].split("[\\d.,]+")[0];
-				String valor = a[i].split("[A-zà-úÀ-Ú\\s/]+")[1];
+				String descricao = a[i].split("[\\d.]+,[\\d]{2}")[0];
+				String valor = a[i].split("[A-zà-úÀ-Ú\\s/]+[\\d]{2}\\/[\\d]{2}\\/[\\d]{4}")[1];
 				DescricaoValor evolucaoPatrimonial = new DescricaoValor(descricao, valor);
 				arrEvolucaoPatrimonial.add(evolucaoPatrimonial);
 			}
@@ -215,15 +213,15 @@ public class ResumoUtils {
 		ArrayList<DescricaoValor> arrOutrasInformacoes = new ArrayList<DescricaoValor>();
 		if (a.length > 0) {
 			for (int i = 0; i < a.length; i++) {
-				String[] splitDescricao = a[i].split("[\\d.,]+");
+				String[] splitDescricao = a[i].split("[\\d.]+,[\\d]{2}");
 				String descricao = "";
 				if (splitDescricao.length > 0) {
 					descricao = splitDescricao[0];
 				}
-				String[] splitValor = a[i].split("[A-zà-úÀ-Ú\\s/]+");
+				String[] splitValor = a[i].split("[A-zà-úÀ-Ú\\s/\\-\\(\\)º,.\\d]+(?=(\\s[\\d.]+,[\\d]{2}))");
 				String valor = "";
-				if (splitValor.length > 0) {
-					descricao = splitValor[1];
+				if (splitValor.length > 1) {
+					valor = splitValor[1];
 				}
 				DescricaoValor outraInformacao = new DescricaoValor(descricao, valor);
 				arrOutrasInformacoes.add(outraInformacao);

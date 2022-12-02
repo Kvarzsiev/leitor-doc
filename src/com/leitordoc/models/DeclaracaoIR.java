@@ -11,7 +11,7 @@ public class DeclaracaoIR {
 	private Ocupacao ocupacao;
 	private DependentesInf dependentes; 
 	private ArrayList<Completa> rendTributRecebPessJur;
-	private String rendimentosJPDependentes;
+	private String rendimentosPJDependentes;
 	private String rendimentosPFExteriorTitular;
 	private String rendimentosPFExteriorDependente;
 	private ArrayList<Rendimentos> rendimentoNaoTributavelIsento;
@@ -23,7 +23,7 @@ public class DeclaracaoIR {
 	
 	public DeclaracaoIR(String nome, String cpf, String exercicio, String anoCalendario, Endereco endereco,
 			Ocupacao ocupacao, DependentesInf dependentes, ArrayList<Completa> rendTributRecebPessJur,
-			String rendimentosJPDependentes, String rendimentosPFExteriorTitular,
+			String rendimentosPJDependentes, String rendimentosPFExteriorTitular,
 			String rendimentosPFExteriorDependente, ArrayList<Rendimentos> rendimentoNaoTributavelIsento,
 			ArrayList<Rendimentos> rendimentoTributacaoExclusiva, ArrayList<ImpostoPagoRetido> impostoPagoRetido,
 			BensEDireitos bensEDireitos, DividasOnus dividasOnus, Resumo resumo) {
@@ -36,7 +36,7 @@ public class DeclaracaoIR {
 		this.ocupacao = ocupacao;
 		this.dependentes = dependentes;
 		this.rendTributRecebPessJur = rendTributRecebPessJur;
-		this.rendimentosJPDependentes = rendimentosJPDependentes;
+		this.rendimentosPJDependentes = rendimentosPJDependentes;
 		this.rendimentosPFExteriorTitular = rendimentosPFExteriorTitular;
 		this.rendimentosPFExteriorDependente = rendimentosPFExteriorDependente;
 		this.rendimentoNaoTributavelIsento = rendimentoNaoTributavelIsento;
@@ -94,11 +94,11 @@ public class DeclaracaoIR {
 	public void setRendTributRecebPessJur(ArrayList<Completa> rendTributRecebPessJur) {
 		this.rendTributRecebPessJur = rendTributRecebPessJur;
 	}
-	public String getRendimentosJPDependentes() {
-		return rendimentosJPDependentes;
+	public String getRendimentosPJDependentes() {
+		return rendimentosPJDependentes;
 	}
-	public void setRendimentosJPDependentes(String rendimentosJPDependentes) {
-		this.rendimentosJPDependentes = rendimentosJPDependentes;
+	public void setRendimentosPJDependentes(String rendimentosPJDependentes) {
+		this.rendimentosPJDependentes = rendimentosPJDependentes;
 	}
 	public String getRendimentosPFExteriorTitular() {
 		return rendimentosPFExteriorTitular;

@@ -79,7 +79,9 @@ public class DividasOnusUtils {
 		if (totalMatcher.find()) {
 			totalMatch = totalMatcher.group();
 		}
-		
+		if (listaDividaOnus.size() == 0 && totalMatch.length() == 0) {
+			totalMatch = "Sem Informações";
+		}
 		DividasOnus dio = new DividasOnus(listaDividaOnus, totalMatch);
 		return dio;
 	}

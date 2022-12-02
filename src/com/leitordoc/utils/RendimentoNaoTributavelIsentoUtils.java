@@ -35,13 +35,19 @@ public class RendimentoNaoTributavelIsentoUtils {
 			if (tipMatcher.find()) {
 				// Pega tipo (ex: 26. Outros)
 				tipRend = tipMatcher.group();
+				String [] plchlder = tipRend.split("[\\d.]+,[\\d]{2}");
+				if (plchlder.length > 0) {
+					tipRend = plchlder[0] + plchlder[1];
+				}
+				tipRend = tipRend.replace("\n", "");
 			}
-			Pattern totalPattern = Pattern.compile("(?<=[\\d]{2}\\.\\s[\\w]+\\s)[\\d,.]+?\\s(?=Beneficiário)");
+			Pattern totalPattern = Pattern.compile("(?<=([\\w\\s,à-úÀ-Ú.%()/\\-º:]+))[\\d.]+,[\\d]{2}(?=([\\w\\s,à-úÀ-Ú.%()/\\-º:]*Beneficiário\\sCPF))");
 			Matcher totalMatcher = totalPattern.matcher(rendItem);
 			String total = "";
 			if (totalMatcher.find()) {
 				// Pega valor total
 				total = totalMatcher.group();
+				total = total.replace("\n", "");
 			}
 			// Separando cada item dentro do tipo de rendimento
 			Pattern itemTipoPattern = Pattern.compile("Titular\\s[\\w\\s,à-úÀ-Ú.%()/\\-º:]+?(?=(Titular)|(marcadecaim))");
@@ -49,7 +55,6 @@ public class RendimentoNaoTributavelIsentoUtils {
 			String itemTipo = "";
 			while (itemTipoMatcher.find()) {
 				itemTipo = itemTipoMatcher.group();
-//				System.out.println(itemTipo);
 				
 				// Pega nome da fonte
 				Pattern nomFontePattern = Pattern.compile("(?<=(\\d{2}\\.\\d{3}\\.\\d{3}\\/\\d{4}\\-\\d{2})\\s)[\\w\\s,à-úÀ-Ú.%()/\\-º:]+");
@@ -70,6 +75,7 @@ public class RendimentoNaoTributavelIsentoUtils {
 				String valor = "";
 				if (valorMatcher.find()) {
 					valor = valorMatcher.group();
+					valor = valor.replace("\n", "");
 				}
 				
 				// Pega documento da fonte
@@ -80,6 +86,7 @@ public class RendimentoNaoTributavelIsentoUtils {
 				while (docFonteMatcher.find()) {
 					if (index > 0) {
 						docFonte = docFonteMatcher.group();
+						docFonte = docFonte.replace("\n", "");
 					}
 					index++;
 				}
