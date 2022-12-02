@@ -136,41 +136,85 @@ public class ListarArquivos extends JFrame implements ActionListener{
 		else if(e.getSource()==comboBox) {
 //			Lista na tabela o nome de todos arquivos do diretório com base no item selecionado no combobox
 			getArquivosProcessados();
+			getArquivosProcessadosComFalha();
 		}
 		
 	}
 	
 	public void getArquivosProcessados() {
 //		Cria objeto model para acessar propriedades da tabela
-		DefaultTableModel tableModel = (DefaultTableModel)tabela.getModel();
-		tableModel.setColumnIdentifiers(new String[] {"Nome"});
-		File file;
+		DefaultTableModel table = (DefaultTableModel)tabela.getModel();
+		table.setColumnIdentifiers(new String[] {"Nome"});
+		File folder;
 		File[] files;
 		try {
 //			Verifica qual opção esta selecionada no combobox para definir o diretório de arquivos a ser buscado os arquivos
 			if(comboBox.getSelectedIndex()==0) {
-				file = new File(getClass().getResource("/com.leitordoc.arquivos/boletos").getFile());
+				folder = new File(getClass().getClassLoader().getResource("json/boleto").getFile());
 			} else {
-				file = new File(getClass().getResource("/com.leitordoc.arquivos/irs").getFile());
+				folder = new File(getClass().getClassLoader().getResource("json/ir").getFile());
 			}
 //			Cria array com todos arquivos do diretório
-			files = file.listFiles();
-//			Remove todas linhas da tabela
-			int numLinhas = tableModel.getRowCount();
+			files = folder.listFiles();
+//			Remove todas linhas da tabela1
+			int numLinhas = table.getRowCount();
 			for(int i=0;i<numLinhas;i++) {
-				tableModel.removeRow(0);
+				table.removeRow(0);
 			}
 //			Adiciona as linhas com nomes dos arquivos do diretorio especifico na tabela
 			Object[] row = new Object[1];
 			for(int i=0;i<files.length;i++) {
+				if(files[i].isDirectory()) {
+					continue;
+				}
 				row[0] = files[i].getName();
-			tableModel.addRow(row);
+			table.addRow(row);
 			}
 		} catch(NullPointerException e) {
 //			Remove todas linhas da tabela
-			int numLinhas = tableModel.getRowCount();
+			int numLinhas = table.getRowCount();
 			for(int i=0;i<numLinhas;i++) {
-				tableModel.removeRow(0);
+				table.removeRow(0);
+			}
+		}
+
+	}
+	
+	public void getArquivosProcessadosComFalha() {
+//		Cria objeto model para acessar propriedades da tabela
+		DefaultTableModel table = (DefaultTableModel)tabelaErro.getModel();
+		table.setColumnIdentifiers(new String[] {"Nome"});
+		File folder;
+		File[] files;
+		try {
+//			Verifica qual opção esta selecionada no combobox para definir o diretório de arquivos a ser buscado os arquivos
+			if(comboBox.getSelectedIndex()==0) {
+				folder = new File(getClass().getClassLoader().getResource("json/boleto/falha").getFile());
+			} else {
+//				file = new File(getClass().getResource("/com.leitordoc.arquivos/irs").getFile());
+				folder = new File(getClass().getClassLoader().getResource("json/ir/falha").getFile());
+			}
+//			Cria array com todos arquivos do diretório
+			files = folder.listFiles();
+//			Remove todas linhas da tabela1
+			int numLinhas = table.getRowCount();
+			for(int i=0;i<numLinhas;i++) {
+				table.removeRow(0);
+			}
+//			Adiciona as linhas com nomes dos arquivos do diretorio especifico na tabela
+			Object[] row = new Object[1];
+			for(int i=0;i<files.length;i++) {
+				if(files[i].isDirectory()) {
+					continue;
+				}
+				row[0] = files[i].getName();
+			table.addRow(row);
+			}
+		} catch(NullPointerException e) {
+//			Remove todas linhas da tabela
+			int numLinhas = table.getRowCount();
+			for(int i=0;i<numLinhas;i++) {
+				table.removeRow(0);
 			}
 		}
 
