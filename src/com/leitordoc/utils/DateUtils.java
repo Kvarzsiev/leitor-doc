@@ -6,6 +6,9 @@ import java.util.Date;
 
 public class DateUtils {
 	public static Date stringToDate (String dataString) throws ParseException {
+		if (dataString == null || dataString.length() < 4) {
+			dataString = "01/01/0001";
+		}
 	    Date date = new SimpleDateFormat("dd/MM/yyyy").parse(dataString);  
 	    return date;
 	}

@@ -12,7 +12,7 @@ public class Boleto1Utils {
 		String fichaCompensacao = "";
 		if (splitted.length > 2) {
 			fichaCompensacao = splitted[2];
-		} else {
+		} else if (splitted.length > 1) {
 			fichaCompensacao = splitted[1];
 		}
 		return fichaCompensacao;

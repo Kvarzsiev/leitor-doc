@@ -75,7 +75,7 @@ public class ListarArquivos extends JFrame implements ActionListener{
 				RowSpec.decode("max(99dlu;default)"),}));
 		
 		comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Boleto Banc√°rio", "Declara√ß√£o de IR"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Boleto Banc·rio", "DeclaraÁ„o de IR"}));
 		comboBox.addActionListener(this);
 		painel_central.add(comboBox, "2, 1, fill, default");
 		
@@ -346,7 +346,7 @@ public class ListarArquivos extends JFrame implements ActionListener{
 		        } 
 		        catch(Exception e ) {
 //		        	System.out.println("a");
-		        	e.printStackTrace();
+//		        	e.printStackTrace();
 		        	System.out.println("Exception: " + e.getLocalizedMessage());
 		        	comboBox.setEnabled(true);
 		        }

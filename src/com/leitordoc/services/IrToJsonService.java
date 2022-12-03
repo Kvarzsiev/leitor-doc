@@ -107,15 +107,19 @@ public class IrToJsonService {
 		File arquivo = new File(filePath);
 		PDDocument documento = PDDocument.load(arquivo);
 		Splitter splitter = new Splitter();
-		ArrayList<PDDocument> pages = (ArrayList<PDDocument>) splitter.split(documento);
-		PDFTextStripper pdfStripper = new PDFTextStripper();
-		pdfStripper.setSortByPosition(true);
-		pdfStripper.setLineSeparator("\n");
-		for (PDDocument page : pages) {
-			String texto = pdfStripper.getText(page);
-			this.addStringfiedPage(texto);
+		try {
+			ArrayList<PDDocument> pages = (ArrayList<PDDocument>) splitter.split(documento);
+			PDFTextStripper pdfStripper = new PDFTextStripper();
+			pdfStripper.setSortByPosition(true);
+			pdfStripper.setLineSeparator("\n");
+			for (PDDocument page : pages) {
+				String texto = pdfStripper.getText(page);
+				this.addStringfiedPage(texto);
+			}
+		} finally {
+			documento.close();
 		}
-		documento.close();
+		
 	}
 	private ArrayList<String> getStringfiedPages() {
 		return stringfiedPages;

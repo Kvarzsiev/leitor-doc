@@ -60,17 +60,18 @@ public class BoletoToJsonService {
 		return bbv; //Boleto em Json
 	}
 
-	
-
 	public void setReadExtractionMethod(String filePath) throws IOException {
 		File arquivo = new File(filePath);
 		PDDocument documento = PDDocument.load(arquivo);
-		PDFTextStripper pdfStripper = new PDFTextStripper();
-		pdfStripper.setSortByPosition(true);
-		pdfStripper.setLineSeparator("\n");
-		String texto = pdfStripper.getText(documento);
-		this.readExtractionString = texto;
-		documento.close();
+		try {
+			PDFTextStripper pdfStripper = new PDFTextStripper();
+			pdfStripper.setSortByPosition(true);
+			pdfStripper.setLineSeparator("\n");
+			String texto = pdfStripper.getText(documento);
+			this.readExtractionString = texto;
+		} finally {
+			documento.close();
+		}
 	}
 
 	public String getReadExtractionString() {

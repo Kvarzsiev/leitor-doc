@@ -21,15 +21,13 @@ public class BoletoBancarioValidator extends Validator {
 		this.boleto = boleto;
 	}
 	public void validate(BoletoBancario boleto) {
-//		System.out.println("a: " + boleto.getNomBeneficiario());
-//		System.out.println("b: " + boleto.getDocBeneficiario());
-//		System.out.println("c: " + boleto.getCodBeneficiario());
-//		System.out.println("d: " + boleto.getNomPagador());
-//		System.out.println("e: " + boleto.getDocPagador());
-//		System.out.println("f: " + boleto.getLinhaDigitavel());
+		System.out.println("a: " + boleto.getNomBeneficiario());
+		System.out.println("b: " + boleto.getDocBeneficiario());
+		System.out.println("d: " + boleto.getNomPagador());
+		System.out.println("e: " + boleto.getDocPagador());
+		System.out.println("f: " + boleto.getLinhaDigitavel());
 		this.validate(boleto.getNomBeneficiario());
 		this.validate(boleto.getDocBeneficiario());
-		this.validate(boleto.getCodBeneficiario());
 		this.validate(boleto.getNomPagador());
 		this.validate(boleto.getDocPagador());
 		this.validate(boleto.getLinhaDigitavel());
